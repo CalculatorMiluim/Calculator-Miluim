@@ -7,5 +7,4 @@ def hello():
     redis.incr('hits')
     counter = str(redis.get('hits'),'utf-8')
     return "Counter +1 "+counter+" time(s)"
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)
+
