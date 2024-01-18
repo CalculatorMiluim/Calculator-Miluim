@@ -12,8 +12,8 @@ const panels: PanelData[] = [
     {id: 'panel2', header: 'שדגכשדג', Content: <Typography>Content for accordion 2 </Typography>},
 ]
 const Results = () => {
-    const res = useResults()
-
+    const {isError,data,isLoading} = useResults()
+    console.log(isLoading)
     return (
         <Stack alignItems="flex-start" gap={3}>
             <Typography>

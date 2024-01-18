@@ -18,3 +18,11 @@ export interface IReservistProfile {
         active_reservist: boolean
     }
 }
+
+
+export interface IBenefit {
+    title: string
+    description: string
+    amount: number
+    link_to_source: string
+}

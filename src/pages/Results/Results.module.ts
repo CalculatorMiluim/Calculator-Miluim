@@ -2,7 +2,7 @@ import {useGetResultsMutation} from "@/features/results/resultsApiSlice.ts";
 import {useEffect} from "react";
 
 export const useResults = () => {
-    const [getResults] = useGetResultsMutation()
+    const [getResults, {isLoading,  isError,data}] = useGetResultsMutation()
 
     useEffect(() => {
 
@@ -20,4 +20,7 @@ export const useResults = () => {
 
         console.log(res)
     }, []);
+
+
+    return {isLoading,isError,data}
 }
