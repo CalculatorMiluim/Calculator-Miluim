@@ -13,12 +13,11 @@ interface PanelData {
 }
 
 const panels: PanelData[] = [
-    {id: 'panel1', header: 'Accordion 1', Content: <Typography>Content for accordion 1 </Typography>},
-    {id: 'panel1', header: 'Accordion 2', Content: <Typography>Content for accordion 2 </Typography>},
+    {id: 'panel1', header: 'לשום', Content: <Typography>Content for accordion 1 </Typography>},
+    {id: 'panel2', header: 'שדגכשדג', Content: <Typography>Content for accordion 2 </Typography>},
 ]
 const CustomAccordion: React.FC = () => {
     const [expanded, setExpanded] = useState<Record<string, boolean>>({});
-
     const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
         setExpanded({
             ...expanded,
@@ -33,9 +32,10 @@ const CustomAccordion: React.FC = () => {
                     key={id}
                     expanded={expanded[id] === true}
                     onChange={handleChange(id)}
+
                 >
                     <AccordionSummary
-                        expandIcon={expanded[id] ? <AddCircleIcon/> : <RemoveIcon/>}
+                        expandIcon={expanded[id] ? <RemoveIcon/> : <AddCircleIcon/>}
                         id={`${id}bh-header`}
                     >
                         <Typography>{header}</Typography>
