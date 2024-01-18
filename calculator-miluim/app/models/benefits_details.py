@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from typing import Optional
 from abc import ABC, abstractmethod
-from backend.models.consts import BenefitType
-from backend.models.reservist_profile import ReservistProfile
+from app.models.consts import BenefitType
+from app.models.reservist_profile import ReservistProfile
 
 
 @dataclass

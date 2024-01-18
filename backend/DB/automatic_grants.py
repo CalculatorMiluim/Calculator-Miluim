@@ -1,7 +1,7 @@
 from enum import Enum
 
-from backend.models.Consts import CombatLevel, RecruitmentType
-from backend.models.ReservistProfile import ReservistProfile
+from app.models.Consts import CombatLevel, RecruitmentType
+from app.models.ReservistProfile import ReservistProfile
 
 
 class CalculationType(Enum):
