@@ -1,4 +1,6 @@
 
+from models.ReservistProfile import ReservistProfile
+from models.BenefitDetails import BenefitDetails
 
 def is_eligable(reservist_details: ReservistProfile) -> bool:
         if reservist_details.years_before_release >= 3:
