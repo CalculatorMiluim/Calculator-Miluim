@@ -1,7 +1,7 @@
 import { useGetResultsMutation } from '@/features/results/resultsApiSlice.ts'
 import React, { ReactNode, useEffect } from 'react'
 import { PanelData } from '@/pages/Results/ToggledListItems/ToggledListItems.module.ts'
-import { Box, Typography } from '@mui/material'
+import { Box, Link, Typography } from '@mui/material'
 
 export const useResults = () => {
   const [getResults, { isLoading, isError, data }] = useGetResultsMutation()
@@ -23,15 +23,15 @@ export const useResults = () => {
   const panels: PanelData[] =
     data?.benefits.map(({ amount, description, link_to_source, title }, key) => {
       const Content: ReactNode = (
-        <Box>
+        <Box sx={{ textAlign: 'start' }}>
           <Typography>{description}</Typography>
-          <Box>
+          <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
             <Typography>להגשת בקשה, יש להכנס לאתר</Typography>
-            <Typography>{link_to_source}</Typography>
+            <Link href={link_to_source}>{link_to_source}</Link>
           </Box>
         </Box>
       )
-      return { id: key.toString(), header: `${title} - ${amount.toLocaleString()} ₪`, Content }
+      return { id: key.toString(), header: ` ${title} -  ₪${amount.toLocaleString()}`, Content }
     }) || []
 
   const totalAmount = data?.total_amount ?? 0
