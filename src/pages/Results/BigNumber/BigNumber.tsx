@@ -12,7 +12,7 @@ interface IBigNumber {
     containerSx?: SxProps<Theme>
 }
 
-const BigNumber: React.FC<IBigNumber> = ({amount, variant = "h1", sx, containerSx}) => {
+const BigNumber: React.FC<IBigNumber> = ({amount, variant = "h2", sx, containerSx}) => {
     return (
         <Box
             sx={{
