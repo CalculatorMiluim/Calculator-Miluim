@@ -3,6 +3,7 @@ from app.models.consts import BenefitType
 from app.models.reservist_profile import ReservistProfile
 import logging
 
+
 def calculate_benefits_for_reservist(reservist: ReservistProfile):
     benefits_owned = dict()
 
@@ -15,6 +16,9 @@ def calculate_benefits_for_reservist(reservist: ReservistProfile):
 
 def calculate_vouchers(reservist: ReservistProfile):
     vouchers_owned = list()
+    print("Printing")
+    logging.warning("Logging")
+    print(str(Voucher.__subclasses__()))
     for voucher_object in Voucher.__subclasses__():
         logging.warning(str(voucher_object))
         voucher = voucher_object()
