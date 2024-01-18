@@ -1,3 +1,6 @@
+from models.ReservistProfile import ReservistProfile
+from models.BenefitDetails import BenefitDetails
+
 def is_eligable(reservist_details: ReservistProfile) -> bool:
     return True
 

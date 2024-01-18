@@ -37,7 +37,7 @@ class RecruitmentDate:
 
 @dataclass
 class Partner:
-    employment_status: Optional[str]
+    employment_status: Optional[EmploymentStatus]
 
 
 @dataclass
@@ -48,13 +48,13 @@ class Children:
 
 @dataclass
 class FamilyStatus:
-    partner: Partner
-    children: Children
+    partner: Optional[Partner]
+    children: Optional[Children]
 
 
 @dataclass
 class BenefitType:
-    VOUCHER = 0
-    GRANT = 1
-    AUTOMATIC_GRANT = 2
+    VOUCHER = "Voucher"
+    GRANT = "Grant"
+    AUTOMATIC_GRANT = "Automatic Grant"
 

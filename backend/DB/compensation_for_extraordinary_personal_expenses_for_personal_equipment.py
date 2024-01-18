@@ -1,3 +1,6 @@
+from models.ReservistProfile import ReservistProfile
+from models.BenefitDetails import BenefitDetails
+
 def is_eligable(reservist_details: ReservistProfile) -> bool:
     for recruitment in reservist_details.recruitment_date:
         if recruitment.recruitment_type == "צו-8":

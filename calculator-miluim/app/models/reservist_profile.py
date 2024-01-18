@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from backend.models.Consts import RecruitmentDate, CombatLevel, FamilyStatus, EmploymentStatus, BusinessSize
+from app.models.consts import RecruitmentDate, CombatLevel, FamilyStatus, EmploymentStatus, BusinessSize
 
 
 @dataclass
@@ -11,11 +11,11 @@ class ReservistProfile:
     family_status: FamilyStatus
     student: Optional[str]
     employment_status: EmploymentStatus
-    business_size: BusinessSize
+    business_size: Optional[BusinessSize]
     property_owner: bool
     active_reservist: bool
 
-
-
-
+    @staticmethod
+    def calculate_total_days():
+        return 70
 
