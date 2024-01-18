@@ -54,7 +54,7 @@ class FamilyStatus:
 
 @dataclass
 class BenefitType:
-    VOUCHER = 0
-    GRANT = 1
-    AUTOMATIC_GRANT = 2
+    VOUCHER = "Voucher"
+    GRANT = "Grant"
+    AUTOMATIC_GRANT = "Automatic Grant"
 
