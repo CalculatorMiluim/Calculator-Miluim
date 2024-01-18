@@ -1,0 +1,6 @@
+{
+    recruitment_date: [{start_date: Date ,end_date: Date: recruitment_type: ״צו_8״ | ״תעסוקה_מבצעית״ | ״אח״ }]
+    combat_level: "לוחם" | "תומך_לחימה" | "עורפי"
+    family_status: {partner: None | {employment_status: ״זכאי_לדמי_אבטלה״ | ״שכיר״|
+
+}

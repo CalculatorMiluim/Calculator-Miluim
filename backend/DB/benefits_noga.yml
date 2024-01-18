@@ -1,0 +1,96 @@
+technion_grant:
+  benefit_type: “grant”
+  group_name: "לימודים"
+  title: "מענק לימודים"
+  description: “לתואר ראשון או תארים מתקדמים, לטובת תשלומי שכר לימוד, שכר דירה במעונות הטכניון ותשלומים נלווים לשכר הלימוד”
+  source_url: “https://www.technion.ac.il/2023/11/%D7%A1%D7%99%D7%95%D7%A2-%D7%A9%D7%9C-%D7%94%D7%98%D7%9B%D7%A0%D7%99%D7%95%D7%9F-%D7%9C%D7%9E%D7%A9%D7%A8%D7%AA%D7%95%D7%AA-%D7%95%D7%9E%D7%A9%D7%A8%D7%AA%D7%99-%D7%94%D7%9E%D7%99%D7%9C%D7%95%D7%90/”
+  base_amount: 3000
+
+dormitory_technion:
+	benefit_type: “vaucher”
+  group_name: "לימודים"
+  title: "פטור תשלום למעונות"
+  description: "פטור מלא מתשלום שכר דירה על החודשים אוקטובר ונובמבר לסטודנטים משרתי המילואים המתגוררים במעונות ולבני ובנות זוגם."
+  source_url: "https://www.technion.ac.il/2023/11/%D7%A1%D7%99%D7%95%D7%A2-%D7%A9%D7%9C-%D7%94%D7%98%D7%9B%D7%A0%D7%99%D7%95%D7%9F-%D7%9C%D7%9E%D7%A9%D7%A8%D7%AA%D7%95%D7%AA-%D7%95%D7%9E%D7%A9%D7%A8%D7%AA%D7%99-%D7%94%D7%9E%D7%99%D7%9C%D7%95%D7%90/"
+  is_eligable_file: “technion_benafit”
+
+tau_grant:
+  benefit_type: “grant”
+  group_name: “לימודים”
+  title: “מענק לימודים”
+  description: "הגדלנו את המלגה לכל משרתי המילואים"
+  source_url: "https://www.tau.ac.il/news/ironswords-miluim"
+  base_amount: 2000
+
+dormitory_tau_uni:
+    benefit_type: “vaucher”
+  	group_name: “לימודים”
+  	title: "פטור תשלום למעונות"
+    description: "דיירי ודיירות מעונות שגויסו למילואים יקבלו זיכוי מלא משכר הדירה עבור חודשים אוקטובר, נובמבר ודצמבר."
+    source_url: "https://www.tau.ac.il/news/ironswords-miluim"
+    is_eligable_file: “tel_aviv_uni_benafit”
+
+bgu_grant:
+  benefit_type: “grant”
+  group_name: “לימודים”
+  title: “מענק לימודים”
+  description: "מענק לסטודנטים וסטודנטיות שגויסו לשירות מילואים"
+  source_url: "https://www.bgu.ac.il/standarts/iron-swords/iron-swords-aid-for-students/"
+  base_amount: 1200
+
+dormitroy_bgu:
+  enefit_type: “vaucher”
+  group_name: “לימודים”
+  title: "הנחה בשכר דירה"
+  description: "הנחה משכר דירה לסטודנטים וסטודנטיות משרתי ומשרתות המילואים במעונות ג' ו-ד', בכפר הסטודנטים ובאילת, לתקופת המילואים העולה על תקופת המענק"
+  source_url: "https://www.bgu.ac.il/standarts/iron-swords/iron-swords-aid-for-students/"
+  is_eligable_file: "bgu_benefit"
+
+
+haifa_uni_grant:
+  benefit_type: “grant”
+  group_name: “לימודים”
+  title: “מענק לימודים”
+  description: "כל סטודנט וסטודנטית משרתי מילואים בצו 8 יקבלו מלגת עידוד"
+  source_url: "https://dekanat.haifa.ac.il/%D7%A2%D7%93%D7%9B%D7%95%D7%A0%D7%99-%D7%93%D7%99%D7%A7%D7%A0%D7%90%D7%98-%D7%94%D7%A1%D7%98%D7%95%D7%93%D7%A0%D7%98%D7%99%D7%9D-%D7%97%D7%A8%D7%91%D7%95%D7%AA-%D7%91%D7%A8%D7%96%D7%9C/"
+  base_amount: 2000
+
+haifa_uni_grant:
+  benefit_type: “vaucher”
+  group_name: “לימודים”
+  title: “פטור תשלום למעונות”
+  description: "סטודנטים משרתי מילואים שהנם דיירים במעונות זכאים לפטור מתשלום שכר דירה בתקופת גיוסם"
+  source_url: "https://dekanat.haifa.ac.il/%D7%A2%D7%93%D7%9B%D7%95%D7%A0%D7%99-%D7%93%D7%99%D7%A7%D7%A0%D7%90%D7%98-%D7%94%D7%A1%D7%98%D7%95%D7%93%D7%A0%D7%98%D7%99%D7%9D-%D7%97%D7%A8%D7%91%D7%95%D7%AA-%D7%91%D7%A8%D7%96%D7%9C/"
+  is_eligable_file: "haifa_uni_benefit"
+
+
+huji_grant:
+  benefit_type: “grant”
+  group_name: “לימודים”
+  title: “מענק לימודים”
+  description: "מתוך הוקרה והערכה רבה למשרתי ומשרתות המילואים"
+  source_url: "https://new.huji.ac.il/2-3-%D7%A7-%D7%91%D7%9C"
+  base_amount: 2000
+
+domitory_huji:
+  benefit_type: “vaucher”
+  group_name: “לימודים”
+  title: “פטור תשלום למעונות”
+  description: "פטור מלא משכר דירה במעונות לתקופת המילואים"
+  source_url: "https://new.huji.ac.il/2-3-%D7%A7-%D7%91%D7%9C"
+  is_eligable_file: "haifa_uni_benefit"
+
+biu_grant:
+  benefit_type: “vaucher”
+  group_name: “לימודים”
+  title: “מענק לימודים”
+  description: 'סטודנטיות וסטודנטים הרשומים לשנה"ל תשפ"ד וגויסו לשירות מילואים, מוזמנות ומוזמנים להגיש בקשה למלגה דרך מערכת האינ-בר. המלגות בסכום של 5,000-1,000 שקלים יוענקו כזיכוי לחשבון שכ"ל לשנה"ל תשפ"ד'
+  source_url: "https://www.biu.ac.il/article/23611"
+  
+
+
+
+
+
+
+
