@@ -1,14 +1,14 @@
 from app.models.benefits_details import Voucher
 from app.models.consts import BenefitType
 from app.models.reservist_profile import ReservistProfile
-
+import logging
 
 def calculate_benefits_for_reservist(reservist: ReservistProfile):
     benefits_owned = dict()
 
-    benefits_owned[BenefitType.VOUCHER] = calculate_vouchers(reservist)
-    benefits_owned[BenefitType.GRANT] = calculate_grants(reservist)
-    benefits_owned[BenefitType.AUTOMATIC_GRANT] = calculate_automatic_grants(reservist)
+    benefits_owned[BenefitType.VOUCHER.name] = calculate_vouchers(reservist)
+    benefits_owned[BenefitType.GRANT.name] = calculate_grants(reservist)
+    benefits_owned[BenefitType.AUTOMATIC_GRANT.name] = calculate_automatic_grants(reservist)
 
     return benefits_owned
 
@@ -16,13 +16,14 @@ def calculate_benefits_for_reservist(reservist: ReservistProfile):
 def calculate_vouchers(reservist: ReservistProfile):
     vouchers_owned = list()
     for voucher_object in Voucher.__subclasses__():
-        print(str(voucher_object))
+        logging.warning(str(voucher_object))
         voucher = voucher_object()
         if voucher.is_eligible(reservist):
-            print("inside if")
+            logging.warning("inside if")
             voucher.calculate(reservist)
+            logging.warning("str voucher: " + str(voucher))
             vouchers_owned.append(str(voucher))
-        print("outside if")
+        logging.warning("outside if")
     return vouchers_owned
 
 
