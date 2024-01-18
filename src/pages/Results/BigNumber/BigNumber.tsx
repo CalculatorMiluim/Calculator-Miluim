@@ -26,10 +26,7 @@ const BigNumber: React.FC<IBigNumber> = ({amount, variant = "h2", sx, containerS
                 ...containerSx
             }}>
             <Typography color="primary" variant={variant} sx={sx}>
-                {/*{amount} ₪*/}
-                {new Intl.NumberFormat('en-IN', {maximumSignificantDigits: 2}).format(
-                    amount,
-                )} ₪
+                {amount.toLocaleString()} ₪
             </Typography>
         </Box>
     )

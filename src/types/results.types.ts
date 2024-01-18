@@ -20,9 +20,3 @@ export interface IReservistProfile {
 }
 
 
-export interface IBenefit {
-    title: string
-    description: string
-    amount: number
-    link_to_source: string
-}

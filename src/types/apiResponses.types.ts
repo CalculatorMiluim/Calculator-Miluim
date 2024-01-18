@@ -1,31 +1,11 @@
-export interface IGetVehicleTypesResponse {
-  id: number
-  name: string
-  is_special: boolean
-  is_designated: boolean
+interface IBenefit {
+    title: string
+    description: string
+    amount: number
+    link_to_source: string
 }
 
-export interface IPartialGetOptionsResponse {
-  id: number
-  name: string
+export interface IGetResultResponse {
+    benefits: IBenefit[]
+    total_amount: number
 }
-
-export type IGenericOptionSResponse = IPartialGetOptionsResponse & IGetVehicleTypesResponse
-
-export interface INameValue {
-  name: string
-  id: string
-}
-
-interface IBank {
-  bank_code: string
-  bank_name: string
-  bank_address: string
-}
-
-export type IGetCommands = INameValue[]
-export type IGetIssuingAuthorities = INameValue[]
-export type IGetRecruitmentSites = INameValue[]
-export type IGetBanks = IBank[]
-export type IGetIturanCompanies = INameValue[]
-export type IGetVehicleUnloadingUtils = INameValue[]

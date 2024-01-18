@@ -1,19 +1,14 @@
 import React from 'react'
 import {Box, Button, Stack, Typography} from "@mui/material";
 import BigNumber from "@/pages/Results/BigNumber/BigNumber.tsx";
-import {PanelData} from "@/pages/Results/ToggledListItems/ToggledListItems.module.ts";
 import ToggledListItems from "@/pages/Results/ToggledListItems/ToggledListItems.tsx";
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import {useGetResultsMutation} from "@/features/results/resultsApiSlice.ts";
-import {useResults} from "@/pages/Results/Results.module.ts";
+import {useResults} from "@/pages/Results/Results.module.tsx";
 
-const panels: PanelData[] = [
-    {id: 'panel1', header: 'לשום', Content: <Typography>Content for accordion 1 </Typography>},
-    {id: 'panel2', header: 'שדגכשדג', Content: <Typography>Content for accordion 2 </Typography>},
-]
+
 const Results = () => {
-    const {isError,data,isLoading} = useResults()
-    console.log(isLoading)
+    const {panels, isLoading, totalAmount} = useResults()
+
     return (
         <Stack alignItems="flex-start" gap={3}>
             <Typography>
@@ -21,7 +16,7 @@ const Results = () => {
             </Typography>
 
             <Box sx={{display: "flex"}}>
-                <BigNumber amount={20340}/>
+                <BigNumber amount={totalAmount}/>
             </Box>
 
             <Typography>
