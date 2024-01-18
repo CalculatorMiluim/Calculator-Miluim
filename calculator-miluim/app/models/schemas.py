@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 
-
 from dataclasses import dataclass
 from datetime import date
 from enum import Enum
@@ -31,32 +30,27 @@ class BusinessSize(Enum):
     MEDIUM_BUSINESS = "עסק בינוני"
 
 
-@dataclass
-class RecruitmentDate:
+class RecruitmentDate(BaseModel):
     start_date: date
     end_date: date
     recruitment_type: RecruitmentType
 
 
-@dataclass
-class Partner:
+class Partner(BaseModel):
     employment_status: Optional[str]
 
 
-@dataclass
-class Children:
+class Children(BaseModel):
     is_under_14: bool
     is_special_needs: bool
 
 
-@dataclass
-class FamilyStatus:
+class FamilyStatus(BaseModel):
     partner: Partner
     children: Children
 
 
-@dataclass
-class BenefitType:
+class BenefitType(BaseModel):
     VOUCHER = 0
     GRANT = 1
     AUTOMATIC_GRANT = 2
