@@ -1,6 +1,6 @@
-from backend.models.benefits_details import BenefitDetails, Voucher
-from backend.models.consts import BenefitType
-from backend.models.reservist_profile import ReservistProfile
+from app.models.benefits_details import Voucher
+from app.models.consts import BenefitType
+from app.models.reservist_profile import ReservistProfile
 
 
 def calculate_benefits_for_reservist(reservist: ReservistProfile):

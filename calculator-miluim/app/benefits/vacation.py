@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 
-from backend.models.benefits_details import Voucher
-from backend.models.consts import CombatLevel
-from backend.models.reservist_profile import ReservistProfile
+from app.models.benefits_details import Voucher
+from app.models.consts import CombatLevel
+from app.models.reservist_profile import ReservistProfile
 
 
 @dataclass
