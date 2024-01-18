@@ -6,9 +6,9 @@ import logging
 def calculate_benefits_for_reservist(reservist: ReservistProfile):
     benefits_owned = dict()
 
-    benefits_owned[BenefitType.VOUCHER.name] = calculate_vouchers(reservist)
-    benefits_owned[BenefitType.GRANT.name] = calculate_grants(reservist)
-    benefits_owned[BenefitType.AUTOMATIC_GRANT.name] = calculate_automatic_grants(reservist)
+    benefits_owned[BenefitType.VOUCHER] = calculate_vouchers(reservist)
+    benefits_owned[BenefitType.GRANT] = calculate_grants(reservist)
+    benefits_owned[BenefitType.AUTOMATIC_GRANT] = calculate_automatic_grants(reservist)
 
     return benefits_owned
 
