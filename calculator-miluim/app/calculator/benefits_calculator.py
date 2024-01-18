@@ -1,4 +1,5 @@
 from app.models.benefits_details import Voucher
+from app.benefits.vacation import Vacation
 from app.models.consts import BenefitType
 from app.models.reservist_profile import ReservistProfile
 import logging
