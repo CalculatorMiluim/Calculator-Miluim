@@ -48,8 +48,8 @@ class Children:
 
 @dataclass
 class FamilyStatus:
-    partner: Partner
-    children: Children
+    partner: Optional[Partner]
+    children: Optional[Children]
 
 
 @dataclass

@@ -11,7 +11,7 @@ class ReservistProfile:
     family_status: FamilyStatus
     student: Optional[str]
     employment_status: EmploymentStatus
-    business_size: BusinessSize
+    business_size: Optional[BusinessSize]
     property_owner: bool
     active_reservist: bool
 
