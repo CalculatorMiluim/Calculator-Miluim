@@ -18,6 +18,8 @@ def calculate_benefits_for_reservist(reservist: ReservistProfile):
 
 def calculate_vouchers(reservist: ReservistProfile):
     vouchers_owned = list()
+
+    # if new subclassed are added, make sure also the import of the subclass is added
     for voucher_object in Voucher.__subclasses__():
         voucher = voucher_object()
         if voucher.is_eligible(reservist):
