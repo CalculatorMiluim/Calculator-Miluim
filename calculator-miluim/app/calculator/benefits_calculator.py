@@ -24,7 +24,7 @@ def calculate_vouchers(reservist: ReservistProfile):
         voucher = voucher_object()
         if voucher.is_eligible(reservist):
             voucher.calculate(reservist)
-            vouchers_owned.append(str(voucher))
+            vouchers_owned.append(voucher.__dict__)
     return vouchers_owned
 
 
