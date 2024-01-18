@@ -1,7 +1,7 @@
-import {useAppDispatch, useAppSelector} from "@/hooks/reduxHooks.ts";
+import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks.ts'
 
 export const useHome = () => {
-    const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch()
 
-    return {"dummy": "dummy"}
+  return { dummy: 'dummy' }
 }
