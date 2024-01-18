@@ -16,10 +16,13 @@ def calculate_benefits_for_reservist(reservist: ReservistProfile):
 def calculate_vouchers(reservist: ReservistProfile):
     vouchers_owned = list()
     for voucher_object in Voucher.__subclasses__():
+        print(str(voucher_object))
         voucher = voucher_object()
         if voucher.is_eligible(reservist):
+            print("inside if")
             voucher.calculate(reservist)
             vouchers_owned.append(str(voucher))
+        print("outside if")
     return vouchers_owned
 
 
