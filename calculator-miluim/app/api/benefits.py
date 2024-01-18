@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.models.schemas import ReservistProfile
+from app.models.reservist_profile import ReservistProfile
 
 from app.calculator.benefits_calculator import calculate_benefits_for_reservist
 
