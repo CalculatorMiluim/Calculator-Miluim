@@ -1,6 +1,5 @@
 from pydantic import BaseModel
 
-from dataclasses import dataclass
 from datetime import date
 from enum import Enum
 from typing import Optional
@@ -58,10 +57,10 @@ class BenefitType(BaseModel):
 
 class ReservistProfile(BaseModel):
     recruitment_dates: list[RecruitmentDate]
-    combat_level: CombatLevel
-    family_status: FamilyStatus
-    student: Optional[str]
-    employment_status: EmploymentStatus
-    business_size: BusinessSize
-    property_owner: bool
-    active_reservist: bool
+    combat_level: CombatLevel = None
+    family_status: FamilyStatus = None
+    student: Optional[str] = None
+    employment_status: EmploymentStatus = None
+    business_size: BusinessSize = None
+    property_owner: bool = None
+    active_reservist: bool = None
