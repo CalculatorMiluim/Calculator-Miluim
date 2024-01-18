@@ -45,4 +45,22 @@ supplement_in_the_mortgage_for_a_reservist:
 		ההטבה מתווספת לתוספת במשכנתא על שירות חובה"
   	Source_url: "https://www.kolzchut.org.il/he/%D7%AA%D7%95%D7%A1%D7%A4%D7%AA_%D7%91%D7%9E%D7%A9%D7%9B%D7%A0%D7%AA%D7%90_%D7%9C%D7%97%D7%99%D7%99%D7%9C_%D7%9E%D7%99%D7%9C%D7%95%D7%90%D7%99%D7%9D"
   	base_amount: Optional[int]
-
+personal_expenses_grant:
+  	benefit_type: “grant”
+  	group_name: "מענק"
+  	title: ״מענק הוצאות אישיות״
+  	description: ״מי ששירתו 8 ימים ומעלה במסגרת צו 8 בתקופת "חרבות ברזל" זכאים למענק עבור השתתפות בהוצאות אישיות.
+סכום המענק 1,100 ₪.
+המענק ישולם באופן אוטומטי לחשבון הבנק כפי שמעודכן במערכות צה"ל, במהלך חודש נובמבר.״
+  	Source_url: "https://www.kolzchut.org.il/he/%D7%9E%D7%A2%D7%A0%D7%A7_%D7%94%D7%95%D7%A6%D7%90%D7%95%D7%AA_%D7%90%D7%99%D7%A9%D7%99%D7%95%D7%AA_%D7%9C%D7%9E%D7%99_%D7%A9%D7%A9%D7%99%D7%A8%D7%AA%D7%95_%D7%91%D7%9E%D7%A1%D7%92%D7%A8%D7%AA_%D7%A6%D7%95_8_%D7%91%D7%9E%D7%9C%D7%97%D7%9E%D7%AA_%D7%97%D7%A8%D7%91%D7%95%D7%AA_%D7%91%D7%A8%D7%96%D7%9C"
+  	base_amount: 1,100
+family_grant_for_a_parent_for_a_child_up_to_the_age_of_14:
+  	benefit_type: "grant"
+  	group_name: "מענק"
+  	title: "מענק משפחה להורה לילד עד גיל 14"
+  	description: "מי ששירתו 8 ימים או יותר במסגרת צו 8 בתקופת מלחמת חרבות ברזל, ויש להם ילד עד גיל 14, זכאים למענק משפחה.
+סכום המענק: 2,000 ₪
+סכום המענק אינו תלוי במספר הילדים (כלומר: הורה ל-3 ילדים מתחת לגיל 14 והורה לילד אחד מתחת לגיל 14 יקבלו את אותו מענק).
+המענק ישולם באופן אוטומטי לחשבון הבנק כפי שמעודכן במערכות צה"ל, במהלך חודש נובמבר."
+  	Source_url: "https://www.kolzchut.org.il/he/%D7%9E%D7%A2%D7%A0%D7%A7_%D7%94%D7%95%D7%A6%D7%90%D7%95%D7%AA_%D7%90%D7%99%D7%A9%D7%99%D7%95%D7%AA_%D7%9C%D7%9E%D7%99_%D7%A9%D7%A9%D7%99%D7%A8%D7%AA%D7%95_%D7%91%D7%9E%D7%A1%D7%92%D7%A8%D7%AA_%D7%A6%D7%95_8_%D7%91%D7%9E%D7%9C%D7%97%D7%9E%D7%AA_%D7%97%D7%A8%D7%91%D7%95%D7%AA_%D7%91%D7%A8%D7%96%D7%9C"
+  	base_amount: 2000
