@@ -5,5 +5,5 @@ export const COLORS = {
   GRAY_BGC: '#f7f8fb',
   TEXT_COLOR: theme.palette.text.primary,
   MURKY_WHITE: 'rgba(246, 248, 251, 1)',
-  BLACK:"#000"
+  BLACK: '#000',
 }

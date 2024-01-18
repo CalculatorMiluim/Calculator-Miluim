@@ -1,11 +1,10 @@
-import {ModalType} from '@/consts/general.consts.ts'
+import { ModalType } from '@/consts/general.consts.ts'
 
 export type IModalState = IModalProps | null
 
-
-export type IModalProps = ({ type: ModalType.IMAGES_CAROUSEL_POPUP })
+export type IModalProps = { type: ModalType.IMAGES_CAROUSEL_POPUP }
 
 export interface BasicUserData {
-    id: string
-    fullName: string
+  id: string
+  fullName: string
 }
