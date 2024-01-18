@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #F9F9F7;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  display: none;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #ffffff; /* white track */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #cccccc; /* light grey scroll thumb */
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #bbbbbb; /* slightly darker grey when hovered */
+}
