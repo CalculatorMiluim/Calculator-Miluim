@@ -1,8 +1,14 @@
 import React from 'react'
-import {Box, Stack, Typography} from "@mui/material";
+import {Box, Button, Stack, Typography} from "@mui/material";
 import BigNumber from "@/pages/Results/BigNumber/BigNumber.tsx";
-import ToggledListItem from "@/pages/Results/ToggledListItem/ToggledListItem.tsx";
+import {PanelData} from "@/pages/Results/ToggledListItems/ToggledListItems.module.ts";
+import ToggledListItems from "@/pages/Results/ToggledListItems/ToggledListItems.tsx";
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
 
+const panels: PanelData[] = [
+    {id: 'panel1', header: 'לשום', Content: <Typography>Content for accordion 1 </Typography>},
+    {id: 'panel2', header: 'שדגכשדג', Content: <Typography>Content for accordion 2 </Typography>},
+]
 const Results = () => {
     return (
         <Stack alignItems="flex-start" gap={3}>
@@ -17,7 +23,9 @@ const Results = () => {
             <Typography>
                 רשימת הזכויות שמגיעות לך בתור משרת מילואים בתקופת מלחמת חרבות ברזל
             </Typography>
-            <ToggledListItem/>
+            <ToggledListItems panels={panels}/>
+            <Button variant="outlined" endIcon={<SaveAltIcon/>} sx={{px:4}}>שמור PDF</Button>
+
 
         </Stack>
     )
