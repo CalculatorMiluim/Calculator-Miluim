@@ -37,7 +37,7 @@ class RecruitmentDate:
 
 @dataclass
 class Partner:
-    employment_status: Optional[str]
+    employment_status: Optional[EmploymentStatus]
 
 
 @dataclass
