@@ -12,7 +12,7 @@ const Navbar = () => {
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pb: 2 }}>
           <Stack alignItems="flex-start">
             <Box
-              sx={{ display: 'flex', alignItems: 'center', gap: 2, cursor: 'pointer' }}
+              sx={{ display: 'flex', alignItems: 'center', gap: 2, cursor: 'pointer', userSelect: 'none' }}
               onClick={() => navigate('/')}
             >
               <Typography
