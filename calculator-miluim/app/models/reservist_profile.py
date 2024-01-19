@@ -2,7 +2,6 @@ from dataclasses import dataclass
 from typing import Optional
 
 from app.models.consts import RecruitmentDate, CombatLevel, FamilyStatus, EmploymentStatus, BusinessSize
-from util.util import calculate_amount_of_days_served
 
 
 @dataclass
@@ -17,7 +16,11 @@ class ReservistProfile:
     active_reservist: bool
 
     def calculate_total_days(self):
-        return calculate_amount_of_days_served(self)
+        total_days = 0
+        for recruit in self.recruitment_dates:
+            diff = recruit.end_date - recruit.start_date
+            total_days += diff.days
+        return total_days
 
     def has_child_under_14(self):
         return self.family_status.children and self.family_status.children.is_under_14
