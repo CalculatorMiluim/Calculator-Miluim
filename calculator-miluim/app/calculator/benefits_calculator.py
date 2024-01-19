@@ -28,6 +28,7 @@ def calculate_vouchers(reservist: ReservistProfile):
     vouchers_owned = list()
 
     for voucher_object in Voucher.__subclasses__():
+        print(voucher_object)
         voucher = voucher_object()
         if voucher.is_eligible(reservist):
             voucher.calculate(reservist)
@@ -41,6 +42,7 @@ def calculate_grants(reservist: ReservistProfile):
     grants_owned = list()
 
     for grant_object in Grant.__subclasses__():
+        print(grant_object)
         grant = grant_object()
         if grant.is_eligible(reservist):
             grant.calculate(reservist)
@@ -54,6 +56,7 @@ def calculate_automatic_grants(reservist: ReservistProfile):
     automatic_grants_owned = list()
 
     for automatic_grant_object in AutomaticGrant.__subclasses__():
+        print(automatic_grant_object)
         automatic_grant = automatic_grant_object()
         if automatic_grant.is_eligible(reservist):
             automatic_grant.calculate(reservist)
