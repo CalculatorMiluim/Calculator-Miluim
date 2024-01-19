@@ -81,6 +81,33 @@ const Home = () => {
           ]}
         />
 
+        <HomeChoiceFormField
+          selectedValues={formik.values.isParent}
+          setSelectedValues={(value) => {
+            formik.setFieldValue('isParent', value)
+          }}
+          label="מצב משפחתי?"
+          options={[
+            { label: 'אין לי ילדים', value: 0, endIcon: '👻' },
+            { label: 'הורה לילד', value: 1, endIcon: '👼' },
+          ]}
+        />
+
+        <HomeChoiceFormField
+          multiSelect
+          isFollowUpQuestion
+          selectedValues={formik.values.childrenStatus}
+          setSelectedValues={(value) => {
+            formik.setFieldValue('childrenStatus', value)
+          }}
+          label="אז לגבי הילדים..."
+          options={[
+            { label: 'יש לי ילד עד גיל 14', value: 0 },
+            { label: 'יש לי ילד עם צרכים מיוחדים​', value: 1 },
+            { label: 'אף אחת מהאופציות', value: 2 },
+          ]}
+        />
+
         <Grid container>
           <Grid item xs={4}>
             <Typography variant="h6" sx={{ color: COLORS.BLACK, fontWeight: 600 }}>

@@ -1,20 +1,25 @@
 interface IRecruitmentDate {
-  start_date: Date
-  end_date: Date
+  start_date: string
+  end_date: string
   recruitment_type: string
 }
 
+interface IChildren {
+  is_under_14?: boolean
+  is_special_needs?: boolean
+}
+
 export interface IReservistProfile {
-  recruitment_date: IRecruitmentDate[]
-  recruitment_type: string
+  recruitment_dates: IRecruitmentDate[]
   combat_level: string
   family_status: {
-    partner?: string
-    children?: string
+    partner?: string | null
+    children?: IChildren
     student?: string
-    employment_status: string
-    business_size?: string
-    property_owner: boolean
-    active_reservist: boolean
   }
+  academy: string
+  business_size?: string | null
+  property_owner: boolean
+  active_reservist: boolean
+  employment_status: string
 }
