@@ -13,20 +13,10 @@ const ReservesRanges = () => {
       </Grid>
       <Grid item xs={4} alignItems="center">
         <Typography variant="h6" sx={{ color: COLORS.BLACK, fontWeight: 600 }}>
-          בתפקיד:
+          סוג המילואים:
         </Typography>
       </Grid>
-      <Grid item xs={8}>
-        <DateRange />
-      </Grid>
-      <Grid item xs={4} sx={{ mt: 1 }}>
-        <FormControl fullWidth>
-          <InputLabel>Age</InputLabel>
-          <Select value={10} label="Age" onChange={() => {}}>
-            <MenuItem value={10}>Ten</MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
+      <DateRange />
     </Grid>
   )
 }

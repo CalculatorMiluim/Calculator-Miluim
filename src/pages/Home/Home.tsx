@@ -1,7 +1,6 @@
 import React from 'react'
-import { Box, Button, Grid, Stack, Typography } from '@mui/material'
+import { Box, Button, Grid, MenuItem, Stack, TextField, Typography } from '@mui/material'
 import { useHome } from '@/pages/Home/Home.module.ts'
-import { useAppDispatch } from '@/hooks/reduxHooks.ts'
 import ReservesRanges from '@/pages/Home/ReservesRanges/ReservesRanges.tsx'
 import HomeChoiceFormField from '@/pages/Home/HomeChoiceFormField/HomeChoiceFormField.tsx'
 import { COLORS } from '@/consts/colors.ts'
@@ -10,7 +9,6 @@ import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 
 const Home = () => {
   const { formik } = useHome()
-  const dispatch = useAppDispatch()
 
   return (
     <form onSubmit={formik.handleSubmit} style={{ display: 'flex', width: '100%' }}>
@@ -83,20 +81,18 @@ const Home = () => {
           ]}
         />
 
-        <Stack sx={{ width: '100%' }}>
-          <Grid container>
-            <Grid item xs={8}>
-              <Typography variant="h6" sx={{ color: COLORS.BLACK, fontWeight: 600 }}>
-                האם סטודנט/ית בשנת הלימודים תשפ"ד?
-              </Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography variant="h6" sx={{ color: COLORS.PRIMARY, fontWeight: 600 }}>
-                מוסד לימודים:
-              </Typography>
-            </Grid>
+        <Grid container>
+          <Grid item xs={4}>
+            <Typography variant="h6" sx={{ color: COLORS.BLACK, fontWeight: 600 }}>
+              האם סטודנט/ית בשנת הלימודים תשפ"ד?
+            </Typography>
           </Grid>
           <Grid item xs={8}>
+            <Typography variant="h6" sx={{ color: COLORS.PRIMARY, fontWeight: 600 }}>
+              מוסד לימודים:
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
             <ChoiceGroup
               selectedValues={formik.values.studentStatus}
               setSelectedValues={(value) => {
@@ -108,8 +104,26 @@ const Home = () => {
               ]}
             />
           </Grid>
-          <Grid item xs={4}></Grid>
-        </Stack>
+          <Grid item xs={4}>
+            <TextField
+              fullWidth
+              value={formik.values.academicInstitution}
+              name="academicInstitution"
+              onChange={formik.handleChange}
+              select
+            >
+              <MenuItem key={0} value={0}>
+                טכניון
+              </MenuItem>
+              <MenuItem key={1} value={1}>
+                אונ’ בן גוריון
+              </MenuItem>
+              <MenuItem key={2} value="test2">
+                אונ’ תל אביב
+              </MenuItem>
+            </TextField>
+          </Grid>
+        </Grid>
 
         <HomeChoiceFormField
           multiSelect

@@ -13,6 +13,7 @@ export const useHome = () => {
       partner: [],
       studentStatus: [],
       employmentStatus: [],
+      academicInstitution: [],
       businessStatus: [],
       propertyOwnershipStatus: [],
     },
