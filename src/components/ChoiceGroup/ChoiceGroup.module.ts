@@ -1,12 +1,13 @@
-interface IChoiceButtonProps {
+interface IOptionProps {
   label: string
   endIcon?: string
   value: string | number
 }
 
 export interface IChoiceGroup {
+  columns?: boolean
   multiSelect?: boolean
-  buttons: IChoiceButtonProps[]
+  options: IOptionProps[]
   selectedValues: any[]
   setSelectedValues: (value: any[]) => void
 }

@@ -3,7 +3,7 @@ import { IChoiceGroup } from '@/components/ChoiceGroup/ChoiceGroup.module.ts'
 import { Box } from '@mui/material'
 import ChoiceButton from '@/components/ChoiceGroup/ChoiceButton/ChoiceButton.tsx'
 
-const ChoiceGroup: React.FC<IChoiceGroup> = ({ multiSelect, buttons, setSelectedValues, selectedValues }) => {
+const ChoiceGroup: React.FC<IChoiceGroup> = ({ multiSelect, options, setSelectedValues, selectedValues, columns }) => {
   const handleMultiSelectClick = (value: string | number) => {
     if (selectedValues.includes(value)) {
       setSelectedValues(selectedValues.filter((existingValue) => existingValue !== value))
@@ -16,9 +16,11 @@ const ChoiceGroup: React.FC<IChoiceGroup> = ({ multiSelect, buttons, setSelected
     multiSelect ? handleMultiSelectClick(value) : setSelectedValues([value])
   }
 
+  const flexDirection = columns ? 'column' : 'row'
+
   return (
-    <Box sx={{ display: 'flex', gap: 2 }}>
-      {buttons.map(({ label, endIcon, value }) => (
+    <Box sx={{ display: 'flex', gap: 2, flexDirection }}>
+      {options.map(({ label, endIcon, value }) => (
         <ChoiceButton
           multiSelect={multiSelect}
           label={label}
