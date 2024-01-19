@@ -1,11 +1,12 @@
 import React from 'react'
-import { Grid, Stack, Typography } from '@mui/material'
+import { Box, Button, Grid, Stack, Typography } from '@mui/material'
 import { useHome } from '@/pages/Home/Home.module.ts'
 import { useAppDispatch } from '@/hooks/reduxHooks.ts'
 import ReservesRanges from '@/pages/Home/ReservesRanges/ReservesRanges.tsx'
 import HomeChoiceFormField from '@/pages/Home/HomeChoiceFormField/HomeChoiceFormField.tsx'
 import { COLORS } from '@/consts/colors.ts'
 import ChoiceGroup from '@/components/ChoiceGroup/ChoiceGroup.tsx'
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 
 const Home = () => {
   const { formik } = useHome()
@@ -152,6 +153,15 @@ const Home = () => {
             { label: 'לא', value: 1, endIcon: '🏝️' },
           ]}
         />
+
+        <Button sx={{ width: '20%' }} type="submit" variant="contained">
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
+            <Typography sx={{ pb: 0.4, fontWeight: 'bold' }} variant="h5">
+              ש-גר
+            </Typography>
+            <ArrowCircleLeftIcon />
+          </Box>
+        </Button>
       </Stack>
     </form>
   )
