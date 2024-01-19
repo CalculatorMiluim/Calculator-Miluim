@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from app.models.consts import RecruitmentDate, CombatLevel, FamilyStatus, EmploymentStatus, BusinessSize
+from app.models.consts import RecruitmentDate, CombatLevel, FamilyStatus, EmploymentStatus, BusinessSize, University
 
 
 @dataclass
@@ -9,7 +9,7 @@ class ReservistProfile:
     recruitment_dates: list[RecruitmentDate]
     combat_level: CombatLevel
     family_status: FamilyStatus
-    student: Optional[str]
+    academy: Optional[University]
     employment_status: EmploymentStatus
     business_size: Optional[BusinessSize]
     property_owner: bool

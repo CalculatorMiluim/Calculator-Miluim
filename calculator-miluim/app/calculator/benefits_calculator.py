@@ -4,8 +4,8 @@ from app.models.reservist_profile import ReservistProfile
 
 
 def import_all_grants():
-    from app.benefits.vouchers.vacation import Vacation
-    from app.benefits.vouchers.couples_therapy import CouplesTherapy
+    from app.benefits.vouchers.vacation_voucher import VacationVoucher
+    from app.benefits.vouchers.couples_therapy_voucher import CouplesTherapyVoucher
     from app.benefits.automatic_grants.home_economics_grant import HomeEconomicsGrant
     from app.benefits.automatic_grants.special_family_grant import SpecialFamilyGrant
     from app.benefits.automatic_grants.increased_family_grant import IncreasedFamilyGrant

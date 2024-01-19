@@ -10,7 +10,7 @@ NON_COMBAT_WITH_CHILD_COMPENSATION = 2500
 NON_COMBAT_WITHOUT_CHILD_COMPENSATION = 1500
 
 
-class Vacation(Voucher):
+class VacationVoucher(Voucher):
     def __init__(self):
         super().__init__(
             title="שובר חופשה",
