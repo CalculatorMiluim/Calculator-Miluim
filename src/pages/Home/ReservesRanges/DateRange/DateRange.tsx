@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Stack } from '@mui/material'
+import { Box } from '@mui/material'
 import { useHome } from '@/pages/Home/Home.module.ts'
 import DateInput from '@/components/DateInput/DateInput.tsx'
 import { Dayjs } from 'dayjs'

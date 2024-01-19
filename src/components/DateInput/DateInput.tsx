@@ -18,7 +18,17 @@ interface IDateInput {
 
 const DateInput: React.FC<IDateInput> = ({ label, onChange, value, name, error, disabled, helperText }) => {
   return (
-    <Box sx={{ display: 'inline-flex', position: 'relative', top: '5px', alignItems: 'center', gap: 1 }}>
+    <Box
+      sx={{
+        display: 'inline-flex',
+        position: 'relative',
+        top: '5px',
+        alignItems: 'center',
+        gap: 1,
+        justifyContent: 'stretch',
+        flexGrow: 1,
+      }}
+    >
       <Typography gutterBottom color={grey[600]}>
         {label}
       </Typography>
@@ -29,6 +39,7 @@ const DateInput: React.FC<IDateInput> = ({ label, onChange, value, name, error, 
         disabled={disabled}
         renderInput={(params) => (
           <TextField
+            fullWidth
             {...params}
             error={error}
             name={name}
