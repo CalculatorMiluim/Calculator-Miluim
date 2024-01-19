@@ -38,6 +38,89 @@ const Home = () => {
             { label: 'לא', value: 0, endIcon: '❌' },
           ]}
         />
+
+        <HomeChoiceFormField
+          selectedValues={formik.values.serviceType}
+          setSelectedValues={(value) => {
+            formik.setFieldValue('serviceType', value)
+          }}
+          label="סוג שירות צבאי?"
+          options={[
+            { label: 'יחידה קרבית', value: 1, endIcon: '⚔️' },
+            { label: 'יחידה עורפית', value: 0, endIcon: '🛠️️' },
+          ]}
+        />
+
+        <HomeChoiceFormField
+          selectedValues={formik.values.familyStatus}
+          setSelectedValues={(value) => {
+            formik.setFieldValue('familyStatus', value)
+          }}
+          label="מצב משפחתי?"
+          options={[
+            { label: 'אין לי בן/בת זוג', value: 0 },
+            { label: 'יש לי בן/בת זוג', value: 1 },
+          ]}
+        />
+
+        <HomeChoiceFormField
+          isFollowUpQuestion
+          multiSelect
+          selectedValues={formik.values.partner}
+          setSelectedValues={(value) => {
+            formik.setFieldValue('partner', value)
+          }}
+          label="אז לגבי בן/בת הזוג שלך..."
+          options={[
+            { label: 'הם זכאים לדמי אבטלה', value: 0 },
+            { label: 'הם שכירים', value: 1 },
+            { label: 'הם עצמאים', value: 2 },
+            { label: 'הם בחל"ת', value: 3 },
+            { label: 'אחר', value: 4 },
+          ]}
+        />
+
+        <HomeChoiceFormField
+          multiSelect
+          selectedValues={formik.values.employmentStatus}
+          setSelectedValues={(value) => {
+            formik.setFieldValue('employmentStatus', value)
+          }}
+          label="מה מצבך התעסוקתי?"
+          options={[
+            { label: 'אני עצמאי/ת', value: 0 },
+            { label: 'אני שכיר/ה', value: 1 },
+            { label: 'זכאי/ת לדמי אבטלה', value: 2 },
+            { label: 'אני בחל"ת', value: 3 },
+            { label: 'אחר', value: 4 },
+          ]}
+        />
+
+        <HomeChoiceFormField
+          multiSelect
+          isFollowUpQuestion
+          selectedValues={formik.values.businessStatus}
+          setSelectedValues={(value) => {
+            formik.setFieldValue('businessStatus', value)
+          }}
+          label="לגבי העסק שלך..."
+          options={[
+            { label: 'עסק קטן (5-20 עובדים, מחזור מכירות עד 20 מיליון ₪ בשנה)', value: 0 },
+            { label: 'מעל 20 עובדים, מחזור מכירות יותר מ20 מיליון ₪ בשנה', value: 1 },
+          ]}
+        />
+
+        <HomeChoiceFormField
+          selectedValues={formik.values.propertyOwnershipStatus}
+          setSelectedValues={(value) => {
+            formik.setFieldValue('propertyOwnershipStatus', value)
+          }}
+          label="לגבי העסק שלך..."
+          options={[
+            { label: 'כן', value: 0, endIcon: '🏠' },
+            { label: 'לא', value: 1, endIcon: '🏝️' },
+          ]}
+        />
       </Stack>
     </form>
   )

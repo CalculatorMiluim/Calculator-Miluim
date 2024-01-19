@@ -8,6 +8,12 @@ export const useHome = () => {
       endDate: dayjs('2024-01-01'),
       isActiveReservist: [],
       isCommander: [],
+      serviceType: [],
+      familyStatus: [],
+      partner: [],
+      employmentStatus: [],
+      businessStatus: [],
+      propertyOwnershipStatus: [],
     },
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2))

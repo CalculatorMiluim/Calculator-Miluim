@@ -8,6 +8,7 @@ import { IChoiceGroup } from '@/components/ChoiceGroup/ChoiceGroup.module.ts'
 interface IHomeChoiceFormField extends IChoiceGroup {
   label: string
   subDescription?: string
+  isFollowUpQuestion?: boolean
 }
 
 const HomeChoiceFormField: React.FC<IHomeChoiceFormField> = ({
@@ -18,11 +19,12 @@ const HomeChoiceFormField: React.FC<IHomeChoiceFormField> = ({
   options,
   columns,
   multiSelect,
+  isFollowUpQuestion,
 }) => {
   return (
     <Stack gap={2}>
       <Stack gap={1}>
-        <Typography variant="h6" sx={{ color: COLORS.BLACK, fontWeight: 600 }}>
+        <Typography variant="h6" sx={{ color: isFollowUpQuestion ? COLORS.PRIMARY : COLORS.BLACK, fontWeight: 600 }}>
           {label}
         </Typography>
         <ChildrenGuard showChildren={!!subDescription}>

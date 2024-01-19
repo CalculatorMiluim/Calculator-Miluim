@@ -1,6 +1,6 @@
 import React from 'react'
 import Button from '@mui/material/Button'
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
@@ -31,7 +31,7 @@ const ChoiceButton: React.FC<IChoiceButton> = ({ label, endIcon, checked = false
       sx={{ borderRadius: 2 }}
       onClick={onClick}
     >
-      {label}
+      <Typography sx={{ pb: 0.5 }}>{label}</Typography>
     </Button>
   )
 }
