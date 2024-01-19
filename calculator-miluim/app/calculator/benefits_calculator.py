@@ -2,17 +2,19 @@ from app.models.benefits_details import Voucher, Grant, AutomaticGrant
 from app.models.consts import BenefitType
 from app.models.reservist_profile import ReservistProfile
 
-
-def import_all_grants():
-    from app.benefits.vouchers.vacation import Vacation
-    from app.benefits.vouchers.couples_therapy import CouplesTherapy
-    from app.benefits.automatic_grants.home_economics_grant import HomeEconomicsGrant
-    from app.benefits.automatic_grants.special_family_grant import SpecialFamilyGrant
-    from app.benefits.automatic_grants.increased_family_grant import IncreasedFamilyGrant
+# noinspection PyUnresolvedReferences
+from app.benefits.vouchers.vacation import Vacation
+# noinspection PyUnresolvedReferences
+from app.benefits.vouchers.couples_therapy import CouplesTherapy
+# noinspection PyUnresolvedReferences
+from app.benefits.automatic_grants.home_economics_grant import HomeEconomicsGrant
+# noinspection PyUnresolvedReferences
+from app.benefits.automatic_grants.special_family_grant import SpecialFamilyGrant
+# noinspection PyUnresolvedReferences
+from app.benefits.automatic_grants.increased_family_grant import IncreasedFamilyGrant
 
 
 def calculate_benefits_for_reservist(reservist: ReservistProfile):
-    import_all_grants()
     benefits_owned = dict()
 
     benefits_owned[BenefitType.VOUCHER] = calculate_vouchers(reservist)
