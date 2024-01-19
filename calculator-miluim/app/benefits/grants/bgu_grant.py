@@ -1,6 +1,6 @@
 from app.models.reservist_profile import ReservistProfile
-from models.benefits_details import Grant
-from models.consts import Academy
+from app.models.benefits_details import Grant
+from app.models.consts import Academy
 
 
 class BGUGrant(Grant):
