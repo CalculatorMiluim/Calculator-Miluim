@@ -5,6 +5,8 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import { COLORS } from '@/consts/colors.ts'
+import { grey } from '@mui/material/colors'
 
 interface IChoiceButton {
   checked?: boolean
@@ -27,11 +29,11 @@ const ChoiceButton: React.FC<IChoiceButton> = ({ label, endIcon, checked = false
     <Button
       variant="outlined"
       endIcon={<Box>{endIcon}</Box>}
-      startIcon={<ResolvedSelectedIcon fontSize="large" />}
+      startIcon={<ResolvedSelectedIcon fontSize="large" sx={{ fill: checked ? COLORS.PRIMARY : grey[600] }} />}
       sx={{ borderRadius: 2 }}
       onClick={onClick}
     >
-      <Typography sx={{ pb: 0.5 }}>{label}</Typography>
+      <Typography sx={{ pb: 0.5, color: checked ? COLORS.PRIMARY : COLORS.BLACK }}>{label}</Typography>
     </Button>
   )
 }

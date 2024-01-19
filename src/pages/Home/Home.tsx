@@ -161,7 +161,7 @@ const Home = () => {
           setSelectedValues={(value) => {
             formik.setFieldValue('propertyOwnershipStatus', value)
           }}
-          label="לגבי העסק שלך..."
+          label="האם בבעלותך נכס?"
           options={[
             { label: 'כן', value: 0, endIcon: '🏠' },
             { label: 'לא', value: 1, endIcon: '🏝️' },
