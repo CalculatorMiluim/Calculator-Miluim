@@ -127,6 +127,7 @@ const Home = () => {
         />
 
         <HomeChoiceFormField
+          columns
           multiSelect
           isFollowUpQuestion
           selectedValues={formik.values.businessStatus}

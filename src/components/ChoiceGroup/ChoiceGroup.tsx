@@ -4,7 +4,7 @@ import { Box } from '@mui/material'
 import ChoiceButton from '@/components/ChoiceGroup/ChoiceButton/ChoiceButton.tsx'
 
 const ChoiceGroup: React.FC<IChoiceGroup> = ({ multiSelect, options, setSelectedValues, selectedValues, columns }) => {
-  const { onClickButton, flexDirection } = useChoiceGroup(selectedValues, setSelectedValues, multiSelect)
+  const { onClickButton, flexDirection } = useChoiceGroup(selectedValues, setSelectedValues, multiSelect, columns)
 
   return (
     <Box sx={{ display: 'flex', gap: 2, flexDirection }}>
