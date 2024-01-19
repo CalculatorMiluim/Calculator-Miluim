@@ -9,14 +9,12 @@ class BenefitDetails(ABC):
             self,
             benefit_type: BenefitType,
             amount: Optional[int],
-            name: str,
             title: str,
             description: str,
             link_to_source: str,
     ) -> None:
         self.benefit_type = benefit_type
         self.amount = amount
-        self.name = name
         self.title = title
         self.description = description
         self.link_to_source = link_to_source
@@ -34,7 +32,6 @@ class Voucher(BenefitDetails, ABC):
     def __init__(
             self,
             amount: Optional[int],
-            name: str,
             title: str,
             description: str,
             link_to_source: str,
@@ -42,7 +39,6 @@ class Voucher(BenefitDetails, ABC):
         super().__init__(
             benefit_type=BenefitType.VOUCHER,
             amount=amount,
-            name=name,
             title=title,
             description=description,
             link_to_source=link_to_source
@@ -53,7 +49,6 @@ class Grant(BenefitDetails, ABC):
     def __init__(
             self,
             amount,
-            name: str,
             title: str,
             description: str,
             link_to_source: str,
@@ -61,7 +56,6 @@ class Grant(BenefitDetails, ABC):
         super().__init__(
             benefit_type=BenefitType.GRANT,
             amount=amount,
-            name=name,
             title=title,
             description=description,
             link_to_source=link_to_source
@@ -72,7 +66,6 @@ class AutomaticGrant(BenefitDetails, ABC):
     def __init__(
             self,
             amount,
-            name: str,
             title: str,
             description: str,
             link_to_source: str,
@@ -80,7 +73,6 @@ class AutomaticGrant(BenefitDetails, ABC):
         super().__init__(
             benefit_type=BenefitType.AUTOMATIC_GRANT,
             amount=amount,
-            name=name,
             title=title,
             description=description,
             link_to_source=link_to_source
