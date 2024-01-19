@@ -25,8 +25,10 @@ const Home = () => {
         </Stack>
         <ChoiceGroup
           multiSelect
-          selectedValues={[21]}
-          setSelectedValues={() => {}}
+          selectedValues={formik.values.isActiveReservist}
+          setSelectedValues={(value) => {
+            formik.setFieldValue('isActiveReservist', value)
+          }}
           buttons={[
             { label: 'בדיקה 1', value: 21, endIcon: '⚔️' },
             { value: 100, label: 'בדיקה2', endIcon: '✅' },

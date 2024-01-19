@@ -4,8 +4,16 @@ import { Box } from '@mui/material'
 import ChoiceButton from '@/components/ChoiceGroup/ChoiceButton/ChoiceButton.tsx'
 
 const ChoiceGroup: React.FC<IChoiceGroup> = ({ multiSelect, buttons, setSelectedValues, selectedValues }) => {
+  const handleMultiSelectClick = (value: string | number) => {
+    if (selectedValues.includes(value)) {
+      setSelectedValues(selectedValues.filter((existingValue) => existingValue !== value))
+      return
+    }
+
+    setSelectedValues([...selectedValues, value])
+  }
   const onClickButton = (value: string | number) => {
-    multiSelect ? setSelectedValues([value]) : setSelectedValues([...new Set([...selectedValues, value])])
+    multiSelect ? handleMultiSelectClick(value) : setSelectedValues([value])
   }
 
   return (

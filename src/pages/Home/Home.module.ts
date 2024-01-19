@@ -6,6 +6,7 @@ export const useHome = () => {
     initialValues: {
       startDate: dayjs('2023-01-01'),
       endDate: dayjs('2024-01-01'),
+      isActiveReservist: [true],
     },
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2))
