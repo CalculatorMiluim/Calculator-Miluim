@@ -1,9 +1,11 @@
 import React from 'react'
-import { Stack } from '@mui/material'
+import { Grid, Stack, Typography } from '@mui/material'
 import { useHome } from '@/pages/Home/Home.module.ts'
 import { useAppDispatch } from '@/hooks/reduxHooks.ts'
 import ReservesRanges from '@/pages/Home/ReservesRanges/ReservesRanges.tsx'
 import HomeChoiceFormField from '@/pages/Home/HomeChoiceFormField/HomeChoiceFormField.tsx'
+import { COLORS } from '@/consts/colors.ts'
+import ChoiceGroup from '@/components/ChoiceGroup/ChoiceGroup.tsx'
 
 const Home = () => {
   const { formik } = useHome()
@@ -79,6 +81,34 @@ const Home = () => {
             { label: 'אחר', value: 4 },
           ]}
         />
+
+        <Stack sx={{ width: '100%' }}>
+          <Grid container>
+            <Grid item xs={8}>
+              <Typography variant="h6" sx={{ color: COLORS.BLACK, fontWeight: 600 }}>
+                האם סטודנט/ית בשנת הלימודים תשפ"ד?
+              </Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography variant="h6" sx={{ color: COLORS.PRIMARY, fontWeight: 600 }}>
+                מוסד לימודים:
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid item xs={8}>
+            <ChoiceGroup
+              selectedValues={formik.values.studentStatus}
+              setSelectedValues={(value) => {
+                formik.setFieldValue('studentStatus', value)
+              }}
+              options={[
+                { label: 'כן', value: 1, endIcon: '👩‍🎓' },
+                { label: 'לא', value: 0, endIcon: '🙅‍' },
+              ]}
+            />
+          </Grid>
+          <Grid item xs={4}></Grid>
+        </Stack>
 
         <HomeChoiceFormField
           multiSelect

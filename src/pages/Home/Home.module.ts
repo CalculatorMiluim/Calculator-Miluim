@@ -11,6 +11,7 @@ export const useHome = () => {
       serviceType: [],
       familyStatus: [],
       partner: [],
+      studentStatus: [],
       employmentStatus: [],
       businessStatus: [],
       propertyOwnershipStatus: [],
