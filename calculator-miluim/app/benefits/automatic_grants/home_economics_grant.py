@@ -2,7 +2,7 @@ import math
 
 from app.models.benefits_details import AutomaticGrant
 from app.models.reservist_profile import ReservistProfile
-from models.consts import CombatLevel
+from app.models.consts import CombatLevel
 
 MINIMUM_AMOUNT_OF_DAYS = 45
 
