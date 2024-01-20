@@ -28,6 +28,21 @@ class BusinessSize(Enum):
     MEDIUM_BUSINESS = "עסק בינוני"
 
 
+class BenefitType(Enum):
+    VOUCHER = "Voucher"
+    GRANT = "Grant"
+    AUTOMATIC_GRANT = "Automatic Grant"
+
+
+class Academy(Enum):
+    TECHNION = "הטכניון"
+    TAU = "אוניברסיטת תל אביב"
+    HUJI = "האוניברסיטה העברית בירושלים"
+    BGU = "אוניברסיטת בן גוריון"
+    HAIFA = "אוניברסיטת חיפה"
+    BIU = "אוניברסיטת בר אילן"
+
+
 @dataclass
 class RecruitmentDate:
     start_date: date
@@ -52,9 +67,4 @@ class FamilyStatus:
     children: Optional[Children]
 
 
-@dataclass
-class BenefitType:
-    VOUCHER = "Voucher"
-    GRANT = "Grant"
-    AUTOMATIC_GRANT = "Automatic Grant"
 

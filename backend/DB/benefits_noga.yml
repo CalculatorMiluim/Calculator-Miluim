@@ -7,7 +7,7 @@ technion_grant:
   base_amount: 3000
 
 dormitory_technion:
-	benefit_type: “vaucher”
+  benefit_type: “vaucher”
   group_name: "לימודים"
   title: "פטור תשלום למעונות"
   description: "פטור מלא מתשלום שכר דירה על החודשים אוקטובר ונובמבר לסטודנטים משרתי המילואים המתגוררים במעונות ולבני ובנות זוגם."

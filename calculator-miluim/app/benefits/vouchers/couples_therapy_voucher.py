@@ -5,7 +5,7 @@ MINIMUM_AMOUNT_OF_DAYS = 30
 COMPENSATION = 1500
 
 
-class CouplesTherapy(Voucher):
+class CouplesTherapyVoucher(Voucher):
     def __init__(self):
         super().__init__(
             title="שובר טיפול זוגי",
