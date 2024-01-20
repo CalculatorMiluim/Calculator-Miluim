@@ -8,7 +8,7 @@ export const resultsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getResults: builder.mutation<IGetResultResponse, IReservistProfile>({
       query: (reservistProfile) => ({
-        url: API_ENDPOINTS.RESULTS,
+        url: API_ENDPOINTS.BENEFITS,
         method: HTTP_METHODS.POST,
         body: reservistProfile,
       }),

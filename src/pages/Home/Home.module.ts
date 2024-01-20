@@ -76,7 +76,7 @@ export const useHome = () => {
         active_reservist: isActiveReservist[0],
       })
       setSubmitting(false)
-      navigate(RoutesValues.RESULTS)
+      navigate(RoutesValues.BENEFITS)
     },
   })
 

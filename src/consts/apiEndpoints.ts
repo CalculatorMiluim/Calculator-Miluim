@@ -1,6 +1,6 @@
 export const API_ENDPOINTS = {
   AUTH_LOGIN: '/auth/login',
-  RESULTS: 'results',
+  BENEFITS: 'benefits/benefits',
 } as const
 
 export const HTTP_METHODS = {
