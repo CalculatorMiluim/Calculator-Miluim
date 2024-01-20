@@ -69,4 +69,3 @@ def calculate_automatic_grants(reservist: ReservistProfile):
 
     automatic_grants_sum = sum(automatic_grant[FINANCIAL_REWARD] for automatic_grant in automatic_grants_owned)
     return {AMOUNT: automatic_grants_sum, BENEFITS: automatic_grants_owned}
-
