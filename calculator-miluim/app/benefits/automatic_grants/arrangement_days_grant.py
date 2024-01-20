@@ -12,7 +12,6 @@ class ArrangementDaysGrant(AutomaticGrant):
             title="ימי התרעננות",
             description="כל איש מילואים שביצע שירות מילואים בצו 8 באופי יחידה סגור(לא יומיות) ,זכאי לימי התארגנות בתום שירות המילואים וטרם חזרתו לשגרה האזרחית. כמות ימי ההתארגנות אליו זכאי איש המילואים משתנה בהתאם לכמות ימי המילואים שביצע בצו 8 עד לשחרור",
             link_to_source="https://www.miluim.idf.il/articles-list/%D7%9E%D7%93%D7%99%D7%A0%D7%99%D7%95%D7%AA-%D7%A9%D7%97%D7%A8%D7%95%D7%A8-%D7%A1%D7%93%D7%9B",
-            financial_reward=0,
         )
 
     def is_eligible(self, reservist: ReservistProfile) -> bool:

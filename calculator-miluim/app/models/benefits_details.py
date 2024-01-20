@@ -33,11 +33,11 @@ class BenefitDetails(ABC):
 class Voucher(BenefitDetails, ABC):
     def __init__(
             self,
-            financial_reward: Optional[int],
-            other_reward: Optional[str],
             title: str,
             description: str,
             link_to_source: str,
+            financial_reward: int = 0,
+            other_reward: Optional[str] = "",
     ) -> None:
         super().__init__(
             benefit_type=BenefitType.VOUCHER,
@@ -52,11 +52,11 @@ class Voucher(BenefitDetails, ABC):
 class Grant(BenefitDetails, ABC):
     def __init__(
             self,
-            financial_reward: Optional[int],
-            other_reward: Optional[str],
             title: str,
             description: str,
             link_to_source: str,
+            financial_reward: int = 0,
+            other_reward: Optional[str] = "",
     ) -> None:
         super().__init__(
             benefit_type=BenefitType.GRANT,
@@ -71,11 +71,11 @@ class Grant(BenefitDetails, ABC):
 class AutomaticGrant(BenefitDetails, ABC):
     def __init__(
             self,
-            financial_reward,
-            other_reward: Optional[str],
             title: str,
             description: str,
             link_to_source: str,
+            financial_reward: int = 0,
+            other_reward: Optional[str] = "",
     ) -> None:
         super().__init__(
             benefit_type=BenefitType.AUTOMATIC_GRANT,

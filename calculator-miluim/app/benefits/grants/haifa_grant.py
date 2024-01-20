@@ -3,11 +3,11 @@ from app.models.benefits_details import Grant
 from app.models.consts import Academy
 
 
-class BGUGrant(Grant):
+class HaifaGrant(Grant):
     def __init__(self):
         super().__init__(
-            title="אוניברסיטת בן גוריון - מענק לימודים",
-            description="האוניברסיטה החליטה על מספר אפיקי סיוע לסטודנטיות והסטודנטים שלנו, במטרה לתת מענה באופן רחב ככל הניתן לצרכים השונים שמעוררת התקופה בה אנו נמצאים.",
+            title="אוניברסיטת חיפה - מענק לימודים",
+            description="כל סטודנט וסטודנטית משרתי מילואים בצו 8 יקבלו מלגת עידוד",
             link_to_source="https://www.bgu.ac.il/standarts/iron-swords/iron-swords-aid-for-students/",
         )
 

@@ -14,7 +14,6 @@ class TechnionUniversityGrant(Grant):
             title="הטכניון - מענק לימודים",
             description="לתואר ראשון או תארים מתקדמים, לטובת תשלומי שכר לימוד, שכר דירה במעונות הטכניון ותשלומים נלווים לשכר הלימוד",
             link_to_source="https://www.technion.ac.il/2023/11/%D7%A1%D7%99%D7%95%D7%A2-%D7%A9%D7%9C-%D7%94%D7%98%D7%9B%D7%A0%D7%99%D7%95%D7%9F-%D7%9C%D7%9E%D7%A9%D7%A8%D7%AA%D7%95%D7%AA-%D7%95%D7%9E%D7%A9%D7%A8%D7%AA%D7%99-%D7%94%D7%9E%D7%99%D7%9C%D7%95%D7%90/",
-            financial_reward=0,
         )
 
     def is_eligible(self, reservist: ReservistProfile) -> bool:
