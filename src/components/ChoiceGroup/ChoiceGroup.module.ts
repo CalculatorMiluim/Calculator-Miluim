@@ -1,4 +1,4 @@
-interface IOptionProps {
+export interface IOptionProps {
   label: string
   endIcon?: string
   value: string | number | boolean

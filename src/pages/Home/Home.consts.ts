@@ -25,6 +25,12 @@ const EMPLOYMENT_STATUS_VALUES = {
   ELIGIBLE_FOR_UNEMPLOYMENT_BENEFITS: 'זכאי_לדמי_אבטלה',
 }
 
+export const ACADEMIC_INSTITUTION_VALUES = {
+  TECHNION: 'טכניון',
+  TLV: 'אונ’ תל אביב',
+  BG: 'אונ’ בן גוריון',
+}
+
 export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
   isActiveReservist: {
     label: 'האם בשירות מילואים פעיל?',
@@ -78,7 +84,6 @@ export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
       { label: 'הורה לילד', value: true, endIcon: '👼' },
     ],
   },
-
   childrenStatus: {
     multiSelect: true,
     isFollowUpQuestion: true,
@@ -102,7 +107,6 @@ export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
       { label: 'אחר', value: EMPLOYMENT_STATUS_VALUES.OTHER },
     ],
   },
-
   businessStatus: {
     columns: true,
     isFollowUpQuestion: true,
@@ -116,7 +120,6 @@ export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
       { label: 'מעל 20 עובדים, מחזור מכירות יותר מ20 מיליון ₪ בשנה', value: BUSINESS_VALUES.MEDIUM },
     ],
   },
-
   propertyOwnershipStatus: {
     label: 'האם בבעלותך נכס?',
     options: [
@@ -124,4 +127,17 @@ export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
       { label: 'לא', value: false, endIcon: '🏝️' },
     ],
   },
-}
+  studentStatus: {
+    options: [
+      { label: 'כן', value: true, endIcon: '👩‍🎓' },
+      { label: 'לא', value: false, endIcon: '🙅‍' },
+    ],
+  },
+  academicInstitution: {
+    options: [
+      { label: 'טכניון', value: ACADEMIC_INSTITUTION_VALUES.TECHNION },
+      { label: 'אונ’ בן גוריון', value: ACADEMIC_INSTITUTION_VALUES.BG },
+      { label: 'אונ’ תל אביב', value: ACADEMIC_INSTITUTION_VALUES.TLV },
+    ],
+  },
+} as const

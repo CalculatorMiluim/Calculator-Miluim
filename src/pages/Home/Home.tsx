@@ -6,6 +6,7 @@ import { COLORS } from '@/consts/colors.ts'
 import ChoiceGroup from '@/components/ChoiceGroup/ChoiceGroup.tsx'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 import { useHome } from '@/pages/Home/Home.module.ts'
+import { HOME_OPTIONS_MAP } from '@/pages/Home/Home.consts.ts'
 
 const Home = () => {
   const {
@@ -20,6 +21,7 @@ const Home = () => {
     serviceTypeProps,
     partnerProps,
     isParentProps,
+    studentStatusProps,
   } = useHome()
 
   return (
@@ -33,7 +35,6 @@ const Home = () => {
         <HomeChoiceFormField {...partnerProps} />
         <HomeChoiceFormField {...isParentProps} />
         <HomeChoiceFormField {...childrenStatusProps} />
-
         <Grid container>
           <Grid item xs={4}>
             <Typography variant="h6" sx={{ color: COLORS.BLACK, fontWeight: 600 }}>
@@ -46,16 +47,7 @@ const Home = () => {
             </Typography>
           </Grid>
           <Grid item xs={4}>
-            <ChoiceGroup
-              selectedValues={formik.values.studentStatus}
-              setSelectedValues={(value) => {
-                formik.setFieldValue('studentStatus', value)
-              }}
-              options={[
-                { label: 'כן', value: 1, endIcon: '👩‍🎓' },
-                { label: 'לא', value: 0, endIcon: '🙅‍' },
-              ]}
-            />
+            <ChoiceGroup {...studentStatusProps} />
           </Grid>
           <Grid item xs={4}>
             <TextField
@@ -65,19 +57,14 @@ const Home = () => {
               onChange={formik.handleChange}
               select
             >
-              <MenuItem key={0} value={0}>
-                טכניון
-              </MenuItem>
-              <MenuItem key={1} value={1}>
-                אונ’ בן גוריון
-              </MenuItem>
-              <MenuItem key={2} value="test2">
-                אונ’ תל אביב
-              </MenuItem>
+              {HOME_OPTIONS_MAP.academicInstitution.options?.map(({ value, label }) => (
+                <MenuItem key={`${label}-${value}`} value={value as string}>
+                  {label}
+                </MenuItem>
+              ))}
             </TextField>
           </Grid>
         </Grid>
-
         <HomeChoiceFormField {...employmentStatusProps} />
         <HomeChoiceFormField {...businessStatusProps} />
         <HomeChoiceFormField {...propertyOwnershipStatusProps} />

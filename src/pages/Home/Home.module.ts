@@ -1,7 +1,7 @@
 import { useFormik } from 'formik'
 import dayjs from 'dayjs'
 import { useGetResultsMutation } from '@/features/results/resultsApiSlice.ts'
-import { CHILDREN_VALUES, HOME_OPTIONS_MAP } from '@/pages/Home/Home.consts.ts'
+import { ACADEMIC_INSTITUTION_VALUES, CHILDREN_VALUES, HOME_OPTIONS_MAP } from '@/pages/Home/Home.consts.ts'
 import { IHomeChoiceFormField } from '@/pages/Home/HomeChoiceFormField/HomeChoiceFormField.tsx'
 
 export const useHome = () => {
@@ -20,7 +20,7 @@ export const useHome = () => {
       studentStatus: [] as string[],
       employmentStatus: [] as string[],
       childrenStatus: [] as string[],
-      academicInstitution: 0 as string | number,
+      academicInstitution: ACADEMIC_INSTITUTION_VALUES.TECHNION as string,
       businessStatus: [] as string[],
       propertyOwnershipStatus: [] as boolean[],
     },
@@ -89,6 +89,7 @@ export const useHome = () => {
   const employmentStatusProps = getPropsForHomeField('employmentStatus')
   const businessStatusProps = getPropsForHomeField('businessStatus')
   const propertyOwnershipStatusProps = getPropsForHomeField('propertyOwnershipStatus')
+  const studentStatusProps = getPropsForHomeField('studentStatus')
 
   return {
     formik,
@@ -105,5 +106,6 @@ export const useHome = () => {
     employmentStatusProps,
     businessStatusProps,
     propertyOwnershipStatusProps,
+    studentStatusProps,
   }
 }
