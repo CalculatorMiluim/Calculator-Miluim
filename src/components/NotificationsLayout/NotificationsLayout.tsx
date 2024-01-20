@@ -10,7 +10,7 @@ const NotificationsLayout = () => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', width: '100vw' }}>
       <Navbar />
-      <Container>
+      <Container sx={{ flexGrow: 1 }}>
         <Outlet />
         <Notifications />
         <AppModal />
