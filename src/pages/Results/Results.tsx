@@ -6,7 +6,7 @@ import SaveAltIcon from '@mui/icons-material/SaveAlt'
 import { useResults } from '@/pages/Results/Results.module.tsx'
 
 const Results = () => {
-  const { panels, isLoading, totalAmount } = useResults()
+  const { panelsMap, totalAmount } = useResults()
 
   return (
     <Stack alignItems="flex-start" gap={3}>
@@ -17,8 +17,10 @@ const Results = () => {
       </Box>
 
       <Typography>רשימת הזכויות שמגיעות לך בתור משרת מילואים בתקופת מלחמת חרבות ברזל</Typography>
+      {Object.entries(panelsMap).map(([key, panels]) => (
+        <ToggledListItems key={key} panels={panels} />
+      ))}
 
-      <ToggledListItems panels={panels} />
       <Button variant="outlined" endIcon={<SaveAltIcon />} sx={{ px: 4 }}>
         שמור PDF
       </Button>

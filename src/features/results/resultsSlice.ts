@@ -1,20 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { RootState } from '@/store.ts'
+import { IGetResultResponse } from '@/types/apiResponses.types.ts'
 
-interface IBenefit {
-  title: string
-  description: string
-  amount: number
-  link_to_source: string
-}
-
-interface IResults {
-  benefits: IBenefit[]
-  total_amount: number
-}
-
-const initialState: IResults = {
-  benefits: [],
+const defaultResultAggValue = { benefits: [], amount: 0 }
+const initialState: IGetResultResponse = {
+  Grant: defaultResultAggValue,
+  Voucher: defaultResultAggValue,
+  Automatic_Grant: defaultResultAggValue,
   total_amount: 0,
 }
 

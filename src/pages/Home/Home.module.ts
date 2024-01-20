@@ -52,31 +52,7 @@ export const useHome = () => {
       },
       { setSubmitting },
     ) => {
-      const dummyBody = {
-        recruitment_dates: [
-          {
-            start_date: '2024-01-18',
-            end_date: '2024-03-19',
-            recruitment_type: 'אחר',
-          },
-        ],
-        combat_level: 'לוחם',
-        family_status: {
-          partner: null,
-          children: {
-            is_under_14: true,
-            is_special_needs: true,
-          },
-        },
-        academy: 'הטכניון',
-        employment_status: 'אחר',
-        business_size: null,
-        property_owner: true,
-        active_reservist: true,
-      }
-
-      getResults(dummyBody)
-      // getResults({
+      // const dummyBody = {
       //   recruitment_dates: [
       //     {
       //       start_date: '2024-01-18',
@@ -84,21 +60,44 @@ export const useHome = () => {
       //       recruitment_type: 'אחר',
       //     },
       //   ],
-      //   combat_level: serviceType[0],
+      //   combat_level: 'לוחם',
       //   family_status: {
-      //     partner: partner[0],
+      //     partner: null,
       //     children: {
-      //       is_under_14: childrenStatus.includes(CHILDREN_VALUES.UNDER_14),
-      //       is_special_needs: childrenStatus.includes(CHILDREN_VALUES.SPECIAL_NEEDS),
+      //       is_under_14: true,
+      //       is_special_needs: true,
       //     },
       //   },
-      //   student: studentStatus[0],
-      //   academy: academicInstitution.toString(),
-      //   employment_status: employmentStatus[0],
-      //   business_size: businessStatus[0],
-      //   property_owner: propertyOwnershipStatus[0],
-      //   active_reservist: isActiveReservist[0],
-      // })
+      //   academy: 'הטכניון',
+      //   employment_status: 'אחר',
+      //   business_size: null,
+      //   property_owner: true,
+      //   active_reservist: true,
+      // }
+
+      getResults({
+        recruitment_dates: [
+          {
+            start_date: '2024-01-18',
+            end_date: '2024-03-19',
+            recruitment_type: 'אחר',
+          },
+        ],
+        combat_level: serviceType[0],
+        family_status: {
+          partner: partner[0],
+          children: {
+            is_under_14: childrenStatus.includes(CHILDREN_VALUES.UNDER_14),
+            is_special_needs: childrenStatus.includes(CHILDREN_VALUES.SPECIAL_NEEDS),
+          },
+        },
+        student: studentStatus[0],
+        academy: academicInstitution.toString(),
+        employment_status: employmentStatus[0],
+        business_size: businessStatus[0],
+        property_owner: propertyOwnershipStatus[0],
+        active_reservist: isActiveReservist[0],
+      })
       setSubmitting(false)
       navigate(RoutesValues.RESULTS)
     },
