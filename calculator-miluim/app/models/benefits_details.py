@@ -8,13 +8,15 @@ class BenefitDetails(ABC):
     def __init__(
             self,
             benefit_type: BenefitType,
-            amount: Optional[int],
+            financial_reward: Optional[int],
+            other_reward: Optional[str],
             title: str,
             description: str,
             link_to_source: str,
     ) -> None:
         self.benefit_type = benefit_type
-        self.amount = amount
+        self.financial_reward = financial_reward
+        self.other_reward = other_reward
         self.title = title
         self.description = description
         self.link_to_source = link_to_source
@@ -31,14 +33,16 @@ class BenefitDetails(ABC):
 class Voucher(BenefitDetails, ABC):
     def __init__(
             self,
-            amount: Optional[int],
             title: str,
             description: str,
             link_to_source: str,
+            financial_reward: int = 0,
+            other_reward: Optional[str] = "",
     ) -> None:
         super().__init__(
             benefit_type=BenefitType.VOUCHER,
-            amount=amount,
+            financial_reward=financial_reward,
+            other_reward=other_reward,
             title=title,
             description=description,
             link_to_source=link_to_source
@@ -48,14 +52,16 @@ class Voucher(BenefitDetails, ABC):
 class Grant(BenefitDetails, ABC):
     def __init__(
             self,
-            amount,
             title: str,
             description: str,
             link_to_source: str,
+            financial_reward: int = 0,
+            other_reward: Optional[str] = "",
     ) -> None:
         super().__init__(
             benefit_type=BenefitType.GRANT,
-            amount=amount,
+            financial_reward=financial_reward,
+            other_reward=other_reward,
             title=title,
             description=description,
             link_to_source=link_to_source
@@ -65,14 +71,16 @@ class Grant(BenefitDetails, ABC):
 class AutomaticGrant(BenefitDetails, ABC):
     def __init__(
             self,
-            amount,
             title: str,
             description: str,
             link_to_source: str,
+            financial_reward: int = 0,
+            other_reward: Optional[str] = "",
     ) -> None:
         super().__init__(
             benefit_type=BenefitType.AUTOMATIC_GRANT,
-            amount=amount,
+            financial_reward=financial_reward,
+            other_reward=other_reward,
             title=title,
             description=description,
             link_to_source=link_to_source

@@ -14,6 +14,7 @@ def import_all_grants():
     from app.benefits.automatic_grants.home_economics_grant import HomeEconomicsGrant
     from app.benefits.automatic_grants.special_family_grant import SpecialFamilyGrant
     from app.benefits.automatic_grants.increased_family_grant import IncreasedFamilyGrant
+    from app.benefits.automatic_grants.arrangement_days_grant import ArrangementDaysGrant
 
 
 def calculate_benefits_for_reservist(reservist: ReservistProfile):
@@ -36,7 +37,7 @@ def calculate_vouchers(reservist: ReservistProfile):
             voucher.calculate(reservist)
             vouchers_owned.append(voucher.__dict__)
 
-    vouchers_sum = sum(voucher['amount'] for voucher in vouchers_owned)
+    vouchers_sum = sum(voucher['financial_reward'] for voucher in vouchers_owned)
     return vouchers_sum, vouchers_owned
 
 
@@ -49,7 +50,7 @@ def calculate_grants(reservist: ReservistProfile):
             grant.calculate(reservist)
             grants_owned.append(grant.__dict__)
 
-    grants_sum = sum(grant['amount'] for grant in grants_owned)
+    grants_sum = sum(grant['financial_reward'] for grant in grants_owned)
     return grants_sum, grants_owned
 
 
@@ -62,6 +63,6 @@ def calculate_automatic_grants(reservist: ReservistProfile):
             automatic_grant.calculate(reservist)
             automatic_grants_owned.append(automatic_grant.__dict__)
 
-    automatic_grants_sum = sum(automatic_grant['amount'] for automatic_grant in automatic_grants_owned)
+    automatic_grants_sum = sum(automatic_grant['financial_reward'] for automatic_grant in automatic_grants_owned)
     return automatic_grants_sum, automatic_grants_owned
 
