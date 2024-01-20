@@ -30,22 +30,25 @@ export const useHome = () => {
       businessStatus: [] as string[],
       propertyOwnershipStatus: [] as boolean[],
     },
-    onSubmit: ({
-      propertyOwnershipStatus,
-      businessStatus,
-      employmentStatus,
-      familyStatus,
-      academicInstitution,
-      studentStatus,
-      endDate,
-      isActiveReservist,
-      isCommander,
-      serviceType,
-      partner,
-      startDate,
-      childrenStatus,
-      isParent,
-    }) => {
+    onSubmit: (
+      {
+        propertyOwnershipStatus,
+        businessStatus,
+        employmentStatus,
+        familyStatus,
+        academicInstitution,
+        studentStatus,
+        endDate,
+        isActiveReservist,
+        isCommander,
+        serviceType,
+        partner,
+        startDate,
+        childrenStatus,
+        isParent,
+      },
+      { setSubmitting },
+    ) => {
       getResults({
         recruitment_dates: [
           {
@@ -69,6 +72,7 @@ export const useHome = () => {
         property_owner: propertyOwnershipStatus[0],
         active_reservist: isActiveReservist[0],
       })
+      setSubmitting(false)
     },
   })
 
