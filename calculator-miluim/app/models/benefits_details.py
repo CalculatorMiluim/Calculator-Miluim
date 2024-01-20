@@ -10,7 +10,7 @@ class BenefitDetails(ABC):
     title: str
     description: str
     link_to_source: str
-    benefit_type: BenefitType
+    benefit_type: Optional[BenefitType]
     financial_reward: Optional[int]
     other_reward: Optional[str]
 
