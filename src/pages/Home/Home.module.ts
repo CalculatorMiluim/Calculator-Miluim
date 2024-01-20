@@ -1,7 +1,8 @@
 import { useFormik } from 'formik'
 import dayjs from 'dayjs'
 import { useGetResultsMutation } from '@/features/results/resultsApiSlice.ts'
-import { CHILDREN_VALUES } from '@/pages/Home/Home.consts.ts'
+import { CHILDREN_VALUES, HOME_OPTIONS_MAP } from '@/pages/Home/Home.consts.ts'
+import { IHomeChoiceFormField } from '@/pages/Home/HomeChoiceFormField/HomeChoiceFormField.tsx'
 
 export const useHome = () => {
   const [getResults, { isLoading, isError, data }] = useGetResultsMutation()
@@ -10,18 +11,18 @@ export const useHome = () => {
     initialValues: {
       startDate: dayjs('2023-01-01'),
       endDate: dayjs('2024-01-01'),
-      isActiveReservist: [] as any[],
-      isCommander: [] as any[],
-      serviceType: [] as any[],
-      familyStatus: [] as any[],
-      isParent: [] as any[],
-      partner: [] as any[],
-      studentStatus: [] as any[],
-      employmentStatus: [] as any[],
-      childrenStatus: [] as any[],
+      isActiveReservist: [] as boolean[],
+      isCommander: [] as boolean[],
+      serviceType: [] as string[],
+      familyStatus: [] as string[],
+      isParent: [] as boolean[],
+      partner: [] as string[],
+      studentStatus: [] as string[],
+      employmentStatus: [] as string[],
+      childrenStatus: [] as string[],
       academicInstitution: 0 as string | number,
-      businessStatus: [] as any[],
-      propertyOwnershipStatus: [] as any[],
+      businessStatus: [] as string[],
+      propertyOwnershipStatus: [] as boolean[],
     },
     onSubmit: ({
       propertyOwnershipStatus,
@@ -59,11 +60,50 @@ export const useHome = () => {
         academy: academicInstitution.toString(),
         employment_status: employmentStatus[0],
         business_size: businessStatus[0],
-        property_owner: !!propertyOwnershipStatus[0],
-        active_reservist: !!isActiveReservist[0],
+        property_owner: propertyOwnershipStatus[0],
+        active_reservist: isActiveReservist[0],
       })
     },
   })
 
-  return { formik, isError, isLoading, data }
+  const getFormikControllers = (fieldName: keyof typeof formik.values) => ({
+    selectedValues: formik.values[fieldName],
+    setSelectedValues: (value: any) => {
+      formik.setFieldValue(fieldName, value)
+    },
+  })
+
+  const getPropsForHomeField = (fieldName: keyof typeof formik.values): IHomeChoiceFormField =>
+    ({
+      ...getFormikControllers(fieldName),
+      ...HOME_OPTIONS_MAP[fieldName],
+    }) as IHomeChoiceFormField
+
+  const isActiveReservistProps = getPropsForHomeField('isActiveReservist')
+  const isCommanderProps = getPropsForHomeField('isCommander')
+  const serviceTypeProps = getPropsForHomeField('serviceType')
+  const familyStatusProps = getPropsForHomeField('familyStatus')
+  const partnerProps = getPropsForHomeField('partner')
+  const isParentProps = getPropsForHomeField('isParent')
+  const childrenStatusProps = getPropsForHomeField('childrenStatus')
+  const employmentStatusProps = getPropsForHomeField('employmentStatus')
+  const businessStatusProps = getPropsForHomeField('businessStatus')
+  const propertyOwnershipStatusProps = getPropsForHomeField('propertyOwnershipStatus')
+
+  return {
+    formik,
+    isError,
+    isLoading,
+    data,
+    isActiveReservistProps,
+    isCommanderProps,
+    serviceTypeProps,
+    familyStatusProps,
+    partnerProps,
+    isParentProps,
+    childrenStatusProps,
+    employmentStatusProps,
+    businessStatusProps,
+    propertyOwnershipStatusProps,
+  }
 }

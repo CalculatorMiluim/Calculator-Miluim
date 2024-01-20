@@ -5,117 +5,34 @@ import HomeChoiceFormField from '@/pages/Home/HomeChoiceFormField/HomeChoiceForm
 import { COLORS } from '@/consts/colors.ts'
 import ChoiceGroup from '@/components/ChoiceGroup/ChoiceGroup.tsx'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
-import {
-  BUSINESS_VALUES,
-  CHILDREN_VALUES,
-  COMBAT_LEVEL_VALUES,
-  EMPLOYMENT_STATUS_VALUES,
-} from '@/pages/Home/Home.consts.ts'
 import { useHome } from '@/pages/Home/Home.module.ts'
 
 const Home = () => {
-  const { formik } = useHome()
+  const {
+    formik,
+    isActiveReservistProps,
+    propertyOwnershipStatusProps,
+    businessStatusProps,
+    childrenStatusProps,
+    employmentStatusProps,
+    familyStatusProps,
+    isCommanderProps,
+    serviceTypeProps,
+    partnerProps,
+    isParentProps,
+  } = useHome()
 
   return (
     <form onSubmit={formik.handleSubmit} style={{ display: 'flex', width: '100%' }}>
       <Stack spacing={4} sx={{ display: 'flex', alignItems: 'flex-start', textAlign: 'start', width: '100%' }}>
         <ReservesRanges />
-        <HomeChoiceFormField
-          selectedValues={formik.values.isActiveReservist}
-          setSelectedValues={(value) => {
-            formik.setFieldValue('isActiveReservist', value)
-          }}
-          label="האם בשירות מילואים פעיל?"
-          options={[
-            { label: 'כן', value: 1, endIcon: '✅️' },
-            { label: 'לא', value: 0, endIcon: '❌' },
-          ]}
-          subDescription={`משרת מילואים פעיל הוא מי ששירת לפחות 20 ימי שמ"פ במהלך 3 שנים (או 14 ימים במהלך שנה או שנתיים צמודות למי
-          שטרם מלאו 3 שנים לשחרורם)`}
-        />
-
-        <HomeChoiceFormField
-          selectedValues={formik.values.isCommander}
-          setSelectedValues={(value) => {
-            formik.setFieldValue('isCommander', value)
-          }}
-          label="האם מפקד/ת?"
-          options={[
-            { label: 'כן', value: 1, endIcon: '✅️' },
-            { label: 'לא', value: 0, endIcon: '❌' },
-          ]}
-        />
-
-        <HomeChoiceFormField
-          selectedValues={formik.values.serviceType}
-          setSelectedValues={(value) => {
-            formik.setFieldValue('serviceType', value)
-          }}
-          label="סוג שירות צבאי?"
-          options={[
-            { label: 'יחידה קרבית', value: COMBAT_LEVEL_VALUES.WARRIOR, endIcon: '⚔️' },
-            { label: 'יחידה עורפית', value: COMBAT_LEVEL_VALUES.COMBAT_SUPPORT, endIcon: '🛠️️' },
-          ]}
-        />
-
-        <HomeChoiceFormField
-          selectedValues={formik.values.familyStatus}
-          setSelectedValues={(value) => {
-            formik.setFieldValue('familyStatus', value)
-          }}
-          label="מצב משפחתי?"
-          options={[
-            { label: 'אין לי בן/בת זוג', value: 0 },
-            { label: 'יש לי בן/בת זוג', value: 1 },
-          ]}
-        />
-
-        <HomeChoiceFormField
-          isFollowUpQuestion
-          multiSelect
-          selectedValues={formik.values.partner}
-          setSelectedValues={(value) => {
-            formik.setFieldValue('partner', value)
-          }}
-          label="אז לגבי בן/בת הזוג שלך..."
-          options={[
-            {
-              label: 'הם זכאים לדמי אבטלה',
-              value: EMPLOYMENT_STATUS_VALUES.ELIGIBLE_FOR_UNEMPLOYMENT_BENEFITS,
-            },
-            { label: 'הם שכירים', value: EMPLOYMENT_STATUS_VALUES.EMPLOYED },
-            { label: 'הם עצמאים', value: EMPLOYMENT_STATUS_VALUES.SELF_EMPLOYED },
-            { label: 'הם בחל"ת', value: EMPLOYMENT_STATUS_VALUES.UNPAID_LEAVE },
-            { label: 'אחר', value: EMPLOYMENT_STATUS_VALUES.OTHER },
-          ]}
-        />
-
-        <HomeChoiceFormField
-          selectedValues={formik.values.isParent}
-          setSelectedValues={(value) => {
-            formik.setFieldValue('isParent', value)
-          }}
-          label="מצב משפחתי?"
-          options={[
-            { label: 'אין לי ילדים', value: 0, endIcon: '👻' },
-            { label: 'הורה לילד', value: 1, endIcon: '👼' },
-          ]}
-        />
-
-        <HomeChoiceFormField
-          multiSelect
-          isFollowUpQuestion
-          selectedValues={formik.values.childrenStatus}
-          setSelectedValues={(value) => {
-            formik.setFieldValue('childrenStatus', value)
-          }}
-          label="אז לגבי הילדים..."
-          options={[
-            { label: 'יש לי ילד עד גיל 14', value: CHILDREN_VALUES.UNDER_14 },
-            { label: 'יש לי ילד עם צרכים מיוחדים', value: CHILDREN_VALUES.SPECIAL_NEEDS },
-            { label: 'אף אחת מהאופציות', value: CHILDREN_VALUES.OTHER },
-          ]}
-        />
+        <HomeChoiceFormField {...isActiveReservistProps} />
+        <HomeChoiceFormField {...isCommanderProps} />
+        <HomeChoiceFormField {...serviceTypeProps} />
+        <HomeChoiceFormField {...familyStatusProps} />
+        <HomeChoiceFormField {...partnerProps} />
+        <HomeChoiceFormField {...isParentProps} />
+        <HomeChoiceFormField {...childrenStatusProps} />
 
         <Grid container>
           <Grid item xs={4}>
@@ -161,54 +78,9 @@ const Home = () => {
           </Grid>
         </Grid>
 
-        <HomeChoiceFormField
-          multiSelect
-          selectedValues={formik.values.employmentStatus}
-          setSelectedValues={(value) => {
-            formik.setFieldValue('employmentStatus', value)
-          }}
-          label="מה מצבך התעסוקתי?"
-          options={[
-            { label: 'אני עצמאי/ת', value: EMPLOYMENT_STATUS_VALUES.SELF_EMPLOYED },
-            { label: 'אני שכיר/ה', value: EMPLOYMENT_STATUS_VALUES.EMPLOYED },
-            {
-              label: 'זכאי/ת לדמי אבטלה',
-              value: EMPLOYMENT_STATUS_VALUES.ELIGIBLE_FOR_UNEMPLOYMENT_BENEFITS,
-            },
-            { label: 'אני בחל"ת', value: EMPLOYMENT_STATUS_VALUES.UNPAID_LEAVE },
-            { label: 'אחר', value: EMPLOYMENT_STATUS_VALUES.OTHER },
-          ]}
-        />
-
-        <HomeChoiceFormField
-          columns
-          multiSelect
-          isFollowUpQuestion
-          selectedValues={formik.values.businessStatus}
-          setSelectedValues={(value) => {
-            formik.setFieldValue('businessStatus', value)
-          }}
-          label="לגבי העסק שלך..."
-          options={[
-            {
-              label: 'עסק קטן (5-20 עובדים, מחזור מכירות עד 20 מיליון ₪ בשנה)',
-              value: BUSINESS_VALUES.SMALL,
-            },
-            { label: 'מעל 20 עובדים, מחזור מכירות יותר מ20 מיליון ₪ בשנה', value: BUSINESS_VALUES.MEDIUM },
-          ]}
-        />
-
-        <HomeChoiceFormField
-          selectedValues={formik.values.propertyOwnershipStatus}
-          setSelectedValues={(value) => {
-            formik.setFieldValue('propertyOwnershipStatus', value)
-          }}
-          label="האם בבעלותך נכס?"
-          options={[
-            { label: 'כן', value: 0, endIcon: '🏠' },
-            { label: 'לא', value: 1, endIcon: '🏝️' },
-          ]}
-        />
+        <HomeChoiceFormField {...employmentStatusProps} />
+        <HomeChoiceFormField {...businessStatusProps} />
+        <HomeChoiceFormField {...propertyOwnershipStatusProps} />
 
         <Button sx={{ width: '20%' }} type="submit" variant="contained">
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>

@@ -1,7 +1,7 @@
 interface IOptionProps {
   label: string
   endIcon?: string
-  value: string | number
+  value: string | number | boolean
 }
 
 export interface IChoiceGroup {
