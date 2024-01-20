@@ -69,7 +69,17 @@ const Home = () => {
         <HomeChoiceFormField {...businessStatusProps} />
         <HomeChoiceFormField {...propertyOwnershipStatusProps} />
 
-        <Button sx={{ width: '20%' }} type="submit" variant="contained" disabled={formik.isSubmitting}>
+        <Button
+          sx={{
+            minWidth: {
+              xs: 150,
+              md: 200,
+            },
+          }}
+          type="submit"
+          variant="contained"
+          disabled={formik.isSubmitting}
+        >
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
             <Typography sx={{ pb: 0.4, fontWeight: 'bold' }} variant="h5">
               ש-גר

@@ -1,11 +1,12 @@
 import React from 'react'
-import { AppBar, Box, Button, Container, Stack, Toolbar, Typography } from '@mui/material'
+import { AppBar, Box, Button, Container, Stack, Toolbar, Typography, useTheme } from '@mui/material'
 import ShareIcon from '@mui/icons-material/Share'
 import { COLORS } from '@/consts/colors.ts'
 import { useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
   const navigate = useNavigate()
+  const theme = useTheme()
   return (
     <Box sx={{ mb: 2 }}>
       <AppBar position="static" sx={{ bgcolor: '#FFF' }}>
@@ -26,22 +27,58 @@ const Navbar = () => {
                   variant="h2"
                   sx={{
                     flexGrow: 1,
-                    pb: 2,
+                    pb: {
+                      xs: 1,
+                      md: 2,
+                    },
                     color: COLORS.BLACK,
                     fontWeight: 600,
+                    fontSize: {
+                      xs: theme.typography.h4.fontSize,
+                      md: theme.typography.h2.fontSize,
+                    },
                   }}
                 >
                   בזכותך!
                 </Typography>
-                <Typography variant="h2">🫡</Typography>
+                <Typography
+                  variant="h2"
+                  sx={{
+                    fontSize: {
+                      xs: theme.typography.h4.fontSize,
+                      md: theme.typography.h2.fontSize,
+                    },
+                  }}
+                >
+                  🫡
+                </Typography>
               </Box>
-              <Box sx={{ display: 'flex', gap: 2 }}>
+
+              <Box
+                sx={{
+                  display: { xs: 'none', sm: 'flex' },
+                  gap: 2,
+                  justifyContent: 'flex-start',
+                  textAlign: 'start',
+                }}
+              >
                 <Typography>⚔️</Typography>
                 <Typography sx={{ color: COLORS.BLACK }}>מחשבון מענקים למלחמת חרבות ברזל למשרת מילואים</Typography>
               </Box>
             </Stack>
 
-            <Button variant="outlined" endIcon={<ShareIcon />} sx={{ color: 'fff', minWidth: 150 }}>
+            <Button
+              variant="outlined"
+              endIcon={<ShareIcon />}
+              sx={{
+                color: 'fff',
+                minWidth: {
+                  xs: 70,
+                  sm: 150,
+                  md: 200,
+                },
+              }}
+            >
               שתף
             </Button>
           </Toolbar>

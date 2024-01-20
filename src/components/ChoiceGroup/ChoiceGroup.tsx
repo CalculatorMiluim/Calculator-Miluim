@@ -17,7 +17,7 @@ const ChoiceGroup: React.FC<IChoiceGroup> = ({
 
   return (
     <Stack>
-      <Box sx={{ display: 'flex', gap: 2, flexDirection }}>
+      <Box sx={{ display: 'flex', gap: 2, flexDirection, flexWrap: 'wrap' }}>
         {options.map(({ label, endIcon, value }) => (
           <ChoiceButton
             multiSelect={multiSelect}
