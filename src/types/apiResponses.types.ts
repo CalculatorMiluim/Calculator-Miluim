@@ -1,3 +1,5 @@
+import { BENEFITS_TYPES_MAP } from '@/types/results.types.ts'
+
 interface IBenefit {
   benefit_type: string
   financial_reward: number
@@ -13,8 +15,8 @@ export interface IBenefitAgg {
 }
 
 export interface IGetResultResponse {
-  Voucher: IBenefitAgg
-  Grant: IBenefitAgg
-  Automatic_Grant: IBenefitAgg
+  [BENEFITS_TYPES_MAP.AUTOMATIC_GRANT]: IBenefitAgg
+  [BENEFITS_TYPES_MAP.GRANT]: IBenefitAgg
+  [BENEFITS_TYPES_MAP.VOUCHER]: IBenefitAgg
   total_amount: number
 }

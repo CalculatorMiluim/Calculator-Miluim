@@ -17,9 +17,15 @@ const Results = () => {
       </Box>
 
       <Typography>רשימת הזכויות שמגיעות לך בתור משרת מילואים בתקופת מלחמת חרבות ברזל</Typography>
-      {Object.entries(panelsMap).map(([key, panels]) => (
-        <ToggledListItems key={key} panels={panels} />
-      ))}
+
+      <Typography variant="h5">מענק שנכנס לך באופן אוטומטי לחשבון בנק, כמו התגמול הנוסף</Typography>
+      <ToggledListItems panels={panelsMap.automaticGrant} />
+
+      <Typography variant="h5">מענק שאתה צריך לבקש, לדוגמא מענק מהאוניברסיטה</Typography>
+      <ToggledListItems panels={panelsMap.grant} />
+
+      <Typography variant="h5">שובר למימוש, כמו לדוגמא שובר בשווי 3500 ש״ח לחופשה </Typography>
+      <ToggledListItems panels={panelsMap.voucher} />
 
       <Button variant="outlined" endIcon={<SaveAltIcon />} sx={{ px: 4 }}>
         שמור PDF

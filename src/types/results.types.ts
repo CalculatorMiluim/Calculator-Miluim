@@ -1,3 +1,5 @@
+import { IBenefitAgg } from '@/types/apiResponses.types.ts'
+
 interface IRecruitmentDate {
   start_date: string
   end_date: string
@@ -23,3 +25,9 @@ export interface IReservistProfile {
   active_reservist: boolean
   employment_status: string
 }
+
+export const BENEFITS_TYPES_MAP = {
+  VOUCHER: 'Voucher',
+  GRANT: 'Grant',
+  AUTOMATIC_GRANT: 'Automatic_Grant',
+} as const
