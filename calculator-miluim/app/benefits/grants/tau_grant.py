@@ -9,7 +9,7 @@ class TauGrant(Grant):
             title="אוניברסיטת תל אביב - מענק לימודים",
             description="סיוע מיוחד לסטודנטים וסטודנטיות שגוייסו למילואים",
             link_to_source="https://www.tau.ac.il/news/ironswords-miluim",
-            amount=0,
+            financial_reward=0,
         )
 
     def is_eligible(self, reservist: ReservistProfile) -> bool:
@@ -17,6 +17,6 @@ class TauGrant(Grant):
 
     def calculate(self, reservist: ReservistProfile) -> None:
         if reservist.combat_level == CombatLevel.COMBAT_UNIT:
-            self.amount = 3000
+            self.financial_reward = 3000
         else:
-            self.amount = 2000
+            self.financial_reward = 2000
