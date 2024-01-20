@@ -21,6 +21,10 @@ const ToggledListItems: React.FC<ICustomAccordion> = ({ panels }) => {
     })
   }
 
+  if (!panels.length) {
+    return <Typography>נראה שאין לך מענקים רלוונטיים בנושא זה</Typography>
+  }
+
   return (
     <Box sx={{ alignSelf: 'stretch' }}>
       {panels.map(({ Content, header, id }) => (

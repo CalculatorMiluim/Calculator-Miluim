@@ -27,9 +27,12 @@ const EMPLOYMENT_STATUS_VALUES = {
 }
 
 export const ACADEMIC_INSTITUTION_VALUES = {
-  TECHNION: 'טכניון',
-  TLV: 'אונ’ תל אביב',
-  BG: 'אונ’ בן גוריון',
+  TECHNION: 'הטכניון',
+  TLV: 'אוניברסיטת תל אביב',
+  BG: 'אוניברסיטת בן גוריון',
+  BIU: 'אוניברסיטת בר אילן',
+  HUJI: 'האוניברסיטה העברית בירושלים',
+  HAIFA: 'אוניברסיטת חיפה',
 }
 
 export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
