@@ -6,7 +6,7 @@ import { StatusCodes } from 'http-status-codes'
 
 const baseQuery = fetchBaseQuery({
   baseUrl: Config.BASE_URL,
-  credentials: 'include',
+  // credentials: 'include',
   prepareHeaders: (headers, { getState }) => {
     const state = getState() as RootState
     const token = state.auth.token

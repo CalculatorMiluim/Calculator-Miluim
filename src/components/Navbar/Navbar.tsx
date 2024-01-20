@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppBar, Box, Button, Stack, Toolbar, Typography } from '@mui/material'
+import { AppBar, Box, Button, Container, Stack, Toolbar, Typography } from '@mui/material'
 import ShareIcon from '@mui/icons-material/Share'
 import { COLORS } from '@/consts/colors.ts'
 import { useNavigate } from 'react-router-dom'
@@ -9,35 +9,43 @@ const Navbar = () => {
   return (
     <Box sx={{ mb: 2 }}>
       <AppBar position="static" sx={{ bgcolor: '#FFF' }}>
-        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pb: 2 }}>
-          <Stack alignItems="flex-start">
-            <Box
-              sx={{ display: 'flex', alignItems: 'center', gap: 2, cursor: 'pointer', userSelect: 'none' }}
-              onClick={() => navigate('/')}
-            >
-              <Typography
-                variant="h2"
+        <Container>
+          <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pb: 2 }}>
+            <Stack alignItems="flex-start">
+              <Box
                 sx={{
-                  flexGrow: 1,
-                  pb: 2,
-                  color: COLORS.BLACK,
-                  fontWeight: 600,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 2,
+                  cursor: 'pointer',
+                  userSelect: 'none',
                 }}
+                onClick={() => navigate('/')}
               >
-                בזכותך!
-              </Typography>
-              <Typography variant="h2">🫡</Typography>
-            </Box>
-            <Box sx={{ display: 'flex', gap: 2 }}>
-              <Typography>⚔️</Typography>
-              <Typography sx={{ color: COLORS.BLACK }}>מחשבון מענקים למלחמת חרבות ברזל למשרת מילואים</Typography>
-            </Box>
-          </Stack>
+                <Typography
+                  variant="h2"
+                  sx={{
+                    flexGrow: 1,
+                    pb: 2,
+                    color: COLORS.BLACK,
+                    fontWeight: 600,
+                  }}
+                >
+                  בזכותך!
+                </Typography>
+                <Typography variant="h2">🫡</Typography>
+              </Box>
+              <Box sx={{ display: 'flex', gap: 2 }}>
+                <Typography>⚔️</Typography>
+                <Typography sx={{ color: COLORS.BLACK }}>מחשבון מענקים למלחמת חרבות ברזל למשרת מילואים</Typography>
+              </Box>
+            </Stack>
 
-          <Button variant="outlined" endIcon={<ShareIcon />} sx={{ color: 'fff', minWidth: 150 }}>
-            שתף
-          </Button>
-        </Toolbar>
+            <Button variant="outlined" endIcon={<ShareIcon />} sx={{ color: 'fff', minWidth: 150 }}>
+              שתף
+            </Button>
+          </Toolbar>
+        </Container>
       </AppBar>
     </Box>
   )

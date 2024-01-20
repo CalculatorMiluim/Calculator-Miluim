@@ -15,7 +15,7 @@ function App() {
       <Route path="/" element={<NotificationsLayout />}>
         <Route element={<AuthGuard allowedRoles={[UserRole.BASIC]} />}>
           <Route index element={<Home />} />
-          <Route path={RoutesValues.BENEFITS} element={<Results />} />
+          <Route path={RoutesValues.RESULTS} element={<Results />} />
         </Route>
       </Route>
       <Route path={RoutesValues.FALLBACK} element={<NotFound />} />
