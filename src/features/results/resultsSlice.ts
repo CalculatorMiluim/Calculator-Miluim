@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { RootState } from '@/store.ts'
 
 interface IBenefit {
   title: string
@@ -9,10 +10,12 @@ interface IBenefit {
 
 interface IResults {
   benefits: IBenefit[]
+  total_amount: number
 }
 
 const initialState: IResults = {
   benefits: [],
+  total_amount: 0,
 }
 
 export const resultsSlice = createSlice({
@@ -26,6 +29,8 @@ export const resultsSlice = createSlice({
 
 // Export actions
 export const { setResults, clearResults } = resultsSlice.actions
+
+export const selectResults = (state: RootState) => state.results
 
 // Export reducer
 export default resultsSlice.reducer

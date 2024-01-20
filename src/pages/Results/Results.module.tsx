@@ -1,27 +1,14 @@
-import { useGetResultsMutation } from '@/features/results/resultsApiSlice.ts'
-import React, { ReactNode, useEffect } from 'react'
+import React, { ReactNode } from 'react'
 import { PanelData } from '@/pages/Results/ToggledListItems/ToggledListItems.module.ts'
 import { Box, Link, Typography } from '@mui/material'
+import { useAppSelector } from '@/hooks/reduxHooks.ts'
+import { selectResults } from '@/features/results/resultsSlice.ts'
 
 export const useResults = () => {
-  const [getResults, { isLoading, isError, data }] = useGetResultsMutation()
-
-  useEffect(() => {
-    getResults({
-      combat_level: 'a',
-      family_status: {
-        employment_status: 'asdf',
-        active_reservist: false,
-        business_size: 'asdf',
-        property_owner: true,
-      },
-      recruitment_date: [],
-      recruitment_type: 'sadf',
-    })
-  }, [])
+  const results = useAppSelector(selectResults)
 
   const panels: PanelData[] =
-    data?.benefits.map(({ amount, description, link_to_source, title }, key) => {
+    results.benefits.map(({ amount, description, link_to_source, title }, key) => {
       const Content: ReactNode = (
         <Box sx={{ textAlign: 'start' }}>
           <Typography>{description}</Typography>
@@ -34,6 +21,6 @@ export const useResults = () => {
       return { id: key.toString(), header: ` ${title} -  ₪${amount.toLocaleString()}`, Content }
     }) || []
 
-  const totalAmount = data?.total_amount ?? 0
-  return { isLoading, isError, panels, totalAmount }
+  const totalAmount = results?.total_amount ?? 0
+  return { panels, totalAmount }
 }
