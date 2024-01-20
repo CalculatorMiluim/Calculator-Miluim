@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+
 interface IBenefit {
   title: string
   description: string
@@ -18,12 +19,8 @@ export const resultsSlice = createSlice({
   name: 'results',
   initialState,
   reducers: {
-    setResults: (state, action) => {
-      state.benefits = action.payload
-    },
-    clearResults: (state) => {
-      state.benefits = []
-    },
+    setResults: (state, action) => action.payload,
+    clearResults: (state) => initialState,
   },
 })
 
