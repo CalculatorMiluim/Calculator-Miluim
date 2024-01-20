@@ -23,7 +23,7 @@ const EMPLOYMENT_STATUS_VALUES = {
   EMPLOYED: 'שכיר',
   OTHER: 'אחר',
   UNPAID_LEAVE: 'חל״ת',
-  ELIGIBLE_FOR_UNEMPLOYMENT_BENEFITS: 'זכאי_לדמי_אבטלה',
+  ELIGIBLE_FOR_UNEMPLOYMENT_BENEFITS: 'זכאי לדמי אבטלה',
 }
 
 export const ACADEMIC_INSTITUTION_VALUES = {

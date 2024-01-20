@@ -33,7 +33,7 @@ export const useHome = () => {
       businessStatus: [] as string[],
       propertyOwnershipStatus: [] as boolean[],
     },
-    onSubmit: (
+    onSubmit: async (
       {
         propertyOwnershipStatus,
         businessStatus,
@@ -52,30 +52,7 @@ export const useHome = () => {
       },
       { setSubmitting },
     ) => {
-      // const dummyBody = {
-      //   recruitment_dates: [
-      //     {
-      //       start_date: '2024-01-18',
-      //       end_date: '2024-03-19',
-      //       recruitment_type: 'אחר',
-      //     },
-      //   ],
-      //   combat_level: 'לוחם',
-      //   family_status: {
-      //     partner: null,
-      //     children: {
-      //       is_under_14: true,
-      //       is_special_needs: true,
-      //     },
-      //   },
-      //   academy: 'הטכניון',
-      //   employment_status: 'אחר',
-      //   business_size: null,
-      //   property_owner: true,
-      //   active_reservist: true,
-      // }
-
-      getResults({
+      const results = await getResults({
         recruitment_dates: [
           {
             start_date: '2024-01-18',
@@ -85,7 +62,7 @@ export const useHome = () => {
         ],
         combat_level: serviceType[0],
         family_status: {
-          partner: partner[0],
+          partner: partner,
           children: {
             is_under_14: childrenStatus.includes(CHILDREN_VALUES.UNDER_14),
             is_special_needs: childrenStatus.includes(CHILDREN_VALUES.SPECIAL_NEEDS),
@@ -99,7 +76,9 @@ export const useHome = () => {
         active_reservist: isActiveReservist[0],
       })
       setSubmitting(false)
-      navigate(RoutesValues.RESULTS)
+      if ('data' in results) {
+        navigate(RoutesValues.RESULTS)
+      }
     },
   })
 

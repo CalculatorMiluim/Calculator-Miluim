@@ -15,7 +15,7 @@ export interface IReservistProfile {
   recruitment_dates: IRecruitmentDate[]
   combat_level: string
   family_status: {
-    partner?: string | null
+    partner?: string[] | null
     children?: IChildren
   }
   student?: string
