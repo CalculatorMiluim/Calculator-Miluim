@@ -1,6 +1,7 @@
 import { useFormik } from 'formik'
 import dayjs from 'dayjs'
 import { useGetResultsMutation } from '@/features/results/resultsApiSlice.ts'
+import { CHILDREN_VALUES } from '@/pages/Home/Home.consts.ts'
 
 export const useHome = () => {
   const [getResults, { isLoading, isError, data }] = useGetResultsMutation()
@@ -18,7 +19,7 @@ export const useHome = () => {
       studentStatus: [] as any[],
       employmentStatus: [] as any[],
       childrenStatus: [] as any[],
-      academicInstitution: 0,
+      academicInstitution: 0 as string | number,
       businessStatus: [] as any[],
       propertyOwnershipStatus: [] as any[],
     },
@@ -35,6 +36,8 @@ export const useHome = () => {
       serviceType,
       partner,
       startDate,
+      childrenStatus,
+      isParent,
     }) => {
       getResults({
         recruitment_dates: [
@@ -48,18 +51,19 @@ export const useHome = () => {
         family_status: {
           partner: partner[0],
           children: {
-            is_under_14: true,
-            is_special_needs: true,
+            is_under_14: childrenStatus.includes(CHILDREN_VALUES.UNDER_14),
+            is_special_needs: childrenStatus.includes(CHILDREN_VALUES.SPECIAL_NEEDS),
           },
         },
-        academy: 'הטכניון',
-        employment_status: 'אחר',
-        business_size: null,
-        property_owner: true,
-        active_reservist: true,
+        student: studentStatus[0],
+        academy: academicInstitution.toString(),
+        employment_status: employmentStatus[0],
+        business_size: businessStatus[0],
+        property_owner: !!propertyOwnershipStatus[0],
+        active_reservist: !!isActiveReservist[0],
       })
     },
   })
 
-  return { formik: formik }
+  return { formik, isError, isLoading, data }
 }

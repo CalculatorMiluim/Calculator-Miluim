@@ -1,11 +1,17 @@
 import React from 'react'
 import { Box, Button, Grid, MenuItem, Stack, TextField, Typography } from '@mui/material'
-import { useHome } from '@/pages/Home/Home.module.ts'
 import ReservesRanges from '@/pages/Home/ReservesRanges/ReservesRanges.tsx'
 import HomeChoiceFormField from '@/pages/Home/HomeChoiceFormField/HomeChoiceFormField.tsx'
 import { COLORS } from '@/consts/colors.ts'
 import ChoiceGroup from '@/components/ChoiceGroup/ChoiceGroup.tsx'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
+import {
+  BUSINESS_VALUES,
+  CHILDREN_VALUES,
+  COMBAT_LEVEL_VALUES,
+  EMPLOYMENT_STATUS_VALUES,
+} from '@/pages/Home/Home.consts.ts'
+import { useHome } from '@/pages/Home/Home.module.ts'
 
 const Home = () => {
   const { formik } = useHome()
@@ -47,8 +53,8 @@ const Home = () => {
           }}
           label="סוג שירות צבאי?"
           options={[
-            { label: 'יחידה קרבית', value: 1, endIcon: '⚔️' },
-            { label: 'יחידה עורפית', value: 0, endIcon: '🛠️️' },
+            { label: 'יחידה קרבית', value: COMBAT_LEVEL_VALUES.WARRIOR, endIcon: '⚔️' },
+            { label: 'יחידה עורפית', value: COMBAT_LEVEL_VALUES.COMBAT_SUPPORT, endIcon: '🛠️️' },
           ]}
         />
 
@@ -73,11 +79,14 @@ const Home = () => {
           }}
           label="אז לגבי בן/בת הזוג שלך..."
           options={[
-            { label: 'הם זכאים לדמי אבטלה', value: 0 },
-            { label: 'הם שכירים', value: 1 },
-            { label: 'הם עצמאים', value: 2 },
-            { label: 'הם בחל"ת', value: 3 },
-            { label: 'אחר', value: 4 },
+            {
+              label: 'הם זכאים לדמי אבטלה',
+              value: EMPLOYMENT_STATUS_VALUES.ELIGIBLE_FOR_UNEMPLOYMENT_BENEFITS,
+            },
+            { label: 'הם שכירים', value: EMPLOYMENT_STATUS_VALUES.EMPLOYED },
+            { label: 'הם עצמאים', value: EMPLOYMENT_STATUS_VALUES.SELF_EMPLOYED },
+            { label: 'הם בחל"ת', value: EMPLOYMENT_STATUS_VALUES.UNPAID_LEAVE },
+            { label: 'אחר', value: EMPLOYMENT_STATUS_VALUES.OTHER },
           ]}
         />
 
@@ -102,9 +111,9 @@ const Home = () => {
           }}
           label="אז לגבי הילדים..."
           options={[
-            { label: 'יש לי ילד עד גיל 14', value: 0 },
-            { label: 'יש לי ילד עם צרכים מיוחדים​', value: 1 },
-            { label: 'אף אחת מהאופציות', value: 2 },
+            { label: 'יש לי ילד עד גיל 14', value: CHILDREN_VALUES.UNDER_14 },
+            { label: 'יש לי ילד עם צרכים מיוחדים', value: CHILDREN_VALUES.SPECIAL_NEEDS },
+            { label: 'אף אחת מהאופציות', value: CHILDREN_VALUES.OTHER },
           ]}
         />
 
@@ -160,11 +169,14 @@ const Home = () => {
           }}
           label="מה מצבך התעסוקתי?"
           options={[
-            { label: 'אני עצמאי/ת', value: 0 },
-            { label: 'אני שכיר/ה', value: 1 },
-            { label: 'זכאי/ת לדמי אבטלה', value: 2 },
-            { label: 'אני בחל"ת', value: 3 },
-            { label: 'אחר', value: 4 },
+            { label: 'אני עצמאי/ת', value: EMPLOYMENT_STATUS_VALUES.SELF_EMPLOYED },
+            { label: 'אני שכיר/ה', value: EMPLOYMENT_STATUS_VALUES.EMPLOYED },
+            {
+              label: 'זכאי/ת לדמי אבטלה',
+              value: EMPLOYMENT_STATUS_VALUES.ELIGIBLE_FOR_UNEMPLOYMENT_BENEFITS,
+            },
+            { label: 'אני בחל"ת', value: EMPLOYMENT_STATUS_VALUES.UNPAID_LEAVE },
+            { label: 'אחר', value: EMPLOYMENT_STATUS_VALUES.OTHER },
           ]}
         />
 
@@ -178,8 +190,11 @@ const Home = () => {
           }}
           label="לגבי העסק שלך..."
           options={[
-            { label: 'עסק קטן (5-20 עובדים, מחזור מכירות עד 20 מיליון ₪ בשנה)', value: 0 },
-            { label: 'מעל 20 עובדים, מחזור מכירות יותר מ20 מיליון ₪ בשנה', value: 1 },
+            {
+              label: 'עסק קטן (5-20 עובדים, מחזור מכירות עד 20 מיליון ₪ בשנה)',
+              value: BUSINESS_VALUES.SMALL,
+            },
+            { label: 'מעל 20 עובדים, מחזור מכירות יותר מ20 מיליון ₪ בשנה', value: BUSINESS_VALUES.MEDIUM },
           ]}
         />
 

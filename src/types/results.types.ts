@@ -15,8 +15,8 @@ export interface IReservistProfile {
   family_status: {
     partner?: string | null
     children?: IChildren
-    student?: string
   }
+  student?: string
   academy: string
   business_size?: string | null
   property_owner: boolean

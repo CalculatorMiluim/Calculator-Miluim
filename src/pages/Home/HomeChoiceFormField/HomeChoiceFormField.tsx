@@ -5,7 +5,7 @@ import ChoiceGroup from '@/components/ChoiceGroup/ChoiceGroup.tsx'
 import ChildrenGuard from '@/components/Guards/ChildrenGuard/ChildrenGuard.tsx'
 import { IChoiceGroup } from '@/components/ChoiceGroup/ChoiceGroup.module.ts'
 
-interface IHomeChoiceFormField extends IChoiceGroup {
+export interface IHomeChoiceFormField extends IChoiceGroup {
   label: string
   subDescription?: string
   isFollowUpQuestion?: boolean
