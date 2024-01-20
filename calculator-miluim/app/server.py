@@ -1,7 +1,7 @@
 from mangum import Mangum
 
 from app.app import app
-from health import health_router
+from app.health import health_router
 from app.api.benefits import benefits_router
 
 app.include_router(health_router, prefix="/health")
