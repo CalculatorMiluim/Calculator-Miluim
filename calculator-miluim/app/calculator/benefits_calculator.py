@@ -1,5 +1,5 @@
 from app.models.benefits_details import Voucher, Grant, AutomaticGrant
-from app.models.consts import BenefitType
+from app.models.consts import BenefitType, AMOUNT, BENEFITS, FINANCIAL_REWARD, TOTAL_AMOUNT
 from app.models.reservist_profile import ReservistProfile
 
 
@@ -25,6 +25,10 @@ def calculate_benefits_for_reservist(reservist: ReservistProfile):
     benefits_owned[BenefitType.GRANT] = calculate_grants(reservist)
     benefits_owned[BenefitType.AUTOMATIC_GRANT] = calculate_automatic_grants(reservist)
 
+    benefits_owned[TOTAL_AMOUNT] = (benefits_owned[BenefitType.VOUCHER][AMOUNT] +
+                                    benefits_owned[BenefitType.GRANT][AMOUNT] +
+                                    benefits_owned[BenefitType.AUTOMATIC_GRANT][AMOUNT])
+
     return benefits_owned
 
 
@@ -37,8 +41,8 @@ def calculate_vouchers(reservist: ReservistProfile):
             voucher.calculate(reservist)
             vouchers_owned.append(voucher.__dict__)
 
-    vouchers_sum = sum(voucher['financial_reward'] for voucher in vouchers_owned)
-    return vouchers_sum, vouchers_owned
+    vouchers_sum = sum(voucher[FINANCIAL_REWARD] for voucher in vouchers_owned)
+    return {AMOUNT: vouchers_sum, BENEFITS: vouchers_owned}
 
 
 def calculate_grants(reservist: ReservistProfile):
@@ -50,8 +54,8 @@ def calculate_grants(reservist: ReservistProfile):
             grant.calculate(reservist)
             grants_owned.append(grant.__dict__)
 
-    grants_sum = sum(grant['financial_reward'] for grant in grants_owned)
-    return grants_sum, grants_owned
+    grants_sum = sum(grant[FINANCIAL_REWARD] for grant in grants_owned)
+    return {AMOUNT: grants_sum, BENEFITS: grants_owned}
 
 
 def calculate_automatic_grants(reservist: ReservistProfile):
@@ -63,6 +67,6 @@ def calculate_automatic_grants(reservist: ReservistProfile):
             automatic_grant.calculate(reservist)
             automatic_grants_owned.append(automatic_grant.__dict__)
 
-    automatic_grants_sum = sum(automatic_grant['financial_reward'] for automatic_grant in automatic_grants_owned)
-    return automatic_grants_sum, automatic_grants_owned
+    automatic_grants_sum = sum(automatic_grant[FINANCIAL_REWARD] for automatic_grant in automatic_grants_owned)
+    return {AMOUNT: automatic_grants_sum, BENEFITS: automatic_grants_owned}
 
