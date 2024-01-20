@@ -62,12 +62,14 @@ export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
   familyStatus: {
     label: 'מצב משפחתי?',
     options: [
-      { label: 'אין לי בן/בת זוג', value: 0 },
-      { label: 'יש לי בן/בת זוג', value: 1 },
+      { label: 'אין לי בן/בת זוג', value: false },
+      { label: 'יש לי בן/בת זוג', value: true },
     ],
   },
   partner: {
     isFollowUpQuestion: true,
+    dependsOnQuestion: 'familyStatus',
+    dependsOnQuestionValue: true,
     multiSelect: true,
     label: 'אז לגבי בן/בת הזוג שלך...',
     options: [
@@ -91,6 +93,8 @@ export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
   childrenStatus: {
     multiSelect: true,
     isFollowUpQuestion: true,
+    dependsOnQuestion: 'isParent',
+    dependsOnQuestionValue: true,
     label: 'אז לגבי הילדים...',
     options: [
       { label: 'יש לי ילד עד גיל 14', value: CHILDREN_VALUES.UNDER_14 },
@@ -114,6 +118,8 @@ export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
   businessStatus: {
     columns: true,
     isFollowUpQuestion: true,
+    dependsOnQuestion: 'employmentStatus',
+    dependsOnQuestionValue: EMPLOYMENT_STATUS_VALUES.SELF_EMPLOYED,
     multiSelect: true,
     label: 'לגבי העסק שלך...',
     options: [
@@ -138,6 +144,9 @@ export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
     ],
   },
   academicInstitution: {
+    isFollowUpQuestion: true,
+    dependsOnQuestion: 'studentStatus',
+    dependsOnQuestionValue: false,
     options: [
       { label: 'טכניון', value: ACADEMIC_INSTITUTION_VALUES.TECHNION },
       { label: 'אונ’ בן גוריון', value: ACADEMIC_INSTITUTION_VALUES.BG },
@@ -147,17 +156,19 @@ export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
 } as const
 
 const FIELD_REQUIRED_MSG = 'יש לבחור לפחות ערך אחד'
-const REQUIRED_FIELD_SCHEMA = mixed()
+const REQUIRED_FIELD_SCHEMA = (isRequired: boolean) => mixed()
   .required(FIELD_REQUIRED_MSG)
   .test(
     'not-empty-array',
     FIELD_REQUIRED_MSG,
-    (value) => !(Array.isArray(value) && value.length === 0) && value != null,
+    (value) => isRequired ? !(Array.isArray(value) && value.length === 0) && value != null: true,
   )
 
 const defaultRequiredFieldSchemas = Object.keys(HOME_OPTIONS_MAP).reduce(
   (acc, key) => {
-    acc[key] = REQUIRED_FIELD_SCHEMA
+    const isRequired= !HOME_OPTIONS_MAP[key]?.isFollowUpQuestion
+    acc[key] = REQUIRED_FIELD_SCHEMA(isRequired)
+
     return acc
   },
   {} as Record<any, any>,

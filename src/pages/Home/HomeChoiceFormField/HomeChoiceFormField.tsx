@@ -1,6 +1,5 @@
 import React from 'react'
 import { Stack, Typography } from '@mui/material'
-import { COLORS } from '@/consts/colors.ts'
 import ChoiceGroup from '@/components/ChoiceGroup/ChoiceGroup.tsx'
 import ChildrenGuard from '@/components/Guards/ChildrenGuard/ChildrenGuard.tsx'
 import { IChoiceGroup } from '@/components/ChoiceGroup/ChoiceGroup.module.ts'
@@ -9,6 +8,9 @@ export interface IHomeChoiceFormField extends IChoiceGroup {
   label: string
   subDescription?: string
   isFollowUpQuestion?: boolean
+  dependsOnQuestion?: string,
+  dependsOnQuestionValue?: boolean | string,
+  showFollowUpQuestion?: boolean,
 }
 
 const HomeChoiceFormField: React.FC<IHomeChoiceFormField> = ({
@@ -19,30 +21,32 @@ const HomeChoiceFormField: React.FC<IHomeChoiceFormField> = ({
   options,
   columns,
   multiSelect,
-  isFollowUpQuestion,
   error,
   helperText,
+  showFollowUpQuestion= true,
 }) => {
   return (
-    <Stack gap={2}>
-      <Stack gap={1}>
-        <Typography variant="h6" sx={{ color: isFollowUpQuestion ? COLORS.PRIMARY : COLORS.BLACK, fontWeight: 600 }}>
-          {label}
-        </Typography>
-        <ChildrenGuard showChildren={!!subDescription}>
-          <Typography>{subDescription}</Typography>
-        </ChildrenGuard>
-      </Stack>
-      <ChoiceGroup
-        selectedValues={selectedValues}
-        setSelectedValues={setSelectedValues}
-        options={options}
-        columns={columns}
-        multiSelect={multiSelect}
-        error={error}
-        helperText={helperText}
-      />
-    </Stack>
+      <ChildrenGuard showChildren={showFollowUpQuestion}>
+        <Stack gap={2}>
+          <Stack gap={1}>
+            <Typography variant="h6" sx={{fontWeight: 600}}>
+              {label}
+            </Typography>
+            <ChildrenGuard showChildren={!!subDescription}>
+              <Typography>{subDescription}</Typography>
+            </ChildrenGuard>
+          </Stack>
+          <ChoiceGroup
+              selectedValues={selectedValues}
+              setSelectedValues={setSelectedValues}
+              options={options}
+              columns={columns}
+              multiSelect={multiSelect}
+              error={error}
+              helperText={helperText}
+          />
+        </Stack>
+      </ChildrenGuard>
   )
 }
 

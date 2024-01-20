@@ -23,7 +23,7 @@ export const useHome = () => {
       isActiveReservist: [] as boolean[],
       isCommander: [] as boolean[],
       serviceType: [] as string[],
-      familyStatus: [] as string[],
+      familyStatus: [] as boolean[],
       isParent: [] as boolean[],
       partner: [] as string[],
       studentStatus: [] as string[],
@@ -108,6 +108,12 @@ export const useHome = () => {
   const businessStatusProps = getPropsForHomeField('businessStatus')
   const propertyOwnershipStatusProps = getPropsForHomeField('propertyOwnershipStatus')
   const studentStatusProps = getPropsForHomeField('studentStatus')
+  const academicInstitutionProps = getPropsForHomeField('academicInstitution')
+
+  const getIsFollowedUpQuestionSelected = (fieldName: string | undefined, value: boolean | string | undefined) : boolean => {
+    // @ts-ignore
+    return fieldName && (formik.values[fieldName][0] === value)
+  }
 
   return {
     formik,
@@ -125,5 +131,7 @@ export const useHome = () => {
     businessStatusProps,
     propertyOwnershipStatusProps,
     studentStatusProps,
+    academicInstitutionProps,
+    getIsFollowedUpQuestionSelected
   }
 }

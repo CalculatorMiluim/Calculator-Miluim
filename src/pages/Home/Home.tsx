@@ -22,8 +22,9 @@ const Home = () => {
     partnerProps,
     isParentProps,
     studentStatusProps,
+    academicInstitutionProps,
+    getIsFollowedUpQuestionSelected
   } = useHome()
-
   return (
     <form onSubmit={formik.handleSubmit} style={{ display: 'flex', width: '100%' }}>
       <Stack spacing={4} sx={{ display: 'flex', alignItems: 'flex-start', textAlign: 'start', width: '100%' }}>
@@ -32,9 +33,17 @@ const Home = () => {
         <HomeChoiceFormField {...isCommanderProps} />
         <HomeChoiceFormField {...serviceTypeProps} />
         <HomeChoiceFormField {...familyStatusProps} />
-        <HomeChoiceFormField {...partnerProps} />
+        <HomeChoiceFormField
+            {...partnerProps}
+            showFollowUpQuestion={getIsFollowedUpQuestionSelected(partnerProps.dependsOnQuestion,
+                                                                  partnerProps.dependsOnQuestionValue)}
+        />
         <HomeChoiceFormField {...isParentProps} />
-        <HomeChoiceFormField {...childrenStatusProps} />
+        <HomeChoiceFormField
+            {...childrenStatusProps}
+            showFollowUpQuestion={getIsFollowedUpQuestionSelected(childrenStatusProps.dependsOnQuestion,
+                                                                  childrenStatusProps.dependsOnQuestionValue)}
+        />
         <Grid container>
           <Grid item xs={4}>
             <Typography variant="h6" sx={{ color: COLORS.BLACK, fontWeight: 600 }}>
@@ -42,7 +51,7 @@ const Home = () => {
             </Typography>
           </Grid>
           <Grid item xs={8}>
-            <Typography variant="h6" sx={{ color: COLORS.PRIMARY, fontWeight: 600 }}>
+            <Typography variant="h6" sx={{ fontWeight: 600 }}>
               מוסד לימודים:
             </Typography>
           </Grid>
@@ -56,6 +65,8 @@ const Home = () => {
               name="academicInstitution"
               onChange={formik.handleChange}
               select
+              disabled={getIsFollowedUpQuestionSelected(academicInstitutionProps.dependsOnQuestion,
+                                                        academicInstitutionProps.dependsOnQuestionValue)}
             >
               {HOME_OPTIONS_MAP.academicInstitution.options?.map(({ value, label }) => (
                 <MenuItem key={`${label}-${value}`} value={value as string}>
@@ -66,8 +77,12 @@ const Home = () => {
           </Grid>
         </Grid>
         <HomeChoiceFormField {...employmentStatusProps} />
-        <HomeChoiceFormField {...businessStatusProps} />
-        <HomeChoiceFormField {...propertyOwnershipStatusProps} />
+        <HomeChoiceFormField
+            {...businessStatusProps}
+            showFollowUpQuestion={getIsFollowedUpQuestionSelected(businessStatusProps.dependsOnQuestion,
+                                                                  businessStatusProps.dependsOnQuestionValue)}
+        />
+        <HomeChoiceFormField{...propertyOwnershipStatusProps}/>
 
         <Button
           sx={{
