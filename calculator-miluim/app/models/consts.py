@@ -31,7 +31,7 @@ class BusinessSize(Enum):
 class BenefitType(Enum):
     VOUCHER = "Voucher"
     GRANT = "Grant"
-    AUTOMATIC_GRANT = "Automatic Grant"
+    AUTOMATIC_GRANT = "Automatic_Grant"
 
 
 class Academy(Enum):
