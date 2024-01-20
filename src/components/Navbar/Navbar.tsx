@@ -11,7 +11,7 @@ const Navbar = () => {
     <Box sx={{ mb: 2 }}>
       <AppBar position="static" sx={{ bgcolor: '#FFF' }}>
         <Container>
-          <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', pb: 2 }}>
+          <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', py: { sm: 2 } }}>
             <Stack alignItems="flex-start">
               <Box
                 sx={{
