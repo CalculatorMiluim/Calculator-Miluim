@@ -17,6 +17,6 @@ class CouplesTherapyVoucher(Voucher):
         return reservist.calculate_total_days() >= MINIMUM_AMOUNT_OF_DAYS
 
     def calculate(self, reservist: ReservistProfile) -> None:
-        self.amount = COMPENSATION
+        self.financial_reward = COMPENSATION
 
 

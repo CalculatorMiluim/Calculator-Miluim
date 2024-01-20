@@ -23,12 +23,12 @@ class VacationVoucher(Voucher):
 
     def calculate(self, reservist: ReservistProfile) -> None:
         if reservist.combat_level == CombatLevel.COMBAT_UNIT and reservist.has_child_under_14():
-            self.amount = COMBAT_WITH_CHILD_UNDER_14_COMPENSATION
+            self.financial_reward = COMBAT_WITH_CHILD_UNDER_14_COMPENSATION
         elif reservist.combat_level == CombatLevel.COMBAT_UNIT:
-            self.amount = COMBAT_WITHOUT_CHILDREN_COMPENSATION
+            self.financial_reward = COMBAT_WITHOUT_CHILDREN_COMPENSATION
             return
         elif reservist.has_child_under_14():
-            self.amount = NON_COMBAT_WITH_CHILD_COMPENSATION
+            self.financial_reward = NON_COMBAT_WITH_CHILD_COMPENSATION
         else:
-            self.amount = NON_COMBAT_WITHOUT_CHILD_COMPENSATION
+            self.financial_reward = NON_COMBAT_WITHOUT_CHILD_COMPENSATION
 
