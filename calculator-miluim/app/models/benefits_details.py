@@ -28,7 +28,7 @@ class Voucher(BenefitDetails, ABC):
     title: str
     description: str
     link_to_source: str
-    benefit_type: BenefitType.VOUCHER
+    benefit_type: BenefitType = BenefitType.VOUCHER
     financial_reward: int = 0
     other_reward: Optional[str] = None
 
@@ -38,7 +38,7 @@ class Grant(BenefitDetails, ABC):
     title: str
     description: str
     link_to_source: str
-    benefit_type: BenefitType.GRANT
+    benefit_type: BenefitType = BenefitType.GRANT
     financial_reward: int = 0
     other_reward: Optional[str] = None
 
@@ -48,6 +48,6 @@ class AutomaticGrant(BenefitDetails, ABC):
     title: str
     description: str
     link_to_source: str
-    benefit_type: BenefitType.AUTOMATIC_GRANT
+    benefit_type: BenefitType = BenefitType.AUTOMATIC_GRANT
     financial_reward: int = 0
     other_reward: Optional[str] = None
