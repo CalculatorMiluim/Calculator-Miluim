@@ -66,5 +66,8 @@ class FamilyStatus:
     partner: Optional[Partner]
     children: Optional[Children]
 
-
+TOTAL_AMOUNT = "total_amount"
+AMOUNT = "amount"
+BENEFITS = "benefits"
+FINANCIAL_REWARD = "financial_reward"
 
