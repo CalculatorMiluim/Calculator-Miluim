@@ -7,12 +7,12 @@ from app.models.reservist_profile import ReservistProfile
 
 @dataclass
 class BenefitDetails(ABC):
-    benefit_type: BenefitType
-    financial_reward: Optional[int]
-    other_reward: Optional[str]
     title: str
     description: str
     link_to_source: str
+    benefit_type: BenefitType
+    financial_reward: Optional[int]
+    other_reward: Optional[str]
 
     @abstractmethod
     def is_eligible(self, reservist: ReservistProfile) -> bool:
@@ -25,29 +25,29 @@ class BenefitDetails(ABC):
 
 @dataclass
 class Voucher(BenefitDetails, ABC):
-    benefit_type: BenefitType.VOUCHER
-    financial_reward: int = 0
-    other_reward: Optional[str] = None
     title: str
     description: str
     link_to_source: str
+    benefit_type: BenefitType.VOUCHER
+    financial_reward: int = 0
+    other_reward: Optional[str] = None
 
 
 @dataclass
 class Grant(BenefitDetails, ABC):
-    benefit_type: BenefitType.GRANT
-    financial_reward: int = 0
-    other_reward: Optional[str] = None
     title: str
     description: str
     link_to_source: str
+    benefit_type: BenefitType.GRANT
+    financial_reward: int = 0
+    other_reward: Optional[str] = None
 
 
 @dataclass
 class AutomaticGrant(BenefitDetails, ABC):
-    benefit_type: BenefitType.AUTOMATIC_GRANT
-    financial_reward: int = 0
-    other_reward: Optional[str] = None
     title: str
     description: str
     link_to_source: str
+    benefit_type: BenefitType.AUTOMATIC_GRANT
+    financial_reward: int = 0
+    other_reward: Optional[str] = None
