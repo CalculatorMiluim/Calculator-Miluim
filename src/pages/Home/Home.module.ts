@@ -8,12 +8,15 @@ import {
   validationSchema,
 } from '@/pages/Home/Home.consts.ts'
 import { IHomeChoiceFormField } from '@/pages/Home/HomeChoiceFormField/HomeChoiceFormField.tsx'
+import { useNavigate } from 'react-router-dom'
+import { RoutesValues } from '@/consts/routes.ts'
 
 export const useHome = () => {
+  const navigate = useNavigate()
   const [getResults, { isLoading, isError, data }] = useGetResultsMutation()
 
   const formik = useFormik({
-    validationSchema,
+    // validationSchema,
     initialValues: {
       startDate: dayjs('2023-01-01'),
       endDate: dayjs('2024-01-01'),
@@ -73,6 +76,7 @@ export const useHome = () => {
         active_reservist: isActiveReservist[0],
       })
       setSubmitting(false)
+      navigate(RoutesValues.RESULTS)
     },
   })
 
