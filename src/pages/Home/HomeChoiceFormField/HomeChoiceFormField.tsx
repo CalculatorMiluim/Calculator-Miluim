@@ -20,6 +20,8 @@ const HomeChoiceFormField: React.FC<IHomeChoiceFormField> = ({
   columns,
   multiSelect,
   isFollowUpQuestion,
+  error,
+  helperText,
 }) => {
   return (
     <Stack gap={2}>
@@ -37,6 +39,8 @@ const HomeChoiceFormField: React.FC<IHomeChoiceFormField> = ({
         options={options}
         columns={columns}
         multiSelect={multiSelect}
+        error={error}
+        helperText={helperText}
       />
     </Stack>
   )

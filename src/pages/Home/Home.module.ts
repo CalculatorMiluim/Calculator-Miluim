@@ -1,13 +1,19 @@
 import { useFormik } from 'formik'
 import dayjs from 'dayjs'
 import { useGetResultsMutation } from '@/features/results/resultsApiSlice.ts'
-import { ACADEMIC_INSTITUTION_VALUES, CHILDREN_VALUES, HOME_OPTIONS_MAP } from '@/pages/Home/Home.consts.ts'
+import {
+  ACADEMIC_INSTITUTION_VALUES,
+  CHILDREN_VALUES,
+  HOME_OPTIONS_MAP,
+  validationSchema,
+} from '@/pages/Home/Home.consts.ts'
 import { IHomeChoiceFormField } from '@/pages/Home/HomeChoiceFormField/HomeChoiceFormField.tsx'
 
 export const useHome = () => {
   const [getResults, { isLoading, isError, data }] = useGetResultsMutation()
 
   const formik = useFormik({
+    validationSchema,
     initialValues: {
       startDate: dayjs('2023-01-01'),
       endDate: dayjs('2024-01-01'),
@@ -71,6 +77,8 @@ export const useHome = () => {
     setSelectedValues: (value: any) => {
       formik.setFieldValue(fieldName, value)
     },
+    error: formik.touched[fieldName] && !!formik.errors[fieldName],
+    helperText: formik.touched[fieldName] ? formik.errors[fieldName] : undefined,
   })
 
   const getPropsForHomeField = (fieldName: keyof typeof formik.values): IHomeChoiceFormField =>

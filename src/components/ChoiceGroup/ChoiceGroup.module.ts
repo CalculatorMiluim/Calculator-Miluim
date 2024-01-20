@@ -10,6 +10,8 @@ export interface IChoiceGroup {
   options: IOptionProps[]
   selectedValues: any[]
   setSelectedValues: (value: any[]) => void
+  error?: boolean
+  helperText?: string
 }
 
 export const useChoiceGroup = (
@@ -18,7 +20,7 @@ export const useChoiceGroup = (
   multiSelect?: boolean,
   columns?: boolean,
 ) => {
-  const handleMultiSelectClick = (value: string | number) => {
+  const handleMultiSelectClick = (value: any) => {
     if (selectedValues.includes(value)) {
       setSelectedValues(selectedValues.filter((existingValue) => existingValue !== value))
       return
@@ -26,7 +28,7 @@ export const useChoiceGroup = (
 
     setSelectedValues([...selectedValues, value])
   }
-  const onClickButton = (value: string | number) => {
+  const onClickButton = (value: any) => {
     multiSelect ? handleMultiSelectClick(value) : setSelectedValues([value])
   }
 

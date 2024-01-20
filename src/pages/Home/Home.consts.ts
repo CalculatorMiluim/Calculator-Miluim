@@ -1,4 +1,5 @@
 import { IHomeChoiceFormField } from '@/pages/Home/HomeChoiceFormField/HomeChoiceFormField.tsx'
+import { mixed, object } from 'yup'
 
 export const CHILDREN_VALUES = {
   UNDER_14: 'ילד עם גיל 14',
@@ -141,3 +142,23 @@ export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
     ],
   },
 } as const
+
+const FIELD_REQUIRED_MSG = 'יש לבחור לפחות ערך אחד'
+const REQUIRED_FIELD_SCHEMA = mixed()
+  .required(FIELD_REQUIRED_MSG)
+  .test(
+    'not-empty-array',
+    FIELD_REQUIRED_MSG,
+    (value) => !(Array.isArray(value) && value.length === 0) && value != null,
+  )
+
+const defaultRequiredFieldSchemas = Object.keys(HOME_OPTIONS_MAP).reduce(
+  (acc, key) => {
+    acc[key] = REQUIRED_FIELD_SCHEMA
+    return acc
+  },
+  {} as Record<any, any>,
+)
+export const validationSchema = object({
+  ...defaultRequiredFieldSchemas,
+})
