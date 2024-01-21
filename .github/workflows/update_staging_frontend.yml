@@ -24,4 +24,4 @@ jobs:
 
       - run: |
           aws s3 rm s3://staging.calculate-miluim.info/ --recursive
-          aws s3 cp dist s3://staging.calculate-miluim.info/ --recursive
+          aws s3 cp ../dist s3://staging.calculate-miluim.info/ --recursive
