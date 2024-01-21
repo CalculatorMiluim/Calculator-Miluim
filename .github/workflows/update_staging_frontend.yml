@@ -20,8 +20,8 @@ jobs:
 
       - env:
           VITE_BASE_URL: ${{secrets.API_GATEWAY_STAGING_URL}}
-        run: sudo ./build/build_frontend.sh
+        run: ./build/build_frontend.sh
 
       - run: |
-          sudo aws s3 rm s3://staging.calculate-miluim.info/ --recursive
-          sudo aws s3 cp dist s3://staging.calculate-miluim.info/ --recursive
+          aws s3 rm s3://staging.calculate-miluim.info/ --recursive
+          aws s3 cp dist s3://staging.calculate-miluim.info/ --recursive
