@@ -15,7 +15,7 @@ class SpecialFamilyGrant(AutomaticGrant):
         )
 
     def is_eligible(self, reservist: ReservistProfile) -> bool:
-        return reservist.calculate_total_days() >= MINIMUM_AMOUNT_OF_DAYS and reservist.has_child_with_special_needs()
+        return reservist.calculate_total_days() >= MINIMUM_AMOUNT_OF_DAYS and reservist.has_child_with_special_needs
 
     def calculate(self, reservist: ReservistProfile) -> None:
         self.financial_reward = 2000

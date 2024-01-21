@@ -20,11 +20,11 @@ class IncreasedFamilyGrant(AutomaticGrant):
         )
 
     def is_eligible(self, reservist: ReservistProfile) -> bool:
-        return reservist.calculate_total_days() >= MINIMUM_AMOUNT_OF_DAYS and reservist.has_child_under_14()
+        return reservist.calculate_total_days() >= MINIMUM_AMOUNT_OF_DAYS and reservist.has_child_under_14
 
     def calculate(self, reservist: ReservistProfile) -> None:
         payment_multiplication = math.ceil((reservist.calculate_total_days() - MINIMUM_AMOUNT_OF_DAYS) / DAYS_INTERVAL)
-        if reservist.has_child_under_14():
+        if reservist.has_child_under_14:
             if reservist.combat_level == CombatLevel.COMBAT_UNIT:
                 self.financial_reward = COMBAT_COMPENSATION * payment_multiplication
             else:

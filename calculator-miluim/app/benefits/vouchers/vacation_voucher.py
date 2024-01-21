@@ -19,15 +19,18 @@ class VacationVoucher(Voucher):
         )
 
     def is_eligible(self, reservist: ReservistProfile) -> bool:
-        return reservist.calculate_total_days() >= MINIMUM_AMOUNT_OF_DAYS
+        return reservist.days_in_tzav_8 >= MINIMUM_AMOUNT_OF_DAYS
 
     def calculate(self, reservist: ReservistProfile) -> None:
-        if reservist.combat_level == CombatLevel.COMBAT_UNIT and reservist.has_child_under_14():
+        if reservist.combat_level == CombatLevel.COMBAT_UNIT and reservist.has_child_under_14:
             self.financial_reward = COMBAT_WITH_CHILD_UNDER_14_COMPENSATION
+        
         elif reservist.combat_level == CombatLevel.COMBAT_UNIT:
             self.financial_reward = COMBAT_WITHOUT_CHILDREN_COMPENSATION
-        elif reservist.has_child_under_14():
+            return
+         
+        elif reservist.has_child_under_14:
             self.financial_reward = NON_COMBAT_WITH_CHILD_COMPENSATION
+
         else:
             self.financial_reward = NON_COMBAT_WITHOUT_CHILD_COMPENSATION
-
