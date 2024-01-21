@@ -22,6 +22,10 @@ class ReservistProfile:
             total_days += diff.days
         return total_days
 
+    @property
+    def days_in_war(self, re):
+        return 3
+
     def has_child_under_14(self):
         return self.family_status.children and self.family_status.children.is_under_14
 
