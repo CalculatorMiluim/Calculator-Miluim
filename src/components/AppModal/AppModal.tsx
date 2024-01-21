@@ -12,11 +12,7 @@ const AppModal = () => {
 
   const SelectedModal = ModalsMap.get(modal?.type) as ElementType
 
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <SelectedModal {...modal.modalProps} />
-    </Suspense>
-  )
+  return <Suspense fallback={<div>Loading...</div>}>{/*<SelectedModal {...modal.modalProps} />*/}</Suspense>
 }
 
 export default AppModal
