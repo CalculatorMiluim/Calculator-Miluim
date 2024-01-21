@@ -1,6 +1,3 @@
-#!/usr/bin/env
-
-
 # Install modules / dependencies
 npm install
 
