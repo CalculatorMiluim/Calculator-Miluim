@@ -5,6 +5,7 @@ npm install
 npm run build
 
 # Add API Gateway URL ENV var
+echo "VITE_BASE_URL=$VITE_BASE_URL"
 echo "VITE_BASE_URL=$VITE_BASE_URL" > .env
 
 # Build

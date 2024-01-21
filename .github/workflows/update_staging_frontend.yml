@@ -10,7 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-#      - uses: aws-actions/setup-sam@v1
       - uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -23,5 +22,6 @@ jobs:
         run: sudo ./build/build_frontend.sh
 
       - run: |
+          cat .env
           aws s3 rm s3://staging.calculate-miluim.info/ --recursive
           aws s3 cp ../dist s3://staging.calculate-miluim.info/ --recursive
