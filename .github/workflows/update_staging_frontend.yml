@@ -20,9 +20,10 @@ jobs:
       - env:
           VITE_BASE_URL: ${{ secrets.API_GATEWAY_STAGING_URL }}
         run: |
-          sudo export VITE_BASE_URL="$VITE_BASE_URL"
+          ls -l
+          export VITE_BASE_URL="$VITE_BASE_URL"
           echo "VITE_BASE_URL=$VITE_BASE_URL"
-          sudo ./build/build_frontend.sh
+          ./build/build_frontend.sh
 
       - run: |
           cat .env
