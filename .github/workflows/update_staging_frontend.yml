@@ -17,13 +17,14 @@ jobs:
           aws-region: il-central-1
       - uses: actions/setup-node@v2
 
-      - env:
+      - name: Build Frontend Dist
+        env:
           VITE_BASE_URL: ${{ secrets.API_GATEWAY_STAGING_URL }}
         run: |
-          ls -l build/
           ./build/build_frontend.sh
 
-      - run: |
+      - name: Upload Dist to staging bucket
+        run: |
           cat .env
           aws s3 rm s3://staging.calculate-miluim.info/ --recursive
           aws s3 cp ../dist s3://staging.calculate-miluim.info/ --recursive
