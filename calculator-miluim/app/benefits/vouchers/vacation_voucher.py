@@ -19,7 +19,7 @@ class VacationVoucher(Voucher):
         )
 
     def is_eligible(self, reservist: ReservistProfile) -> bool:
-        return reservist.days_in_war >= MINIMUM_AMOUNT_OF_DAYS
+        return reservist.days_in_tzav_8 >= MINIMUM_AMOUNT_OF_DAYS
 
     def calculate(self, reservist: ReservistProfile) -> None:
         if reservist.combat_level == CombatLevel.COMBAT_UNIT and reservist.has_child_under_14:

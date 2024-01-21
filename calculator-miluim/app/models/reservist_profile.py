@@ -23,7 +23,7 @@ class ReservistProfile:
         return total_days
 
     @property
-    def days_in_war(self) -> int:
+    def days_in_tzav_8(self) -> int:
         for recruit in self.recruitment_dates:
             if recruit.recruitment_type == RecruitmentType.TZAV_8:
                 return recruit.end_date - recruit.start_date
