@@ -2,7 +2,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-deploy-frontend-staging:
+  build-deploy-frontend-prod:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -19,11 +19,14 @@ jobs:
 
       - name: Build Frontend Dist
         env:
-          VITE_BASE_URL: ${{ secrets.API_GATEWAY_STAGING_URL }}
+          VITE_BASE_URL: ${{ secrets.API_GATEWAY_PROD_URL }}
         run: |
           ./build/build_frontend.sh
 
-      - name: Upload Dist to staging bucket
+      - name: Upload Dist to PROD bucket and update CDN cache
         run: |
           aws s3 rm s3://staging.calculate-miluim.info/ --recursive
           aws s3 cp ../dist s3://staging.calculate-miluim.info/ --recursive
+          aws cloudfront create-invalidation --distribution-id E326TPQZUHJ20N --paths '/*'
+
+          
