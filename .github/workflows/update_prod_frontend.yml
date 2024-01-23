@@ -1,4 +1,7 @@
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -25,8 +28,8 @@ jobs:
 
       - name: Upload Dist to PROD bucket and update CDN cache
         run: |
-          aws s3 rm s3://staging.calculate-miluim.info/ --recursive
-          aws s3 cp ../dist s3://staging.calculate-miluim.info/ --recursive
+          aws s3 rm s3://calculate-miluim.info/ --recursive
+          aws s3 cp ../dist s3://calculate-miluim.info/ --recursive
           aws cloudfront create-invalidation --distribution-id E326TPQZUHJ20N --paths '/*'
 
           
