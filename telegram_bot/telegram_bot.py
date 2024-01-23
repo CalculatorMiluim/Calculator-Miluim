@@ -19,6 +19,17 @@ def reserve_duty_duration_handler(chat_id):
     bot.send_message(chat_id, f"Select {LSTEP[step]}", reply_markup=calendar)
 
 
+
+state_to_question_handler = [
+    reserve_duty_duration_handler,
+    reserve_duty_type_handler
+]
+
+
+def is_at_last_stage(chat_id: str) -> bool:
+    return conversation_state[chat_id]["state"] == len(state_to_question_handler) - 1
+
+
 @bot.callback_query_handler(func=DetailedTelegramCalendar.func())
 def cal(c):
     result, key, step = DetailedTelegramCalendar().process(c.data)
@@ -31,12 +42,8 @@ def cal(c):
         bot.edit_message_text(f"You selected {result}",
                               c.message.chat.id,
                               c.message.message_id)
-
-
-state_to_question_handler = [
-    reserve_duty_duration_handler,
-    reserve_duty_type_handler
-]
+        
+        handle_user_response(c.message.chat.id, result)
 
 
 @bot.message_handler(commands=["start"])
@@ -47,19 +54,33 @@ def handle_conversation_start(message):
 
 
 @bot.message_handler(func=lambda message: True)
-def handle_user_response(message):
+def handle_user_message(message):
     chat_id = message.chat.id
+    handle_user_response(chat_id, message.text)
+
+
+def handle_user_response(chat_id, response):
     state = conversation_state[chat_id]["state"]
-    conversation_state[chat_id]["responses"][state] = message.text
-    conversation_state[chat_id]["state"] += 1
-    ask_question(chat_id)
+    conversation_state[chat_id]["responses"][state] = response
+    
+    if is_at_last_stage(chat_id=chat_id):
+        # This was the last question
+        get_results(chat_id=chat_id)
+    else:
+        # There are more
+        conversation_state[chat_id]["state"] += 1
+        ask_question(chat_id)
 
 
 def ask_question(chat_id):
     state = conversation_state[chat_id]["state"]
     question_handler = state_to_question_handler[state]
     question_handler(chat_id)
-    conversation_state[chat_id]["state"] += 1
+
+
+def get_results(chat_id):
+    bot.send_message(chat_id, "Done!")
+    del conversation_state[chat_id]
 
 
 bot.polling()
