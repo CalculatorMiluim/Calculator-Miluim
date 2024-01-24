@@ -30,8 +30,8 @@ jobs:
         run: |
           aws s3 rm s3://calculate-miluim.info/ --recursive
           aws s3 cp ../dist s3://calculate-miluim.info/ --recursive
-          aws s3 cp ./robots.txt s3://calculate-miluim.info/
-          aws s3 cp ./sitemap.txt s3://calculate-miluim.info/
+          aws s3 cp ../robots.txt s3://calculate-miluim.info/
+          aws s3 cp ../sitemap.txt s3://calculate-miluim.info/
           aws cloudfront create-invalidation --distribution-id E326TPQZUHJ20N --paths '/*'
 
           
