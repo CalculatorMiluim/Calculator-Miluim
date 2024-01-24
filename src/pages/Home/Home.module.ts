@@ -18,7 +18,7 @@ export const useHome = () => {
   const formik = useFormik({
     validationSchema,
     initialValues: {
-      startDate: dayjs('2023-01-01'),
+      startDate: dayjs('2023-10-07'),
       endDate: dayjs('2024-01-01'),
       isActiveReservist: [] as boolean[],
       isCommander: [] as boolean[],
