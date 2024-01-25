@@ -33,6 +33,28 @@ class StageType(Enum):
     YESNO = auto()
     
 
+class ServiceCategory(Enum):
+    COMBAT = 'יחידה קרבית'
+    AUXILIARY = 'יחידה עורפית'
+    
+
+class EmploymentStatus(Enum):
+    UNEMPLOYMENT = 'הם זכאים לדמי אבטלה'
+    EMPLOYEE = 'הם שכירים'
+    OWNER = 'הם עצמאים'
+    ONLEAVE = 'הם בחל"ת'
+    OTHER = 'אחר'
+
+
+class University(Enum):
+    TECHNION = 'טכניון'
+    BENGURION = 'בן גוריון'
+    TELAVIV = 'תל אביב'
+
+
+class BusinessSize(Enum):
+    SMALL = 'עסק קטן (5-20 עובדים, מחזור מכירות עד 20 מיליון ₪ בשנה)'
+    LARGE = 'מעל 20 עובדים, מחזור מכירות יותר מ20 מיליון ₪ בשנה'
     
 
 Stage = namedtuple("Stage", ["key", "prompt", "answer_type", "args", "condition"])
@@ -44,10 +66,25 @@ STAGES: List[Stage] = [
     Stage("recruitment_dates.start_date", "תחילת מילואים", StageType.DATE, DateStageArgs(date(2023, 10, 7), None), None),
     Stage("recruitment_dates.end_date", "סיום מילואים", StageType.DATE, DateStageArgs(date(2023, 10, 7), None), None),
     Stage("recruitment_dates.recruitment_type", "סוג המילואים", StageType.CHOICE, ServiceType, None),
+    
     Stage("active_reservist", "האם בשירות מילואים פעיל?", StageType.YESNO, None, None),
+    Stage("is_commander", "האם מפקד/ת?", StageType.YESNO, None, None),
+    Stage("combat_level", "סוג שירות צבאי?", StageType.CHOICE, ServiceCategory, None),
+
+    Stage("family_status.has_partner", "יש לך בן/בת זוג?", StageType.YESNO, None, None),
+    Stage("family_status.partner.employment_status", "אז לגבי בן/בת הזוג שלך...", StageType.CHOICE, EmploymentStatus, lambda responses: responses['family_status.has_partner'] is True),
     
     Stage("family_status.has_children", "יש לך ילדים?", StageType.YESNO, None, None),
     Stage("family_status.children.is_under_14", "יש לי ילד עד גיל 14", StageType.YESNO, None, lambda responses: responses['family_status.has_children'] is True),
+    Stage("family_status.children.is_special_needs", "יש לי ילד עם צרכים מיוחדים", StageType.YESNO, None, lambda responses: responses['family_status.has_children'] is True),
+    
+    Stage("student", 'האם סטודנט/ית בשנת הלימודים תשפ"ד?', StageType.YESNO, None, None),
+    Stage("academy", "מוסד לימודים", StageType.CHOICE, University, lambda responses: responses['student'] is True),
+    
+    Stage("employment_status", "מה מצבך התעסוקתי?", StageType.CHOICE, EmploymentStatus, None),
+    Stage("business_size", "לגבי העסק שלך...", StageType.CHOICE, BusinessSize, lambda responses: responses['employment_status'] is EmploymentStatus.OWNER.value),
+
+    Stage("property_owner", "האם בבעלותך נכס?", StageType.YESNO, None, None),
     
 ]
 
