@@ -12,10 +12,11 @@ class ReservistProfile:
     academy: Optional[Academy]
     employment_status: EmploymentStatus
     business_size: Optional[BusinessSize]
+    is_commander: bool
     property_owner: bool
     active_reservist: bool
 
-    def calculate_total_days(self):
+    def calculate_total_days(self) -> int:
         total_days = 0
         for recruit in self.recruitment_dates:
             diff = recruit.end_date - recruit.start_date
@@ -26,8 +27,8 @@ class ReservistProfile:
     def days_in_tzav_8(self) -> int:
         for recruit in self.recruitment_dates:
             if recruit.recruitment_type == RecruitmentType.TZAV_8:
-                return recruit.end_date - recruit.start_date
-
+                diff = recruit.end_date - recruit.start_date
+                return diff.days
         return 0
 
     @property
