@@ -18,7 +18,7 @@ export const useHome = () => {
   const formik = useFormik({
     validationSchema,
     initialValues: {
-      startDate: dayjs('2023-01-01'),
+      startDate: dayjs('2023-10-07'),
       endDate: dayjs('2024-01-01'),
       isActiveReservist: [] as boolean[],
       isCommander: [] as boolean[],
@@ -62,16 +62,16 @@ export const useHome = () => {
         ],
         combat_level: serviceType[0],
         family_status: {
-          partner: partner,
+          partner: partner[0] ? { employment_status: partner[0] } : null,
           children: {
             is_under_14: childrenStatus.includes(CHILDREN_VALUES.UNDER_14),
             is_special_needs: childrenStatus.includes(CHILDREN_VALUES.SPECIAL_NEEDS),
           },
         },
         student: studentStatus[0],
-        academy: academicInstitution.toString(),
+        academy: studentStatus[0] ? academicInstitution.toString() : null,
         employment_status: employmentStatus[0],
-        business_size: businessStatus[0],
+        business_size: businessStatus[0] || null,
         property_owner: propertyOwnershipStatus[0],
         active_reservist: isActiveReservist[0],
       })
@@ -110,9 +110,12 @@ export const useHome = () => {
   const studentStatusProps = getPropsForHomeField('studentStatus')
   const academicInstitutionProps = getPropsForHomeField('academicInstitution')
 
-  const getIsFollowedUpQuestionSelected = (fieldName: string | undefined, value: boolean | string | undefined) : boolean => {
+  const getIsFollowedUpQuestionSelected = (
+    fieldName: string | undefined,
+    value: boolean | string | undefined,
+  ): boolean => {
     // @ts-ignore
-    return fieldName && (formik.values[fieldName][0] === value)
+    return fieldName && formik.values[fieldName][0] === value
   }
 
   return {
@@ -132,6 +135,6 @@ export const useHome = () => {
     propertyOwnershipStatusProps,
     studentStatusProps,
     academicInstitutionProps,
-    getIsFollowedUpQuestionSelected
+    getIsFollowedUpQuestionSelected,
   }
 }

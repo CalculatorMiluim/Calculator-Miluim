@@ -15,11 +15,11 @@ export interface IReservistProfile {
   recruitment_dates: IRecruitmentDate[]
   combat_level: string
   family_status: {
-    partner?: string[] | null
+    partner?: { employment_status: string } | null
     children?: IChildren
   }
   student?: string
-  academy: string
+  academy: string | null
   business_size?: string | null
   property_owner: boolean
   active_reservist: boolean

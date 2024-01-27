@@ -1,8 +1,7 @@
 import React from 'react'
-import { Box, Button, Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import BigNumber from '@/pages/Results/BigNumber/BigNumber.tsx'
 import ToggledListItems from '@/pages/Results/ToggledListItems/ToggledListItems.tsx'
-import SaveAltIcon from '@mui/icons-material/SaveAlt'
 import { useResults } from '@/pages/Results/Results.module.tsx'
 
 const Results = () => {
@@ -26,10 +25,6 @@ const Results = () => {
 
       <Typography variant="h5">שובר למימוש, כמו לדוגמא שובר בשווי 3500 ש״ח לחופשה </Typography>
       <ToggledListItems panels={panelsMap.voucher} />
-
-      <Button variant="outlined" endIcon={<SaveAltIcon />} sx={{ px: 4 }}>
-        שמור PDF
-      </Button>
     </Stack>
   )
 }

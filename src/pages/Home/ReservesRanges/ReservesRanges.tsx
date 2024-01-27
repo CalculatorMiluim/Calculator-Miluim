@@ -8,7 +8,7 @@ const ReservesRanges = () => {
     <Grid container spacing={2} alignItems="center">
       <Grid item xs={8} alignItems="center">
         <Typography variant="h6" sx={{ color: COLORS.BLACK, fontWeight: 600 }}>
-          כמות ימי מילואים שביצעת בשנת 2023:
+          כמות ימי מילואים שביצעת:
         </Typography>
       </Grid>
       <Grid item xs={4} alignItems="center">
