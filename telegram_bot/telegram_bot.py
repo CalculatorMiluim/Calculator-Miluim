@@ -1,5 +1,4 @@
 from collections import namedtuple
-from datetime import date
 from enum import Enum, auto
 from typing import List, Tuple
 
@@ -16,45 +15,56 @@ bot = telebot.TeleBot(BOT_TOKEN)
 conversation_state = {}
 
 
-class ServiceType(Enum):
-    TZAV8 = 'צו 8'
-    TAASUKA = 'תעסוקה מבצעית'
-    OTHER = 'שמ"פ אחר'
-
-
-class YesNo(Enum):
-    YES = "כן"
-    NO = 'לא'
-
-
 class StageType(Enum):
     DATE = auto()
     CHOICE = auto()
     YESNO = auto()
+
+
+
+class Option(Enum):
+    @property
+    def text(self):
+        return self.value[0]
+
+    @property
+    def api_val(self):
+        return self.value[1]
+
+
+class ServiceType(Option):
+    TZAV8 = ('צו 8', 'צו 8')
+    TAASUKA = ('תעסוקה מבצעית', 'תעסוקה מבצעית')
+    OTHER = ('שמ"פ אחר', 'אחר')
+
+
+class YesNo(Option):
+    YES = ("כן", True)
+    NO = ('לא', False)
+
+
+class ServiceCategory(Option):
+    COMBAT = ('יחידה קרבית', 'לוחם')
+    AUXILIARY = ('יחידה עורפית', 'תומך_לחימה')
     
 
-class ServiceCategory(Enum):
-    COMBAT = 'יחידה קרבית'
-    AUXILIARY = 'יחידה עורפית'
-    
-
-class EmploymentStatus(Enum):
-    UNEMPLOYMENT = 'הם זכאים לדמי אבטלה'
-    EMPLOYEE = 'הם שכירים'
-    OWNER = 'הם עצמאים'
-    ONLEAVE = 'הם בחל"ת'
-    OTHER = 'אחר'
+class EmploymentStatus(Option):
+    UNEMPLOYMENT = ('זכאים לדמי אבטלה', 'זכאי לדמי אבטלה')
+    EMPLOYEE = ('שכירים', 'שכיר')
+    OWNER = ('עצמאים', 'עצמאי')
+    ONLEAVE = ('בחל"ת', 'חל״ת')
+    OTHER = ('אחר', 'אחר')
 
 
-class University(Enum):
-    TECHNION = 'טכניון'
-    BENGURION = 'בן גוריון'
-    TELAVIV = 'תל אביב'
+class University(Option):
+    TECHNION = ('טכניון', 'הטכניון')
+    BENGURION = ('בן גוריון', 'אונ’ בן גוריון')
+    TELAVIV = ('תל אביב', 'אונ’ תל אביב')
 
 
-class BusinessSize(Enum):
-    SMALL = 'עסק קטן (5-20 עובדים, מחזור מכירות עד 20 מיליון ₪ בשנה)'
-    LARGE = 'מעל 20 עובדים, מחזור מכירות יותר מ20 מיליון ₪ בשנה'
+class BusinessSize(Option):
+    SMALL = ('עסק קטן (5-20 עובדים, מחזור מכירות עד 20 מיליון ₪ בשנה)', 'עסק קטן')
+    LARGE = ('מעל 20 עובדים, מחזור מכירות יותר מ20 מיליון ₪ בשנה', 'עסק בינוני')
     
 
 Stage = namedtuple("Stage", ["key", "prompt", "answer_type", "args", "condition"])
@@ -82,7 +92,7 @@ STAGES: List[Stage] = [
     Stage("academy", "מוסד לימודים", StageType.CHOICE, University, lambda responses: responses['student'] is True),
     
     Stage("employment_status", "מה מצבך התעסוקתי?", StageType.CHOICE, EmploymentStatus, None),
-    Stage("business_size", "לגבי העסק שלך...", StageType.CHOICE, BusinessSize, lambda responses: responses['employment_status'] is EmploymentStatus.OWNER.value),
+    Stage("business_size", "לגבי העסק שלך...", StageType.CHOICE, BusinessSize, lambda responses: responses['employment_status'] is EmploymentStatus.OWNER.api_val),
 
     Stage("property_owner", "האם בבעלותך נכס?", StageType.YESNO, None, None),
     
@@ -101,8 +111,8 @@ def present_choices(chat_id, enum_type, prompt):
     current_line = []
     lines = [current_line]
     for choice in enum_type:
-        choice_text = choice.value
-        if current_line and (sum([len(item.value) for item in current_line]) + len(choice_text)) > MAX_CHARS_PER_LINE:
+        choice_text = choice.text
+        if current_line and (sum([len(item.text) for item in current_line]) + len(choice_text)) > MAX_CHARS_PER_LINE:
             # Start a new line
             current_line = []
             lines.append(current_line)
@@ -110,7 +120,7 @@ def present_choices(chat_id, enum_type, prompt):
     
     buttons = [
         [
-            InlineKeyboardButton(text=choice.value, callback_data=f"choice_{enum_type.__name__}_{choice.name}")
+            InlineKeyboardButton(text=choice.text, callback_data=f"choice_{enum_type.__name__}_{choice.name}")
             for choice in line
         ]
         for line in lines
@@ -137,11 +147,7 @@ def choice_cb(callback):
     EnumClass = globals_dict[enum_type_name]
     ENUM_VAR = EnumClass[enum_val_name]
     
-    __, stage = chat_stage(callback.message.chat.id)
-    if stage.answer_type == StageType.YESNO:
-        val = (ENUM_VAR == YesNo.YES)
-    else:
-        val = ENUM_VAR.value
+    val = ENUM_VAR.api_val
 
     handle_user_response(callback.message.chat.id, val)
 
