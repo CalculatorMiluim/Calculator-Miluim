@@ -1,33 +1,37 @@
 import React from 'react'
 import { Box, Grid, MenuItem, TextField } from '@mui/material'
-import { useHome } from '@/pages/Home/Home.module.ts'
+import { IFormikControllers } from '@/pages/Home/Home.module.ts'
 import DateInput from '@/components/DateInput/DateInput.tsx'
-import { Dayjs } from 'dayjs'
 
-const DateRange = () => {
-  const { formik } = useHome()
+interface IDateRange {
+  startDateProps: IFormikControllers
+  endDateProps: IFormikControllers
+}
 
+const DateRange: React.FC<IDateRange> = ({ startDateProps, endDateProps }) => {
   return (
     <>
       <Grid item xs={8}>
         <Box sx={{ display: 'flex', columnGap: 2 }}>
           <DateInput
             label="התחלה"
-            value={formik.values.startDate}
-            //@ts-ignore
-            onChange={(date: Dayjs) => formik.setFieldValue('startDate', date || null)}
-            name={'start'}
+            value={startDateProps.selectedValues}
+            onChange={(date: Date | null) => {
+              startDateProps.setSelectedValues(date)
+            }}
+            name={'startDate'}
           />
           <DateInput
             label="סיום"
-            value={formik.values.endDate}
-            //@ts-ignore
-            onChange={(date: Dayjs) => formik.setFieldValue('endDate', date || null)}
-            name={'start'}
+            value={endDateProps.selectedValues}
+            onChange={(date: Date | null) => {
+              endDateProps.setSelectedValues(date)
+            }}
+            name={'endDate'}
           />
         </Box>
       </Grid>
-      <Grid item xs={4} sx={{ mt: 1 }}>
+      <Grid item xs={4} sx={{ mt: 1 }} className="recruitment-type">
         <TextField
           fullWidth
           value={0}

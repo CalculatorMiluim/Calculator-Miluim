@@ -23,12 +23,14 @@ const Home = () => {
     isParentProps,
     studentStatusProps,
     academicInstitutionProps,
+    startDateProps,
+    endDateProps,
     getIsFollowedUpQuestionSelected,
   } = useHome()
   return (
     <form onSubmit={formik.handleSubmit} style={{ display: 'flex', width: '100%' }}>
       <Stack spacing={4} sx={{ display: 'flex', alignItems: 'flex-start', textAlign: 'start', width: '100%' }}>
-        <ReservesRanges />
+        <ReservesRanges startDateProps={startDateProps} endDateProps={endDateProps} />
         <HomeChoiceFormField {...isActiveReservistProps} />
         <HomeChoiceFormField {...isCommanderProps} />
         <HomeChoiceFormField {...serviceTypeProps} />
@@ -50,12 +52,12 @@ const Home = () => {
         />
         <Grid container>
           <Grid item xs={4}>
-            <Typography variant="h6" sx={{ color: COLORS.BLACK, fontFamily: 'PolinBoldFont' }}>
+            <Typography variant="h6" sx={{ color: COLORS.BLACK, fontFamily: 'PolinBoldFont', marginBottom: 2 }}>
               סטודנט/ית?
             </Typography>
           </Grid>
           <Grid item xs={8}>
-            <Typography variant="h6" sx={{ fontFamily: 'PolinBoldFont' }}>
+            <Typography variant="h6" sx={{ fontFamily: 'PolinBoldFont', marginBottom: 2 }}>
               מוסד לימודים:
             </Typography>
           </Grid>

@@ -4,19 +4,26 @@ import { grey } from '@mui/material/colors'
 import Typography from '@mui/material/Typography'
 import { MobileDatePicker } from '@mui/x-date-pickers'
 import InsertInvitationIcon from '@mui/icons-material/InsertInvitation'
-import { Dayjs } from 'dayjs'
 
 interface IDateInput {
   label: string
   onChange: (date: Date | null, _?: string) => void
-  value: Dayjs
+  value: Date
   name: string
   error?: boolean
-  disabled: boolean
-  helperText: string
+  disabled?: boolean
+  helperText?: string
 }
 
-const DateInput: React.FC<IDateInput> = ({ label, onChange, value, name, error, disabled, helperText }) => {
+const DateInput: React.FC<IDateInput> = ({
+  label,
+  onChange,
+  value,
+  name,
+  error,
+  disabled = false,
+  helperText = '',
+}) => {
   return (
     <Box
       sx={{

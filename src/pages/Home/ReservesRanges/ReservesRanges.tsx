@@ -2,8 +2,14 @@ import React from 'react'
 import { Grid, Typography } from '@mui/material'
 import { COLORS } from '@/consts/colors.ts'
 import DateRange from '@/pages/Home/ReservesRanges/DateRange/DateRange.tsx'
+import { IHomeChoiceFormField } from '@/pages/Home/HomeChoiceFormField/HomeChoiceFormField.tsx'
 
-const ReservesRanges = () => {
+interface IReservesRanges {
+  startDateProps: IHomeChoiceFormField
+  endDateProps: IHomeChoiceFormField
+}
+
+const ReservesRanges: React.FC<IReservesRanges> = ({ startDateProps, endDateProps }) => {
   return (
     <Grid container spacing={2} alignItems="center">
       <Grid item xs={8} alignItems="center">
@@ -11,12 +17,12 @@ const ReservesRanges = () => {
           ימי מילואים:
         </Typography>
       </Grid>
-      <Grid item xs={4} alignItems="center" sx={{ flexBasis: '30%' }}>
+      <Grid item xs={4} alignItems="center" className="recruitment-type">
         <Typography variant="h6" sx={{ color: COLORS.BLACK, fontFamily: 'PolinBoldFont' }}>
           סוג:
         </Typography>
       </Grid>
-      <DateRange />
+      <DateRange startDateProps={startDateProps} endDateProps={endDateProps} />
     </Grid>
   )
 }

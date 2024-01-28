@@ -11,6 +11,13 @@ import { IHomeChoiceFormField } from '@/pages/Home/HomeChoiceFormField/HomeChoic
 import { useNavigate } from 'react-router-dom'
 import { RoutesValues } from '@/consts/routes.ts'
 
+export interface IFormikControllers {
+  selectedValues: any
+  setSelectedValues: (value: any) => void
+  error?: boolean
+  helperText?: string
+}
+
 export const useHome = () => {
   const navigate = useNavigate()
   const [getResults, { isLoading, isError, data }] = useGetResultsMutation()
@@ -18,8 +25,8 @@ export const useHome = () => {
   const formik = useFormik({
     validationSchema,
     initialValues: {
-      startDate: dayjs('2023-10-07'),
-      endDate: dayjs('2024-01-01'),
+      startDate: new Date('2023-10-07'),
+      endDate: new Date(),
       isActiveReservist: [] as boolean[],
       isCommander: [] as boolean[],
       serviceType: [] as string[],
@@ -55,8 +62,8 @@ export const useHome = () => {
       const results = await getResults({
         recruitment_dates: [
           {
-            start_date: startDate.format('YYYY-MM-DD'),
-            end_date: endDate.format('YYYY-MM-DD'),
+            start_date: dayjs(startDate).format('YYYY-MM-DD'),
+            end_date: dayjs(endDate).format('YYYY-MM-DD'),
             recruitment_type: 'אחר',
           },
         ],
@@ -110,6 +117,8 @@ export const useHome = () => {
   const propertyOwnershipStatusProps = getPropsForHomeField('propertyOwnershipStatus')
   const studentStatusProps = getPropsForHomeField('studentStatus')
   const academicInstitutionProps = getPropsForHomeField('academicInstitution')
+  const startDateProps = getPropsForHomeField('startDate')
+  const endDateProps = getPropsForHomeField('endDate')
 
   const getIsFollowedUpQuestionSelected = (
     fieldName: string | undefined,
@@ -136,6 +145,8 @@ export const useHome = () => {
     propertyOwnershipStatusProps,
     studentStatusProps,
     academicInstitutionProps,
+    startDateProps,
+    endDateProps,
     getIsFollowedUpQuestionSelected,
   }
 }
