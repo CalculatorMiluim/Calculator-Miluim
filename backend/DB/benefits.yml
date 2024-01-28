@@ -1,6 +1,0 @@
-enlarged_grant:
-  group_name: str
-  title: str
-  description: str
-  source_url:
-  base_amount: Optional[int]
