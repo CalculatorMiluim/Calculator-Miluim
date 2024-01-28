@@ -24,6 +24,7 @@ export interface IReservistProfile {
   property_owner: boolean
   active_reservist: boolean
   employment_status: string
+  is_commander: boolean
 }
 
 export const BENEFITS_TYPES_MAP = {

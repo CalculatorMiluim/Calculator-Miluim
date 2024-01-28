@@ -55,12 +55,13 @@ export const useHome = () => {
       const results = await getResults({
         recruitment_dates: [
           {
-            start_date: '2024-01-18',
-            end_date: '2024-03-19',
+            start_date: startDate.format('YYYY-MM-DD'),
+            end_date: endDate.format('YYYY-MM-DD'),
             recruitment_type: 'אחר',
           },
         ],
         combat_level: serviceType[0],
+        is_commander: isCommander[0],
         family_status: {
           partner: partner[0] ? { employment_status: partner[0] } : null,
           children: {
