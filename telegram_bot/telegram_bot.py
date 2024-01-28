@@ -1,7 +1,9 @@
 from collections import namedtuple
+from datetime import date
 from enum import Enum, auto
 from typing import List, Tuple
 
+import requests
 import telebot
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram_bot_calendar import LSTEP, DetailedTelegramCalendar
@@ -9,6 +11,7 @@ from telegram_bot_calendar import LSTEP, DetailedTelegramCalendar
 # t.me/CalcMiluim_bot
 
 BOT_TOKEN = "6346223964:AAGoCkra0oNHXwWRphjqVvhsfEM6ickBtbY"  # Replace with your actual bot token
+API_ENDPOINT = "https://api.calculate-miluim.info/benefits/benefits"
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
@@ -178,7 +181,7 @@ def date_cb(callback):
                               callback.message.chat.id,
                               callback.message.message_id)
         
-        handle_user_response(callback.message.chat.id, result)
+        handle_user_response(callback.message.chat.id, result.strftime(r"%Y-%m-%d"))
 
 
 def is_at_last_stage(chat_id: str) -> bool:
@@ -230,8 +233,29 @@ def ask_question(chat_id):
     question_handler(chat_id, stage)
 
 
+def responses_to_api_dict(chat_id) -> dict:
+    responses_dict = {}
+    for k, v in conversation_state[chat_id]['responses'].items():
+        key_parts = k.split('.')
+        curr_dict = responses_dict
+        for part in key_parts[:-1]:
+            if part not in curr_dict:
+                curr_dict[part] = {}
+            curr_dict = curr_dict[part]
+        curr_dict[key_parts[-1]] = v
+
+    return responses_dict
+            
+        
+
 def get_results(chat_id):
     bot.send_message(chat_id, "Done!")
+    
+    responses_dict = responses_to_api_dict(chat_id)
+    
+    response = requests.post(url=API_ENDPOINT, json=responses_dict)
+    print(response)
+    
     del conversation_state[chat_id]
 
 
