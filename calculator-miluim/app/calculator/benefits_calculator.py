@@ -19,7 +19,7 @@ def import_all_grants():
     from app.benefits.automatic_grants.family_with_child_under_14 import FamilyWithChildUnder14
     from app.benefits.automatic_grants.increased_personal_expenses_grant import IncreasedPersonalExpensesGrant
     from app.benefits.automatic_grants.personal_expenses_grant import PersonalExpensesGrant
-    from app.benefits.automatic_grants.special_benefit import SpecialBenefitp
+    from app.benefits.automatic_grants.special_benefit import SpecialBenefit
 
 
 def calculate_benefits_for_reservist(reservist: ReservistProfile):
