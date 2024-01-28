@@ -1,34 +1,39 @@
-# React + TypeScript + Vite
+# Calculator Miluim - 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
 
-Currently, two official plugins are available:
+Calculator-Miluim is a web application designed to retrieve all the benefits that reservists in the IDF are entitled to. These benefits can come from the government or other institutions.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Back-end Explanation
 
-## Expanding the ESLint configuration
+## Quick Overview
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+The back-end implements a single API, which takes a `ReservistProfile` as input and returns a list of all the benefits the reservist is entitled to.
 
-- Configure the top-level `parserOptions` property like this:
+There are three types of benefits:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- **Automatic Grants**: These are usually issued by BituahLeumi or Mofet, and are automatically deposited into the reservist's bank account.
+- **Grants**: These are usually issued by other institutions like universities or financing funds and typically require filling out a form to receive the grant.
+- **Vouchers**: These are vouchers with a monetary value that can be spent on a specific cause (e.g., a vacation voucher).
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Please note that all the code related to the back-end is located under the 'calculator-miluim' directory.
+## Adding a New Benefit
 
-# General-Fe-Boilerplate-Vite
+To add a new benefit, you should first decide which type of benefit it is. Then, create a new object that inherits from the specific benefit type and implement its logic (there are plenty of examples in the benefits package). The last step is to add its import in `benefits_calculator.import_all_grants()` so the calculator will be aware of it.
 
-# General-Fe-Boilerplate-Vite
+## Installation
+
+Our application's back-end is architected using AWS Lambda functions, which are exposed via an HTTP-based interface enabled by AWS API Gateway. The Mangum library is utilized to transform the API response into a Lambda function entity. Additionally, FastAPI framework is enlisted for robust and efficient API management.
+
+Whenever a back-end deployment action is triggered, it generates a new image from the code and substitutes it as the Lambda function.
+
+To deploy the back-end as a Lambda function, execute the relevant GitHub action located [here](https://github.com/CalculatorMiluim/Calculator-Miluim/actions).
+
+You can monitor the back-end logs for both Production and Staging environments using this [link](https://il-central-1.console.aws.amazon.com/cloudwatch/home?region=il-central-1#logsV2:log-groups). Note that you'll need an AWS IAM user account with the appropriate permissions to access the logs.
+
+To manage the API Gateway, you can use this [link](https://il-central-1.console.aws.amazon.com/lambda/home?region=il-central-1#/functions). Again, an AWS IAM user account with the necessary permissions is required to manage the API Gateway.
+
+## List of Benefits
+
+Here is a [link](https://netapp-my.sharepoint.com/:x:/r/personal/eladb_netapp_com/_layouts/15/doc.aspx?sourcedoc=%7B627219b6-7730-4019-b0d6-51ac20ec5c94%7D&action=edit) to the list of benefits that we want our app to support. Some of them are already implemented, while others are not yet. Keep in mind that this is an ongoing list that should be updated every once in a while.
+
