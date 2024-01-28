@@ -20,8 +20,15 @@ To add a new benefit, you should first decide which type of benefit it is. Then,
 
 ## Installation
 
-To deploy the back-end, you should run the relevant GitHub action located [here](https://github.com/CalculatorMiluim/Calculator-Miluim/actions).
+Our application's back-end is architected using AWS Lambda functions, which are exposed via an HTTP-based interface enabled by AWS API Gateway. The Mangum library is utilized to transform the API response into a Lambda function entity. Additionally, FastAPI framework is enlisted for robust and efficient API management.
+
+To deploy the back-end as a Lambda function, execute the relevant GitHub action located [here](https://github.com/CalculatorMiluim/Calculator-Miluim/actions).
+
+You can monitor the back-end logs for both Production and Staging environments using this [link](https://il-central-1.console.aws.amazon.com/cloudwatch/home?region=il-central-1#logsV2:log-groups). Note that you'll need an AWS IAM user account with the appropriate permissions to access the logs.
+
+To manage the API Gateway, you can use this [link](https://il-central-1.console.aws.amazon.com/lambda/home?region=il-central-1#/functions). Again, an AWS IAM user account with the necessary permissions is required to manage the API Gateway.
 
 ## List of Benefits
 
 Here is a [link](https://netapp-my.sharepoint.com/:x:/r/personal/eladb_netapp_com/_layouts/15/doc.aspx?sourcedoc=%7B627219b6-7730-4019-b0d6-51ac20ec5c94%7D&action=edit) to the list of benefits that we want our app to support. Some of them are already implemented, while others are not yet. Keep in mind that this is an ongoing list that should be updated every once in a while.
+
