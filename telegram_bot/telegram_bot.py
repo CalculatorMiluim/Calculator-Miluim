@@ -96,11 +96,24 @@ def chat_stage(chat_id) -> Tuple[int, Stage]:
 
 
 def present_choices(chat_id, enum_type, prompt):
+    MAX_CHARS_PER_LINE = 30
+    
+    current_line = []
+    lines = [current_line]
+    for choice in enum_type:
+        choice_text = choice.value
+        if current_line and (sum([len(item.value) for item in current_line]) + len(choice_text)) > MAX_CHARS_PER_LINE:
+            # Start a new line
+            current_line = []
+            lines.append(current_line)
+        current_line.append(choice)
+    
     buttons = [
         [
             InlineKeyboardButton(text=choice.value, callback_data=f"choice_{enum_type.__name__}_{choice.name}")
-            for choice in enum_type
+            for choice in line
         ]
+        for line in lines
     ]
 
     keyboard = InlineKeyboardMarkup(buttons)
