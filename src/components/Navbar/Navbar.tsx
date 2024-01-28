@@ -31,7 +31,7 @@ const Navbar = () => {
                       md: 2,
                     },
                     color: COLORS.BLACK,
-                    fontWeight: 600,
+                    fontFamily: 'PolinBoldFont',
                     fontSize: {
                       xs: theme.typography.h4.fontSize,
                       md: theme.typography.h2.fontSize,

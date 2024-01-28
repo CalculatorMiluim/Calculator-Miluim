@@ -23,7 +23,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 50,
-          fontWeight: 600,
+          fontFamily: 'PolinBoldFont',
         },
         sizeSmall: {
           height: '36px',
@@ -49,7 +49,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Assistant, sans-serif',
+    fontFamily: 'PolinRegularFont',
   },
 })
 

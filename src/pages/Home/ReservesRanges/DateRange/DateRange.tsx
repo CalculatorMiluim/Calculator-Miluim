@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material'
+import { Box, Grid, MenuItem, TextField } from '@mui/material'
 import { useHome } from '@/pages/Home/Home.module.ts'
 import DateInput from '@/components/DateInput/DateInput.tsx'
 import { Dayjs } from 'dayjs'
@@ -12,14 +12,14 @@ const DateRange = () => {
       <Grid item xs={8}>
         <Box sx={{ display: 'flex', columnGap: 2 }}>
           <DateInput
-            label="תאריך התחלה"
+            label="התחלה"
             value={formik.values.startDate}
             //@ts-ignore
             onChange={(date: Dayjs) => formik.setFieldValue('startDate', date || null)}
             name={'start'}
           />
           <DateInput
-            label="תאריך סיום"
+            label="סיום"
             value={formik.values.endDate}
             //@ts-ignore
             onChange={(date: Dayjs) => formik.setFieldValue('endDate', date || null)}
