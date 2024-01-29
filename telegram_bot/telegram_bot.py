@@ -251,7 +251,7 @@ def yesno_handler(chat_id, stage: Stage):
 
 
 def date_handler(chat_id, stage: Stage):
-    calendar, step = DetailedTelegramCalendar().build()
+    calendar, step = DetailedTelegramCalendar(min_date=stage.min_date, max_date=stage.max_date).build()
     bot.send_message(chat_id, stage.prompt, reply_markup=calendar)
 
 
@@ -261,7 +261,7 @@ def date_cb(callback):
     session = conversation_state[callback.message.chat.id]
     stage = session.stage
     
-    result, key, step = DetailedTelegramCalendar().process(callback.data)
+    result, key, step = DetailedTelegramCalendar(min_date=stage.min_date, max_date=stage.max_date).process(callback.data)
     if not result and key:
         bot.edit_message_text(stage.prompt,
                               callback.message.chat.id,

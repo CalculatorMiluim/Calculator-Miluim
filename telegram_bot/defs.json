@@ -130,13 +130,15 @@
                     "api_key": "start_date",
                     "prompt": "תחילת מילואים",
                     "answer_type": "date",
-                    "min_date": "2023-10-07"
+                    "min_date": "2023-10-07",
+                    "max_date": "today"
                 },
                 {
                     "api_key": "end_date",
                     "prompt": "סיום מילואים",
                     "answer_type": "date",
-                    "min_date": "2023-10-07"
+                    "min_date": "2023-10-07",
+                    "max_date": "today"
                 },
                 {
                     "api_key": "recruitment_type",

@@ -2,7 +2,7 @@ from datetime import date
 from enum import Enum
 from typing import Any, List, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 
 
 class StageType(Enum):
@@ -39,9 +39,21 @@ class Stage(BaseModel):
     answer_type: StageType
     default: Optional[Any] = None
     min_date: Optional[date] = None
+    max_date: Optional[date] = None
     choices: Optional[str] = None
     exclude_from_api: Optional[bool] = False
     condition: Optional[Condition] = None
+    
+    @validator('min_date', 'max_date', pre=True)
+    def parse_date_or_today(cls, v):
+        if v == "today":
+            return date.today()
+        elif isinstance(v, str):
+            try:
+                return date.fromisoformat(v)
+            except ValueError:
+                raise ValueError("Invalid date format. Must be YYYY-MM-DD or 'today'.")
+        return v
 
 
 class StageGroup(BaseModel):
