@@ -124,21 +124,22 @@
             "min_repeats": 1,
             "max_repeats": 1,
             "repeat_prompt": "האם להזין תקופת מילואים נוספת?",
+            "api_key": "recruitment_dates",
             "stages": [
                 {
-                    "api_key": "recruitment_dates.start_date",
+                    "api_key": "start_date",
                     "prompt": "תחילת מילואים",
                     "answer_type": "date",
                     "min_date": "2023-10-07"
                 },
                 {
-                    "api_key": "recruitment_dates.end_date",
+                    "api_key": "end_date",
                     "prompt": "סיום מילואים",
                     "answer_type": "date",
                     "min_date": "2023-10-07"
                 },
                 {
-                    "api_key": "recruitment_dates.recruitment_type",
+                    "api_key": "recruitment_type",
                     "prompt": "סוג המילואים",
                     "answer_type": "choice",
                     "choices": "ServiceType"
@@ -164,16 +165,22 @@
                     "prompt": "סוג שירות צבאי?",
                     "answer_type": "choice",
                     "choices": "ServiceCategory"
-                },
+                }
+            ]
+        },
 
+        {
+            "repeats": false,
+            "api_key": "family_status",
+            "stages": [
                 {
-                    "api_key": "family_status.has_partner",
+                    "api_key": "has_partner",
                     "prompt": "יש לך בן/בת זוג?",
                     "answer_type": "yesno",
                     "exclude_from_api": true
                 },
                 {
-                    "api_key": "family_status.partner.employment_status",
+                    "api_key": "partner.employment_status",
                     "prompt": "אז לגבי בן/בת הזוג שלך...",
                     "answer_type": "choice",
                     "choices": "EmploymentStatus",
@@ -184,13 +191,13 @@
                 },
 
                 {
-                    "api_key": "family_status.has_children",
+                    "api_key": "has_children",
                     "prompt": "יש לך ילדים?",
                     "answer_type": "yesno",
                     "exclude_from_api": true
                 },
                 {
-                    "api_key": "family_status.children.is_under_14",
+                    "api_key": "children.is_under_14",
                     "prompt": "יש לי ילד עד גיל 14",
                     "answer_type": "yesno",
                     "condition":{
@@ -199,15 +206,20 @@
                     }
                 },
                 {
-                    "api_key": "family_status.children.is_special_needs",
+                    "api_key": "children.is_special_needs",
                     "prompt": "יש לי ילד עם צרכים מיוחדים",
                     "answer_type": "yesno",
                     "condition":{
                         "ref": "family_status.has_children",
                         "equals": true
                     }
-                },
+                }
+            ]
+        },
 
+        {
+            "repeats": false,
+            "stages": [
                 {
                     "api_key": "student",
                     "prompt": "האם סטודנט/ית בשנת הלימודים תשפ\"ד?",

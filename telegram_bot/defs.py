@@ -48,6 +48,7 @@ class StageGroup(BaseModel):
     min_repeats: Optional[int] = 1
     max_repeats: Optional[int] = 1
     repeat_prompt: Optional[str] = None
+    api_key: Optional[str] = None
     stages: List[Stage]
 
 

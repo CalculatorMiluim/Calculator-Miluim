@@ -85,8 +85,21 @@ class Session:
     def responses(self) -> Dict[str, Any]:
         return self._responses
 
+
+    def _stage_api_key(self, stage_group: StageGroup = None, stage: Stage = None) -> str:
+        if not stage_group:
+            stage_group = self._stage_group
+        if not stage:
+            stage = self._stage
+            
+        stage_key_parts = [part for part in [stage_group.api_key, stage.api_key] if part]
+        stage_key = '.'.join(stage_key_parts)
+        return stage_key
+
+
     def set_response(self, val: Any):
-        stage_key = self.stage.api_key
+        stage_key = self._stage_api_key()
+            
         if self._stage_group.repeats:
             if stage_key not in self.responses:
                 self.responses[stage_key] = []
@@ -102,7 +115,7 @@ class Session:
             # We assume in this case, the referenced question is in the same group
             ref_val = self.responses[self.stage.condition.ref][self._group_loop_index]
         else:
-            ref_val = self.responses[self.stage.condition.ref]        
+            ref_val = self.responses.get(self.stage.condition.ref)
 
         return self.stage.condition.equals == ref_val
 
@@ -110,25 +123,50 @@ class Session:
         return self._stage_group.repeat_prompt
     
     
-    # @property
-    # def responses_dict(self) -> dict:
-    #     responses_dict = {}
-    #     for k, v in self.responses.items():
-    #         key_parts = k.split('.')
-    #         actual_key = key_parts[-1]
-    #         curr_dict = responses_dict
-    #         for part in key_parts[:-1]:
-    #             if part not in curr_dict:
-    #                 curr_dict[part] = {}
-    #             curr_dict = curr_dict[part]
+    def _set_dict_val(self, d: dict, k: str, v: Any):
+        # Create a hierarchy of objects by treating dots in the key as separate levels
+        key_parts = k.split('.')
+        curr_dict = d
+        for part in key_parts[:-1]:
+            if part not in curr_dict:
+                curr_dict[part] = {}
+            curr_dict = curr_dict[part]
+        curr_dict[key_parts[-1]] = v
+    
+    
+    @property
+    def responses_dict(self) -> dict:
+        responses_dict = {}
+        
+        for stage_group in definitions.stage_groups:
+            if stage_group.repeats:
+                assert stage_group.api_key  # A group that repeats must have a key that holds the list
+                loops = []
+                num_of_loops = len(self.responses[self._stage_api_key(stage_group, stage_group.stages[0])])
+                for i in range(num_of_loops):
+                    current_loop = {
+                        stage.api_key: self.responses[self._stage_api_key(stage_group, stage)][i]
+                        for stage in stage_group.stages if not stage.exclude_from_api}
+                    loops.append(current_loop)
             
-    #         if isinstance(v, list):
-    #             if not actual_key in curr_dict:
-    #                 curr_dict[actual_key]
-    #         else:
-    #             curr_dict[key_parts[-1]] = v
+                responses_dict[stage_group.api_key] = loops
+                
+            else:
+                # No repetitions, so not a list
+                if stage_group.api_key:
+                    # A sub-object
+                    responses_dict[stage_group.api_key] = {}
+                    currr_dict = responses_dict[stage_group.api_key]
+                else:
+                    # Just 1st-level properties
+                    currr_dict = responses_dict
+                
+                for stage in stage_group.stages:
+                    if stage.exclude_from_api:
+                        continue
+                    self._set_dict_val(currr_dict, stage.api_key, self.responses[self._stage_api_key(stage_group, stage)])
 
-    #     return responses_dict
+        return responses_dict
 
 
 
@@ -294,11 +332,12 @@ def ask_question(chat_id):
 
 def get_results(chat_id):
     bot.send_message(chat_id, "Done!")
+
+    session: Session = conversation_state[chat_id]
+    responses_dict = session.responses_dict
     
-    # responses_dict = responses_to_api_dict(chat_id)
-    
-    # response = requests.post(url=API_ENDPOINT, json=responses_dict)
-    # print(response)
+    response = requests.post(url=API_ENDPOINT, json=responses_dict)
+    print(response)
     
     del conversation_state[chat_id]
 
