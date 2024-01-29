@@ -37,6 +37,7 @@ class Stage(BaseModel):
     api_key: str
     prompt: str
     answer_type: StageType
+    default: Optional[Any] = None
     min_date: Optional[date] = None
     choices: Optional[str] = None
     exclude_from_api: Optional[bool] = False

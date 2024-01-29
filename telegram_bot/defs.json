@@ -74,7 +74,7 @@
                 {
                     "name": "ONLEAVE",
                     "text": "בחל\"ת",
-                    "val": "חל\"ת"
+                    "val": "חל״ת"
                 }
             ]
         },
@@ -200,6 +200,7 @@
                     "api_key": "children.is_under_14",
                     "prompt": "יש לי ילד עד גיל 14",
                     "answer_type": "yesno",
+                    "default": false,
                     "condition":{
                         "ref": "family_status.has_children",
                         "equals": true
@@ -209,6 +210,7 @@
                     "api_key": "children.is_special_needs",
                     "prompt": "יש לי ילד עם צרכים מיוחדים",
                     "answer_type": "yesno",
+                    "default": false,
                     "condition":{
                         "ref": "family_status.has_children",
                         "equals": true

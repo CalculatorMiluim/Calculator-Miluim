@@ -3,6 +3,7 @@ from typing import Any, Dict
 
 import requests
 import telebot
+from telebot import formatting
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram_bot_calendar import LSTEP, DetailedTelegramCalendar
 
@@ -315,7 +316,7 @@ def ask_question(chat_id):
     stage: Stage = session.stage
     
     if not session.should_show_stage():
-        handle_user_response(chat_id=chat_id, response=None)
+        handle_user_response(chat_id=chat_id, response=stage.default)
         return
 
     question_handler = {
@@ -327,20 +328,55 @@ def ask_question(chat_id):
     question_handler(chat_id, stage)
 
 
+def send_results_section(chat_id, title: str, results: dict):
+    
+    if not results['benefits']:
+        return
+    
+    bot.send_message(chat_id,
+                     formatting.mbold(title),
+                     parse_mode='MarkdownV2')
+    
+    
+    for benefit in results['benefits']:
+        reward = benefit["financial_reward"] or benefit["other_reward"] or ''
+        bot.send_message(
+            chat_id,
+            formatting.format_text(
+                formatting.mlink(f'{benefit["title"]} - {reward}', url=benefit['link_to_source']),
+                formatting.escape_markdown(benefit['description']),
+                separator='\n'
+            ),
+            parse_mode='MarkdownV2')
 
-        
 
 def get_results(chat_id):
-    bot.send_message(chat_id, "Done!")
 
     session: Session = conversation_state[chat_id]
     responses_dict = session.responses_dict
     
-    response = requests.post(url=API_ENDPOINT, json=responses_dict)
-    print(response)
+    print(f"Sending: {json.dumps(responses_dict, indent=2)}")
     
-    del conversation_state[chat_id]
+    response = requests.post(url=API_ENDPOINT, json=responses_dict)
+    if response.status_code != 200:
+        bot.send_message(chat_id, "ארעה שגיאה בעיבוד הנתונים, אנא נסו שוב")
+        print(f"Error: {response}")
+        
+        if response.status_code == 422:
+            print(json.dumps(response.json()['detail'], indent=2))
 
+    else:
+        data = response.json()
+        print(f"Response: {json.dumps(data, indent=2)}")
+
+        bot.send_message(chat_id, f'סכום הכסף שאתה זכאי לו - {data["total_amount"]}')
+        # bot.send_message(chat_id, 'רשימת הזכויות שמגיעות לך בתור משרת מילואים בתקופת מלחמת חרבות ברזל')
+        
+        send_results_section(chat_id, 'מענק שנכנס לך באופן אוטומטי לחשבון בנק, כמו התגמול הנוסף', data['Automatic_Grant'])
+        send_results_section(chat_id, 'מענק שאתה צריך לבקש, לדוגמא מענק מהאוניברסיטה', data['Grant'])
+        send_results_section(chat_id, 'שובר למימוש, כמו לדוגמא שובר בשווי 3500 ש״ח לחופשה', data['Voucher'])
+
+    del conversation_state[chat_id]
 
 
 bot.polling()
