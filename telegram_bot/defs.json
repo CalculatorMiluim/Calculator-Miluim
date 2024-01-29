@@ -1,0 +1,253 @@
+{
+    "values": [
+        {
+            "type": "ServiceType",
+            "options": [
+                {
+                    "name": "TZAV8",
+                    "text": "צו 8",
+                    "val": "צו 8"
+                },
+                {
+                    "name": "TAASUKA",
+                    "text": "תעסוקה מבצעית",
+                    "val": "תעסוקה מבצעית"
+                },
+                {
+                    "name": "OTHER",
+                    "text": "שמ\"פ אחר",
+                    "val": "שמ\"פ אחר"
+                }
+            ]
+        },
+
+        {
+            "type": "YesNo",
+            "options": [
+                {
+                    "name": "YES",
+                    "text": "כן",
+                    "val": true
+                },
+                {
+                    "name": "NO",
+                    "text": "לא",
+                    "val": false
+                }
+            ]
+        },
+
+        {
+            "type": "ServiceCategory",
+            "options": [
+                {
+                    "name": "COMBAT",
+                    "text": "יחידה קרבית",
+                    "val": "לוחם"
+                },
+                {
+                    "name": "AUXILIARY",
+                    "text": "יחידה עורפית",
+                    "val": "תומך_לחימה"
+                }
+            ]
+        },
+
+        {
+            "type": "EmploymentStatus",
+            "options": [
+                {
+                    "name": "UNEMPLOYMENT",
+                    "text": "זכאים לדמי אבטלה",
+                    "val": "זכאי לדמי אבטלה"
+                },
+                {
+                    "name": "EMPLOYEE",
+                    "text": "שכירים",
+                    "val": "שכיר"
+                },
+                {
+                    "name": "OWNER",
+                    "text": "עצמאים",
+                    "val": "עצמאי"
+                },
+                {
+                    "name": "ONLEAVE",
+                    "text": "בחל\"ת",
+                    "val": "חל\"ת"
+                }
+            ]
+        },
+
+        {
+            "type": "University",
+            "options": [
+                {
+                    "name": "TECHNION",
+                    "text": "טכניון",
+                    "val": "הטכניון"
+                },
+                {
+                    "name": "BENGURION",
+                    "text": "בן גוריון",
+                    "val": "אונ’ בן גוריון"
+                },
+                {
+                    "name": "TELAVIV",
+                    "text": "תל אביב",
+                    "val": "אונ’ תל אביב"
+                }
+            ]
+        },
+
+        {
+            "type": "BusinessSize",
+            "options": [
+                {
+                    "name": "SMALL",
+                    "text": "עסק קטן (5-20 עובדים, מחזור מכירות עד 20 מיליון ₪ בשנה)",
+                    "val": "עסק קטן"
+                },
+                {
+                    "name": "LARGE",
+                    "text": "מעל 20 עובדים, מחזור מכירות יותר מ20 מיליון ₪ בשנה",
+                    "val": "עסק בינוני"
+                }
+            ]
+        }
+
+    ],
+
+    "stage_groups": [
+        {
+            "repeats": true,
+            "min_repeats": 1,
+            "max_repeats": 1,
+            "repeat_prompt": "האם להזין תקופת מילואים נוספת?",
+            "stages": [
+                {
+                    "api_key": "recruitment_dates.start_date",
+                    "prompt": "תחילת מילואים",
+                    "answer_type": "date",
+                    "min_date": "2023-10-07"
+                },
+                {
+                    "api_key": "recruitment_dates.end_date",
+                    "prompt": "סיום מילואים",
+                    "answer_type": "date",
+                    "min_date": "2023-10-07"
+                },
+                {
+                    "api_key": "recruitment_dates.recruitment_type",
+                    "prompt": "סוג המילואים",
+                    "answer_type": "choice",
+                    "choices": "ServiceType"
+                }
+            ]
+        },
+
+        {
+            "repeats": false,
+            "stages": [
+                {
+                    "api_key": "active_reservist",
+                    "prompt": "האם בשירות מילואים פעיל?",
+                    "answer_type": "yesno"
+                },
+                {
+                    "api_key": "is_commander",
+                    "prompt": "האם מפקד/ת?",
+                    "answer_type": "yesno"
+                },
+                {
+                    "api_key": "combat_level",
+                    "prompt": "סוג שירות צבאי?",
+                    "answer_type": "choice",
+                    "choices": "ServiceCategory"
+                },
+
+                {
+                    "api_key": "family_status.has_partner",
+                    "prompt": "יש לך בן/בת זוג?",
+                    "answer_type": "yesno",
+                    "exclude_from_api": true
+                },
+                {
+                    "api_key": "family_status.partner.employment_status",
+                    "prompt": "אז לגבי בן/בת הזוג שלך...",
+                    "answer_type": "choice",
+                    "choices": "EmploymentStatus",
+                    "condition":{
+                        "ref": "family_status.has_partner",
+                        "equals": true
+                    }
+                },
+
+                {
+                    "api_key": "family_status.has_children",
+                    "prompt": "יש לך ילדים?",
+                    "answer_type": "yesno",
+                    "exclude_from_api": true
+                },
+                {
+                    "api_key": "family_status.children.is_under_14",
+                    "prompt": "יש לי ילד עד גיל 14",
+                    "answer_type": "yesno",
+                    "condition":{
+                        "ref": "family_status.has_children",
+                        "equals": true
+                    }
+                },
+                {
+                    "api_key": "family_status.children.is_special_needs",
+                    "prompt": "יש לי ילד עם צרכים מיוחדים",
+                    "answer_type": "yesno",
+                    "condition":{
+                        "ref": "family_status.has_children",
+                        "equals": true
+                    }
+                },
+
+                {
+                    "api_key": "student",
+                    "prompt": "האם סטודנט/ית בשנת הלימודים תשפ\"ד?",
+                    "answer_type": "yesno"
+                },
+                {
+                    "api_key": "academy",
+                    "prompt": "מוסד לימודים",
+                    "answer_type": "choice",
+                    "choices": "University",
+                    "condition":{
+                        "ref": "student",
+                        "equals": true
+                    }
+                },
+
+                {
+                    "api_key": "employment_status",
+                    "prompt": "מה מצבך התעסוקתי?",
+                    "answer_type": "choice",
+                    "choices": "EmploymentStatus"
+                },
+                {
+                    "api_key": "business_size",
+                    "prompt": "לגבי העסק שלך...",
+                    "answer_type": "choice",
+                    "choices": "BusinessSize",
+                    "condition":{
+                        "ref": "employment_status",
+                        "equals": "עצמאי"
+                    }
+                },
+
+                {
+                    "api_key": "property_owner",
+                    "prompt": "האם בבעלותך נכס",
+                    "answer_type": "yesno"
+                }
+
+            ]
+        }
+    ]
+}
