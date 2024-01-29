@@ -379,4 +379,9 @@ def get_results(chat_id):
     del conversation_state[chat_id]
 
 
-bot.polling()
+while True:
+    # Run this in a loop in case of exceptions
+    try:
+        bot.polling()
+    except Exception as e:
+        print(e)
