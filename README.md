@@ -18,7 +18,7 @@ There are three types of benefits:
 
 ## Adding a New Benefit
 
-To add a new benefit, you should first decide which type of benefit it is. Then, create a new object that inherits from the specific benefit type and implement its logic (there are plenty of examples in the benefits package). The last step is to add its import in `benefits_calculator.import_all_grants()` so the calculator will be aware of it.
+To add a new benefit, you should first decide which type of benefit it is. Then, create a new object that inherits from the specific benefit type and implement its logic (there are plenty of examples in the benefits package). The last step is to add its import in `benefits_calculator.import_all_benefits()` so the calculator will be aware of it.
 
 ## Installation
 

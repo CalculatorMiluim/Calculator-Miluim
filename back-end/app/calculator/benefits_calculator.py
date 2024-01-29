@@ -3,7 +3,7 @@ from app.models.consts import BenefitType, AMOUNT, BENEFITS, FINANCIAL_REWARD, T
 from app.models.reservist_profile import ReservistProfile
 
 
-def import_all_grants():
+def import_all_benefits():
     from app.benefits.vouchers.vacation_voucher import VacationVoucher
     from app.benefits.vouchers.couples_therapy_voucher import CouplesTherapyVoucher
 
@@ -23,7 +23,7 @@ def import_all_grants():
 
 
 def calculate_benefits_for_reservist(reservist: ReservistProfile):
-    import_all_grants()
+    import_all_benefits()
     benefits_owned = dict()
 
     benefits_owned[BenefitType.VOUCHER] = calculate_vouchers(reservist)
