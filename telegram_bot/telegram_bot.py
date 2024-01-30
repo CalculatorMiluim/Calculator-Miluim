@@ -4,6 +4,7 @@ from typing import Any, Dict
 import requests
 import telebot
 from telebot import formatting
+from telebot.types import Message
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram_bot_calendar import LSTEP, DetailedTelegramCalendar
 
@@ -33,7 +34,9 @@ class PromptToRepeat(Exception):
 
 class Session:
     
-    def __init__(self) -> None:
+    def __init__(self, chat_id) -> None:
+        self._chat_id = chat_id
+        self.last_question_message: Message = None
         self._responses = {}
         self._stage_group_index: int = 0
         self._group_loop_index: int = 0
@@ -69,6 +72,10 @@ class Session:
     
         if self._stage_group_index == len(definitions.stage_groups):
             # No more groups, we are done
+            
+            bot.delete_message(self._chat_id, self.last_question_message.id)
+            self.last_question_message = None
+            
             raise NoMoreStages()
 
         self._update_stage()
@@ -134,7 +141,14 @@ class Session:
             curr_dict = curr_dict[part]
         curr_dict[key_parts[-1]] = v
     
-    
+    def present_question(self, prompt, reply_markup=None):
+        if not self.last_question_message:
+            message = bot.send_message(self._chat_id, prompt, reply_markup=reply_markup)
+        else:
+            message = bot.edit_message_text(chat_id=self._chat_id, message_id=self.last_question_message.id, text=prompt, reply_markup=reply_markup)
+        self.last_question_message = message
+
+
     @property
     def responses_dict(self) -> dict:
         responses_dict = {}
@@ -202,7 +216,11 @@ def present_choices(chat_id, choices: Value, prompt: str, callback_prefix: str =
     ]
 
     keyboard = InlineKeyboardMarkup(buttons)
-    bot.send_message(chat_id, prompt, reply_markup=keyboard)
+    
+    session = conversation_state[chat_id]
+    session.present_question(prompt, reply_markup=keyboard)
+    # bot.send_message(chat_id, prompt, reply_markup=keyboard)
+    
 
 
 def choice_handler(chat_id, stage: Stage):
@@ -252,7 +270,9 @@ def yesno_handler(chat_id, stage: Stage):
 
 def date_handler(chat_id, stage: Stage):
     calendar, step = DetailedTelegramCalendar(min_date=stage.min_date, max_date=stage.max_date).build()
-    bot.send_message(chat_id, stage.prompt, reply_markup=calendar)
+    # bot.send_message(chat_id, stage.prompt, reply_markup=calendar)
+    session = conversation_state[chat_id]
+    session.present_question(stage.prompt, reply_markup=calendar)
 
 
 @bot.callback_query_handler(func=DetailedTelegramCalendar.func())
@@ -278,7 +298,12 @@ def date_cb(callback):
 @bot.message_handler(commands=["start"])
 def handle_conversation_start(message):
     chat_id = message.chat.id
-    conversation_state[chat_id] = Session()
+
+    prompt = "בזכותך!\n"\
+             "בעזרת מחשבון זה תוכלו לחשב מה צפויים להיות המענקים שתקבלו מהמדינה עבור שירות המילואים במלחמת חרבות ברזל."
+    bot.send_message(chat_id, prompt)    
+
+    conversation_state[chat_id] = Session(chat_id)
     ask_question(chat_id)
 
 
