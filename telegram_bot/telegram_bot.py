@@ -192,7 +192,7 @@ conversation_state: Dict[str, Session] = {}
 
 
 def present_choices(chat_id, choices: Value, prompt: str, callback_prefix: str = None):
-    MAX_CHARS_PER_LINE = 30
+    MAX_CHARS_PER_LINE = 25
     
     if not callback_prefix:
         callback_prefix = f"choice_{choices.type}_"
