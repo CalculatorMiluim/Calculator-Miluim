@@ -151,22 +151,25 @@ export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
       { label: 'טכניון', value: ACADEMIC_INSTITUTION_VALUES.TECHNION },
       { label: 'אונ’ בן גוריון', value: ACADEMIC_INSTITUTION_VALUES.BG },
       { label: 'אונ’ תל אביב', value: ACADEMIC_INSTITUTION_VALUES.TLV },
+      { label: 'אונ’ בר אילן', value: ACADEMIC_INSTITUTION_VALUES.BIU },
+      { label: 'האונ’ העברית בירושלים', value: ACADEMIC_INSTITUTION_VALUES.HUJI },
+      { label: 'אונ’ חיפה', value: ACADEMIC_INSTITUTION_VALUES.HAIFA },
+      { label: 'אחר', value: null },
     ],
   },
 } as const
 
 const FIELD_REQUIRED_MSG = 'יש לבחור לפחות ערך אחד'
-const REQUIRED_FIELD_SCHEMA = (isRequired: boolean) => mixed()
-  .required(FIELD_REQUIRED_MSG)
-  .test(
-    'not-empty-array',
-    FIELD_REQUIRED_MSG,
-    (value) => isRequired ? !(Array.isArray(value) && value.length === 0) && value != null: true,
-  )
+const REQUIRED_FIELD_SCHEMA = (isRequired: boolean) =>
+  mixed()
+    .required(FIELD_REQUIRED_MSG)
+    .test('not-empty-array', FIELD_REQUIRED_MSG, (value) =>
+      isRequired ? !(Array.isArray(value) && value.length === 0) && value != null : true,
+    )
 
 const defaultRequiredFieldSchemas = Object.keys(HOME_OPTIONS_MAP).reduce(
   (acc, key) => {
-    const isRequired= !HOME_OPTIONS_MAP[key]?.isFollowUpQuestion
+    const isRequired = !HOME_OPTIONS_MAP[key]?.isFollowUpQuestion
     acc[key] = REQUIRED_FIELD_SCHEMA(isRequired)
 
     return acc
