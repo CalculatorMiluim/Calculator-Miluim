@@ -7,9 +7,10 @@ import { IHomeChoiceFormField } from '@/pages/Home/HomeChoiceFormField/HomeChoic
 interface IReservesRanges {
   startDateProps: IHomeChoiceFormField
   endDateProps: IHomeChoiceFormField
+  recruitmentTypeProps: IHomeChoiceFormField
 }
 
-const ReservesRanges: React.FC<IReservesRanges> = ({ startDateProps, endDateProps }) => {
+const ReservesRanges: React.FC<IReservesRanges> = ({ startDateProps, endDateProps, recruitmentTypeProps }) => {
   return (
     <Grid container spacing={2} alignItems="center">
       <Grid item xs={8} alignItems="center">
@@ -22,7 +23,11 @@ const ReservesRanges: React.FC<IReservesRanges> = ({ startDateProps, endDateProp
           סוג:
         </Typography>
       </Grid>
-      <DateRange startDateProps={startDateProps} endDateProps={endDateProps} />
+      <DateRange
+        startDateProps={startDateProps}
+        endDateProps={endDateProps}
+        recruitmentTypeProps={recruitmentTypeProps}
+      />
     </Grid>
   )
 }

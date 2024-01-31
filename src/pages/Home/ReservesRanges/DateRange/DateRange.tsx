@@ -2,13 +2,15 @@ import React from 'react'
 import { Box, Grid, MenuItem, TextField } from '@mui/material'
 import { IFormikControllers } from '@/pages/Home/Home.module.ts'
 import DateInput from '@/components/DateInput/DateInput.tsx'
+import { HOME_OPTIONS_MAP } from '@/pages/Home/Home.consts.ts'
 
 interface IDateRange {
   startDateProps: IFormikControllers
   endDateProps: IFormikControllers
+  recruitmentTypeProps: IFormikControllers
 }
 
-const DateRange: React.FC<IDateRange> = ({ startDateProps, endDateProps }) => {
+const DateRange: React.FC<IDateRange> = ({ startDateProps, endDateProps, recruitmentTypeProps }) => {
   return (
     <>
       <Grid item xs={8}>
@@ -34,19 +36,15 @@ const DateRange: React.FC<IDateRange> = ({ startDateProps, endDateProps }) => {
       <Grid item xs={4} sx={{ mt: 1 }} className="recruitment-type">
         <TextField
           fullWidth
-          value={0}
-          // onChange={(e) => setValue(e.target.value)}
+          value={recruitmentTypeProps.selectedValues}
+          onChange={(e) => recruitmentTypeProps.setSelectedValues(e.target.value)}
           select
         >
-          <MenuItem key={0} value={0}>
-            צו 8
-          </MenuItem>
-          <MenuItem key={1} value={1}>
-            תעסוקה מבצעית
-          </MenuItem>
-          <MenuItem key={2} value="test2">
-            שמ"פ אחר
-          </MenuItem>
+          {HOME_OPTIONS_MAP.recruitmentType.options?.map(({ value, label }) => (
+            <MenuItem key={`${label}-${value}`} value={value as string}>
+              {label}
+            </MenuItem>
+          ))}
         </TextField>
       </Grid>
     </>

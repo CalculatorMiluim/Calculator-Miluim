@@ -25,12 +25,17 @@ const Home = () => {
     academicInstitutionProps,
     startDateProps,
     endDateProps,
+    recruitmentTypeProps,
     getIsFollowedUpQuestionSelected,
   } = useHome()
   return (
     <form onSubmit={formik.handleSubmit} style={{ display: 'flex', width: '100%' }}>
       <Stack spacing={4} sx={{ display: 'flex', alignItems: 'flex-start', textAlign: 'start', width: '100%' }}>
-        <ReservesRanges startDateProps={startDateProps} endDateProps={endDateProps} />
+        <ReservesRanges
+          startDateProps={startDateProps}
+          endDateProps={endDateProps}
+          recruitmentTypeProps={recruitmentTypeProps}
+        />
         <HomeChoiceFormField {...isActiveReservistProps} />
         <HomeChoiceFormField {...isCommanderProps} />
         <HomeChoiceFormField {...serviceTypeProps} />
