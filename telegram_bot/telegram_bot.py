@@ -193,6 +193,7 @@ conversation_state: Dict[str, Session] = {}
 
 def present_choices(chat_id, choices: Value, prompt: str, callback_prefix: str = None):
     MAX_CHARS_PER_LINE = 25
+    MAX_BUTTONS_PER_LINE = 2
     
     if not callback_prefix:
         callback_prefix = f"choice_{choices.type}_"
@@ -201,7 +202,7 @@ def present_choices(chat_id, choices: Value, prompt: str, callback_prefix: str =
     lines = [current_line]
     for choice in choices.options:
         choice_text = choice.text
-        if current_line and (sum([len(item.text) for item in current_line]) + len(choice_text)) > MAX_CHARS_PER_LINE:
+        if (current_line and (sum([len(item.text) for item in current_line]) + len(choice_text)) > MAX_CHARS_PER_LINE) or len(current_line) == MAX_BUTTONS_PER_LINE:
             # Start a new line
             current_line = []
             lines.append(current_line)
