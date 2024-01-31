@@ -13,9 +13,23 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 20,
+          height: 48,
         },
         notchedOutline: {
           borderRadius: 20,
+        },
+      },
+    },
+    MuiGrid: {
+      styleOverrides: {
+        root: {
+          '& > .MuiGrid-item': {
+            paddingLeft: 0,
+          },
+          '& > .recruitment-type': {
+            paddingLeft: 20,
+            flexBasis: '30%',
+          },
         },
       },
     },
@@ -23,7 +37,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 50,
-          fontWeight: 600,
+          fontFamily: 'PolinBoldFont',
         },
         sizeSmall: {
           height: '36px',
@@ -49,7 +63,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: 'Assistant, sans-serif',
+    fontFamily: 'PolinRegularFont',
   },
 })
 

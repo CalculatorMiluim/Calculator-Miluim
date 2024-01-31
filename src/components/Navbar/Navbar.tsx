@@ -1,6 +1,5 @@
 import React from 'react'
-import { AppBar, Box, Button, Container, Stack, Toolbar, Typography, useTheme } from '@mui/material'
-import ShareIcon from '@mui/icons-material/Share'
+import { AppBar, Box, Container, Stack, Toolbar, Typography, useTheme } from '@mui/material'
 import { COLORS } from '@/consts/colors.ts'
 import { useNavigate } from 'react-router-dom'
 
@@ -32,7 +31,7 @@ const Navbar = () => {
                       md: 2,
                     },
                     color: COLORS.BLACK,
-                    fontWeight: 600,
+                    fontFamily: 'PolinBoldFont',
                     fontSize: {
                       xs: theme.typography.h4.fontSize,
                       md: theme.typography.h2.fontSize,
@@ -66,21 +65,6 @@ const Navbar = () => {
                 <Typography sx={{ color: COLORS.BLACK }}>מחשבון מענקים למלחמת חרבות ברזל למשרת מילואים</Typography>
               </Box>
             </Stack>
-
-            <Button
-              variant="outlined"
-              endIcon={<ShareIcon />}
-              sx={{
-                color: 'fff',
-                minWidth: {
-                  xs: 70,
-                  sm: 150,
-                  md: 200,
-                },
-              }}
-            >
-              שתף
-            </Button>
           </Toolbar>
         </Container>
       </AppBar>

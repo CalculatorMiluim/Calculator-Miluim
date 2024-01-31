@@ -32,3 +32,4 @@ jobs:
           
           echo "Update ECS service deployment with latest image"
           aws ecs update-service --cluster calculate-miluim-telegram-bot --service telegram-bot --force-new-deployment
+

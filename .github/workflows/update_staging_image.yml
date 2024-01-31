@@ -1,4 +1,7 @@
 on:
+  push:
+    branches:
+      - develop
   workflow_dispatch:
 
 jobs:
@@ -6,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: calculator-miluim
+        working-directory: back-end
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2

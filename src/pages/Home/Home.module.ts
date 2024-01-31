@@ -11,6 +11,13 @@ import { IHomeChoiceFormField } from '@/pages/Home/HomeChoiceFormField/HomeChoic
 import { useNavigate } from 'react-router-dom'
 import { RoutesValues } from '@/consts/routes.ts'
 
+export interface IFormikControllers {
+  selectedValues: any
+  setSelectedValues: (value: any) => void
+  error?: boolean
+  helperText?: string
+}
+
 export const useHome = () => {
   const navigate = useNavigate()
   const [getResults, { isLoading, isError, data }] = useGetResultsMutation()
@@ -18,8 +25,8 @@ export const useHome = () => {
   const formik = useFormik({
     validationSchema,
     initialValues: {
-      startDate: dayjs('2023-01-01'),
-      endDate: dayjs('2024-01-01'),
+      startDate: new Date('2023-10-07'),
+      endDate: new Date(),
       isActiveReservist: [] as boolean[],
       isCommander: [] as boolean[],
       serviceType: [] as string[],
@@ -55,23 +62,24 @@ export const useHome = () => {
       const results = await getResults({
         recruitment_dates: [
           {
-            start_date: '2024-01-18',
-            end_date: '2024-03-19',
+            start_date: dayjs(startDate).format('YYYY-MM-DD'),
+            end_date: dayjs(endDate).format('YYYY-MM-DD'),
             recruitment_type: 'אחר',
           },
         ],
         combat_level: serviceType[0],
+        is_commander: isCommander[0],
         family_status: {
-          partner: partner,
+          partner: partner[0] ? { employment_status: partner[0] } : null,
           children: {
             is_under_14: childrenStatus.includes(CHILDREN_VALUES.UNDER_14),
             is_special_needs: childrenStatus.includes(CHILDREN_VALUES.SPECIAL_NEEDS),
           },
         },
         student: studentStatus[0],
-        academy: academicInstitution.toString(),
+        academy: studentStatus[0] ? academicInstitution.toString() : null,
         employment_status: employmentStatus[0],
-        business_size: businessStatus[0],
+        business_size: businessStatus[0] || null,
         property_owner: propertyOwnershipStatus[0],
         active_reservist: isActiveReservist[0],
       })
@@ -109,10 +117,15 @@ export const useHome = () => {
   const propertyOwnershipStatusProps = getPropsForHomeField('propertyOwnershipStatus')
   const studentStatusProps = getPropsForHomeField('studentStatus')
   const academicInstitutionProps = getPropsForHomeField('academicInstitution')
+  const startDateProps = getPropsForHomeField('startDate')
+  const endDateProps = getPropsForHomeField('endDate')
 
-  const getIsFollowedUpQuestionSelected = (fieldName: string | undefined, value: boolean | string | undefined) : boolean => {
+  const getIsFollowedUpQuestionSelected = (
+    fieldName: string | undefined,
+    value: boolean | string | undefined,
+  ): boolean => {
     // @ts-ignore
-    return fieldName && (formik.values[fieldName][0] === value)
+    return fieldName && formik.values[fieldName][0] === value
   }
 
   return {
@@ -132,6 +145,8 @@ export const useHome = () => {
     propertyOwnershipStatusProps,
     studentStatusProps,
     academicInstitutionProps,
-    getIsFollowedUpQuestionSelected
+    startDateProps,
+    endDateProps,
+    getIsFollowedUpQuestionSelected,
   }
 }

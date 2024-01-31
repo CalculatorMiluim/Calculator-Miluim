@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Container, Typography, Link, useTheme } from '@mui/material'
+import { Box, Container, Typography, useTheme } from '@mui/material'
 
 const Footer = () => {
   const theme = useTheme()
@@ -19,11 +19,11 @@ const Footer = () => {
             <Typography
               display="inline-block"
               variant="h5"
-              fontWeight={600}
               sx={{
                 fontSize: {
                   xs: theme.typography.h6.fontSize,
                 },
+                fontFamily: 'PolinBoldFont',
               }}
             >
               💝 פותח באהבה
@@ -50,7 +50,7 @@ const Footer = () => {
             }}
           >
             <Typography>פונט:</Typography>
-            <Typography sx={{ fontWeight: 600 }}>פולין</Typography>
+            <Typography sx={{ fontFamily: 'PolinBoldFont' }}>פולין</Typography>
             <Typography>(תודה הפונטיה!)</Typography>
           </Box>
         </Box>
