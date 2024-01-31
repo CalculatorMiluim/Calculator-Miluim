@@ -148,6 +148,34 @@ class Session:
             message = bot.edit_message_text(chat_id=self._chat_id, message_id=self.last_question_message.id, text=prompt, reply_markup=reply_markup)
         self.last_question_message = message
 
+    def send_responses_summary(self):
+        q_and_a_pairs = []
+        for stage_group in definitions.stage_groups:
+            if stage_group.repeats:
+                num_of_loops = len(self.responses[self._stage_api_key(stage_group, stage_group.stages[0])])
+                for i in range(num_of_loops):
+                    for stage in stage_group.stages:
+                        prompt = stage.prompt
+                        answer = self.responses[self._stage_api_key(stage_group, stage)][i]
+                        if answer is not None:
+                            q_and_a_pairs.append((prompt, answer))
+
+            else:
+                for stage in stage_group.stages:
+                    prompt = stage.prompt
+                    answer = self.responses[self._stage_api_key(stage_group, stage)]
+                    if answer is not None:
+                        q_and_a_pairs.append((prompt, answer))
+
+        msg = "סיכום התשובות:\n\n"
+        msg += '\n'.join([f'{q}: {self._humanize_answer(a)}' for q, a in q_and_a_pairs])
+        bot.send_message(self._chat_id, msg)
+    
+    def _humanize_answer(self, answer):
+        if isinstance(answer, bool):
+            return "כן" if answer else "לא"
+        return answer
+
 
     @property
     def responses_dict(self) -> dict:
@@ -379,6 +407,8 @@ def send_results_section(chat_id, title: str, results: dict):
 def get_results(chat_id):
 
     session: Session = conversation_state[chat_id]
+    session.send_responses_summary()
+    
     responses_dict = session.responses_dict
     
     print(f"Sending: {json.dumps(responses_dict, indent=2)}")
