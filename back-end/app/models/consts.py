@@ -12,7 +12,7 @@ class RecruitmentType(Enum):
 
 class CombatLevel(Enum):
     COMBAT_UNIT = "לוחם"
-    NON_COMBAT_UNIT = "תומך לחימה "
+    NON_COMBAT_UNIT = "תומך לחימה"
 
 
 class EmploymentStatus(Enum):
