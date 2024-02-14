@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - develop
+      - main
   workflow_dispatch:
 
 jobs:
@@ -20,4 +20,4 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: il-central-1
 
-      - run: ./build/build_app_image_staging.sh
+      - run: ./build/build_app_image_prod.sh

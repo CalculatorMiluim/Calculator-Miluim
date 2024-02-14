@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-deploy-lambda:
+  build-deploy-frontend-staging:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -13,11 +13,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-      - uses: aws-actions/setup-sam@v1
       - uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: il-central-1
+      - uses: actions/setup-node@v2
 
-      - run: ./build/build_app_image_staging.sh
+      - name: Build Frontend Dist
+        env:
+          VITE_BASE_URL: ${{ secrets.API_GATEWAY_STAGING_URL }}
+        run: |
+          ./build/build_frontend.sh
+
+      - name: Upload Dist to staging bucket
+        run: |
+          aws s3 rm s3://staging.calculate-miluim.info/ --recursive
+          aws s3 cp ../dist s3://staging.calculate-miluim.info/ --recursive
