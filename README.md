@@ -36,3 +36,24 @@ To manage the API Gateway, you can use this [link](https://il-central-1.console.
 
 Here is a [link](https://netapp-my.sharepoint.com/:x:/r/personal/eladb_netapp_com/_layouts/15/doc.aspx?sourcedoc=%7B627219b6-7730-4019-b0d6-51ac20ec5c94%7D&action=edit) to the list of benefits that we want our app to support. Some of them are already implemented, while others are not yet. Keep in mind that this is an ongoing list that should be updated every once in a while.
 
+
+
+
+## Development
+
+To run locally:
+
+Vite/React:
+
+  `npm run dev`
+
+Backend/Pyton:
+
+- install packages using `./venv.sh` in back-end folder
+- run using `python -m uvicorn app.server:app --reload` or use an IDE to debug
+
+
+To set the api url for development:
+create a .env file with the following example:
+
+`VITE_BASE_URL=http://localhost:8000`
