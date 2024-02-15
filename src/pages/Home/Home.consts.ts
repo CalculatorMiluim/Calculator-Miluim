@@ -151,7 +151,7 @@ export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
   academicInstitution: {
     isFollowUpQuestion: true,
     dependsOnQuestion: 'studentStatus',
-    dependsOnQuestionValue: false,
+    dependsOnQuestionValue: [false, undefined],
     options: [
       { label: 'טכניון', value: ACADEMIC_INSTITUTION_VALUES.TECHNION },
       { label: 'אונ’ בן גוריון', value: ACADEMIC_INSTITUTION_VALUES.BG },

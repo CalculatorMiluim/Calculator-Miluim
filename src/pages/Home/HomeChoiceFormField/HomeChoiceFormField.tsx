@@ -9,7 +9,7 @@ export interface IHomeChoiceFormField extends IChoiceGroup {
   subDescription?: string
   isFollowUpQuestion?: boolean
   dependsOnQuestion?: string
-  dependsOnQuestionValue?: boolean | string
+  dependsOnQuestionValue?: boolean | string | Array<boolean|undefined>
   showFollowUpQuestion?: boolean
 }
 
