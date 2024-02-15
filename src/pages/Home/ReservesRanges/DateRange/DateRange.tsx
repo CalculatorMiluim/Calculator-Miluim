@@ -1,8 +1,9 @@
 import React from 'react'
-import { Box, Grid, MenuItem, TextField } from '@mui/material'
+import { Box, Grid, MenuItem, TextField, Typography } from '@mui/material'
 import { IFormikControllers } from '@/pages/Home/Home.module.ts'
 import DateInput from '@/components/DateInput/DateInput.tsx'
 import { HOME_OPTIONS_MAP } from '@/pages/Home/Home.consts.ts'
+import { COLORS } from '@/consts/colors'
 
 interface IDateRange {
   startDateProps: IFormikControllers
@@ -13,8 +14,8 @@ interface IDateRange {
 const DateRange: React.FC<IDateRange> = ({ startDateProps, endDateProps, recruitmentTypeProps }) => {
   return (
     <>
-      <Grid item xs={8}>
-        <Box sx={{ display: 'flex', columnGap: 2 }}>
+      <Grid item xs={12} sm={4}>
+       
           <DateInput
             label="התחלה"
             value={startDateProps.selectedValues}
@@ -23,6 +24,8 @@ const DateRange: React.FC<IDateRange> = ({ startDateProps, endDateProps, recruit
             }}
             name={'startDate'}
           />
+        </Grid>
+        <Grid item xs={12} sm={4}>
           <DateInput
             label="סיום"
             value={endDateProps.selectedValues}
@@ -31,9 +34,15 @@ const DateRange: React.FC<IDateRange> = ({ startDateProps, endDateProps, recruit
             }}
             name={'endDate'}
           />
-        </Box>
+        
       </Grid>
-      <Grid item xs={4} sx={{ mt: 1 }} className="recruitment-type">
+      <Grid item xs={12} sm={4} sx={{ mt: 1, pr:0 }} className="recruitment-type">
+        <Box display="flex">
+        <Typography variant="h6" sx={{ color: COLORS.BLACK, fontFamily: 'PolinBoldFont', mr: 1, display: {
+            xs: 'block', sm: 'none', alignSelf: 'center'
+          } }}>
+            סוג:
+          </Typography>
         <TextField
           fullWidth
           value={recruitmentTypeProps.selectedValues}
@@ -46,6 +55,7 @@ const DateRange: React.FC<IDateRange> = ({ startDateProps, endDateProps, recruit
             </MenuItem>
           ))}
         </TextField>
+        </Box>
       </Grid>
     </>
   )

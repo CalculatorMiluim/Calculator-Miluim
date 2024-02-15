@@ -18,8 +18,10 @@ const ReservesRanges: React.FC<IReservesRanges> = ({ startDateProps, endDateProp
           ימי מילואים:
         </Typography>
       </Grid>
-      <Grid item xs={4} alignItems="center" className="recruitment-type">
-        <Typography variant="h6" sx={{ color: COLORS.BLACK, fontFamily: 'PolinBoldFont' }}>
+      <Grid item xs={4} alignItems="center" className="recruitment-type" >
+        <Typography variant="h6" sx={{ color: COLORS.BLACK, fontFamily: 'PolinBoldFont', display: {
+          xs: 'none', sm: 'block'
+        } }}>
           סוג:
         </Typography>
       </Grid>
