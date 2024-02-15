@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Stack, Typography } from '@mui/material'
 import BigNumber from '@/pages/Results/BigNumber/BigNumber.tsx'
 import ToggledListItems from '@/pages/Results/ToggledListItems/ToggledListItems.tsx'
@@ -6,6 +6,10 @@ import { useResults } from '@/pages/Results/Results.module.tsx'
 
 const Results = () => {
   const { panelsMap, totalAmount } = useResults()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <Stack alignItems="flex-start" gap={3}>
