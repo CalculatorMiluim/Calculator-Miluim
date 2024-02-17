@@ -126,8 +126,13 @@ export const useHome = () => {
 
   const getIsFollowedUpQuestionSelected = (
     fieldName: string | undefined,
-    value: boolean | string | undefined,
+    value: boolean | string | undefined | Array<boolean|undefined>,
   ): boolean => {
+    // if value is array we need to check if the value is included in the array
+    if (Array.isArray(value)) {
+      // @ts-ignore
+      return fieldName && value.includes(formik.values[fieldName][0])
+    }
     // @ts-ignore
     return fieldName && formik.values[fieldName][0] === value
   }
