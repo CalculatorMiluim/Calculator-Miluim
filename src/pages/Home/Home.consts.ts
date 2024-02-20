@@ -14,8 +14,8 @@ const BUSINESS_VALUES = {
 
 const COMBAT_LEVEL_VALUES = {
   WARRIOR: 'לוחם',
-  COMBAT_SUPPORT: 'תומך_לחימה',
-  SUPPORT_ROLE: 'עורפי',
+  COMBAT_SUPPORT: 'תומך לחימה',
+  //SUPPORT_ROLE: 'עורפי',  // commented, not used
 }
 
 const EMPLOYMENT_STATUS_VALUES = {
