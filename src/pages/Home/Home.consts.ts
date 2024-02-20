@@ -34,6 +34,11 @@ export const ACADEMIC_INSTITUTION_VALUES = {
   HUJI: 'האוניברסיטה העברית בירושלים',
   HAIFA: 'אוניברסיטת חיפה',
 }
+export const RECRUITMENT_TYPE_VALUES = {
+  TZAV_8: 'צו 8',
+  TAASUKA_MIVTZAIT: 'תעסוקה מבצעית',
+  OTHER: 'אחר',
+}
 
 export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
   isActiveReservist: {
@@ -155,6 +160,13 @@ export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
       { label: 'האונ’ העברית בירושלים', value: ACADEMIC_INSTITUTION_VALUES.HUJI },
       { label: 'אונ’ חיפה', value: ACADEMIC_INSTITUTION_VALUES.HAIFA },
       { label: 'אחר', value: null },
+    ],
+  },
+  recruitmentType: {
+    options: [
+      { label: 'צו 8', value: RECRUITMENT_TYPE_VALUES.TZAV_8 },
+      { label: 'תעסוקה מבצעית', value: RECRUITMENT_TYPE_VALUES.TAASUKA_MIVTZAIT },
+      { label: 'אחר', value: RECRUITMENT_TYPE_VALUES.OTHER },
     ],
   },
 } as const

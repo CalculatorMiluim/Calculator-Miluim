@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import { useGetResultsMutation } from '@/features/results/resultsApiSlice.ts'
 import {
   ACADEMIC_INSTITUTION_VALUES,
+  RECRUITMENT_TYPE_VALUES,
   CHILDREN_VALUES,
   HOME_OPTIONS_MAP,
   validationSchema,
@@ -27,6 +28,7 @@ export const useHome = () => {
     initialValues: {
       startDate: new Date('2023-10-07'),
       endDate: new Date(),
+      recruitmentType: RECRUITMENT_TYPE_VALUES.TZAV_8 as string,
       isActiveReservist: [] as boolean[],
       isCommander: [] as boolean[],
       serviceType: [] as string[],
@@ -56,6 +58,7 @@ export const useHome = () => {
         startDate,
         childrenStatus,
         isParent,
+        recruitmentType,
       },
       { setSubmitting },
     ) => {
@@ -64,7 +67,7 @@ export const useHome = () => {
           {
             start_date: dayjs(startDate).format('YYYY-MM-DD'),
             end_date: dayjs(endDate).format('YYYY-MM-DD'),
-            recruitment_type: 'אחר',
+            recruitment_type: recruitmentType,
           },
         ],
         combat_level: serviceType[0],
@@ -119,6 +122,7 @@ export const useHome = () => {
   const academicInstitutionProps = getPropsForHomeField('academicInstitution')
   const startDateProps = getPropsForHomeField('startDate')
   const endDateProps = getPropsForHomeField('endDate')
+  const recruitmentTypeProps = getPropsForHomeField('recruitmentType')
 
   const getIsFollowedUpQuestionSelected = (
     fieldName: string | undefined,
@@ -147,6 +151,7 @@ export const useHome = () => {
     academicInstitutionProps,
     startDateProps,
     endDateProps,
+    recruitmentTypeProps,
     getIsFollowedUpQuestionSelected,
   }
 }

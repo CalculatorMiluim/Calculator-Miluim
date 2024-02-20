@@ -1,4 +1,8 @@
 on:
+  push:
+    branches:
+      - main
+
   workflow_dispatch:
 
 jobs:
@@ -16,7 +20,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: il-central-1
 
-      - run: |
+      - name: Build telegram-bot Image and Roll ECS Service
+        run: |
           echo "Logging in to Amazon ECR..."
           aws ecr get-login-password --region il-central-1 | docker login --username AWS --password-stdin 637423354802.dkr.ecr.il-central-1.amazonaws.com
           
@@ -31,3 +36,4 @@ jobs:
           
           echo "Update ECS service deployment with latest image"
           aws ecs update-service --cluster calculate-miluim-telegram-bot --service telegram-bot --force-new-deployment
+
