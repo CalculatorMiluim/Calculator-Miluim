@@ -8,7 +8,7 @@ class SpecialBenefit(AutomaticGrant):
         super().__init__(
             title="התגמול המיוחד",
             description="התגמול המיוחד משולם בין 32-60 ימים בכל שנה קלאנדרית ללא תלות בצו 8. התגמול המיוחד ימשיך להיספר גם עבור ימי השמפ שיבוצעו בשנת 2024, עבור כלל משרתי המילואים שגויסו מ-7/10/2023 בצו 8 בחרבות ברזל. התגמול המיוחד מעבר ליום ה-60 ישולם לכלל המשרתים בצו 8 (לאחר פקיעת תוקפו של צו 8 יחל חישוב מניין הימים מחדש)",
-            link_to_source="https://www.miluim.idf.il/articles-list/%D7%9E%D7%93%D7%99%D7%A0%D7%99%D7%95%D7%AA-%D7%9E%D7%A2%D7%A0%D7%A7%D7%99%D7%9D-%D7%9C%D7%9E%D7%A9%D7%A8%D7%AA%D7%99-%D7%9E%D7%99%D7%9C%D7%95%D7%90%D7%99%D7%9D-%D7%91%D7%9E%D7%9C%D7%97%D7%9E%D7%AA-%D7%97%D7%A8%D7%91%D7%95%D7%AA-%D7%91%D7%A8%D7%96%D7%9C/",
+            link_to_source="https://www.miluim.idf.il/articles-list/%D7%9E%D7%92%D7%95%D7%99%D7%99%D7%A1%D7%99%D7%9D-%D7%9C%D7%9E%D7%99%D7%9C%D7%95%D7%90%D7%99%D7%9D",
         )
 
     def is_eligible(self, reservist: ReservistProfile) -> bool:
