@@ -11,7 +11,7 @@ def import_all_benefits():
     from app.benefits.grants.tau_grant import TauGrant
     from app.benefits.grants.bgu_grant import BGUGrant
 
-    from app.benefits.automatic_grants.home_economics_grant import HomeEconomicsGrant
+    from app.benefits.automatic_grants.increased_home_economics_grant import IncreasedHomeEconomicsGrant
     from app.benefits.automatic_grants.special_family_grant import SpecialFamilyGrant
     from app.benefits.automatic_grants.increased_family_grant import IncreasedFamilyGrant
     from app.benefits.automatic_grants.arrangement_days_grant import ArrangementDaysGrant
