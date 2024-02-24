@@ -1,11 +1,14 @@
 import React from 'react'
-import { AppBar, Box, Container, Stack, Toolbar, Typography, useTheme } from '@mui/material'
+import { AppBar, Box, Button, Container, Stack, Toolbar, Typography, useTheme } from '@mui/material'
 import { COLORS } from '@/consts/colors.ts'
 import { useNavigate } from 'react-router-dom'
+import ShareIcon from '@mui/icons-material/Share';
+import { RWebShare } from "react-web-share";
 
 const Navbar = () => {
   const navigate = useNavigate()
   const theme = useTheme()
+
   return (
     <Box sx={{ mb: 2 }}>
       <AppBar position="static" sx={{ bgcolor: '#FFF' }}>
@@ -65,6 +68,35 @@ const Navbar = () => {
                 <Typography sx={{ color: COLORS.BLACK }}>מחשבון מענקים למלחמת חרבות ברזל למשרת מילואים</Typography>
               </Box>
             </Stack>
+
+            <RWebShare
+              disableNative={false}
+              data={{
+                text: "מחשבון מענקים למלחמת חרבות ברזל למשרת מילואים",
+                url: "https://calculate-miluim.info/",
+                title: "בזכותך!",
+              }}
+              onClick={() => console.log("shared successfully!")}
+            >
+              <Button
+                sx={{
+                  minWidth: {
+                    xs: 150,
+                    md: 180,
+                  },
+                }}
+                type="button"
+                variant="outlined"
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
+                  <Typography sx={{ pb: 0.4, fontFamily: 'PolinBoldFont' }} variant="h5">
+                    שתף
+                  </Typography>
+                  <ShareIcon />
+                </Box>
+              </Button>
+            </RWebShare>
+
           </Toolbar>
         </Container>
       </AppBar>

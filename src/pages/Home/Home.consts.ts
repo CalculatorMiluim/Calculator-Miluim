@@ -14,8 +14,8 @@ const BUSINESS_VALUES = {
 
 const COMBAT_LEVEL_VALUES = {
   WARRIOR: 'לוחם',
-  COMBAT_SUPPORT: 'תומך_לחימה',
-  SUPPORT_ROLE: 'עורפי',
+  COMBAT_SUPPORT: 'תומך לחימה',
+  //SUPPORT_ROLE: 'עורפי',  // commented, not used
 }
 
 const EMPLOYMENT_STATUS_VALUES = {
@@ -151,7 +151,7 @@ export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
   academicInstitution: {
     isFollowUpQuestion: true,
     dependsOnQuestion: 'studentStatus',
-    dependsOnQuestionValue: false,
+    dependsOnQuestionValue: [false, undefined],
     options: [
       { label: 'טכניון', value: ACADEMIC_INSTITUTION_VALUES.TECHNION },
       { label: 'אונ’ בן גוריון', value: ACADEMIC_INSTITUTION_VALUES.BG },
