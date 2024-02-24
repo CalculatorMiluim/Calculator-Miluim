@@ -28,7 +28,13 @@ export const useHome = () => {
     initialValues: {
       startDate: new Date('2023-10-07'),
       endDate: new Date(),
+      startDate2: null,
+      endDate2: null,
+      startDate3: null,
+      endDate3: null,
       recruitmentType: RECRUITMENT_TYPE_VALUES.TZAV_8 as string,
+      recruitmentType2: RECRUITMENT_TYPE_VALUES.TZAV_8 as string,
+      recruitmentType3: RECRUITMENT_TYPE_VALUES.TZAV_8 as string,
       isActiveReservist: [] as boolean[],
       isCommander: [] as boolean[],
       serviceType: [] as string[],
@@ -51,25 +57,47 @@ export const useHome = () => {
         academicInstitution,
         studentStatus,
         endDate,
+        endDate2,
+        endDate3,
         isActiveReservist,
         isCommander,
         serviceType,
         partner,
         startDate,
+        startDate2,
+        startDate3,
         childrenStatus,
         isParent,
         recruitmentType,
+        recruitmentType2,
+        recruitmentType3
       },
       { setSubmitting },
     ) => {
+
+      const recruitment_dates = [];
+      recruitment_dates.push({
+        start_date: dayjs(startDate).format('YYYY-MM-DD'),
+        end_date: dayjs(endDate).format('YYYY-MM-DD'),
+        recruitment_type: recruitmentType,
+      });
+      if (startDate2 && endDate2) {
+        recruitment_dates.push({
+          start_date: dayjs(startDate2).format('YYYY-MM-DD'),
+          end_date: dayjs(endDate2).format('YYYY-MM-DD'),
+          recruitment_type: recruitmentType2
+        });
+      }
+      if (startDate3 && endDate3) {
+        recruitment_dates.push({
+          start_date: dayjs(startDate3).format('YYYY-MM-DD'),
+          end_date: dayjs(endDate3).format('YYYY-MM-DD'),
+          recruitment_type: recruitmentType3
+        });
+      }
+
       const results = await getResults({
-        recruitment_dates: [
-          {
-            start_date: dayjs(startDate).format('YYYY-MM-DD'),
-            end_date: dayjs(endDate).format('YYYY-MM-DD'),
-            recruitment_type: recruitmentType,
-          },
-        ],
+        recruitment_dates: recruitment_dates,
         combat_level: serviceType[0],
         is_commander: isCommander[0],
         family_status: {
@@ -122,7 +150,13 @@ export const useHome = () => {
   const academicInstitutionProps = getPropsForHomeField('academicInstitution')
   const startDateProps = getPropsForHomeField('startDate')
   const endDateProps = getPropsForHomeField('endDate')
+  const startDateProps2 = getPropsForHomeField('startDate2')
+  const endDateProps2 = getPropsForHomeField('endDate2')
+  const startDateProps3 = getPropsForHomeField('startDate3')
+  const endDateProps3 = getPropsForHomeField('endDate3')
   const recruitmentTypeProps = getPropsForHomeField('recruitmentType')
+  const recruitmentTypeProps2 = getPropsForHomeField('recruitmentType2')
+  const recruitmentTypeProps3 = getPropsForHomeField('recruitmentType3')
 
   const getIsFollowedUpQuestionSelected = (
     fieldName: string | undefined,
@@ -155,8 +189,14 @@ export const useHome = () => {
     studentStatusProps,
     academicInstitutionProps,
     startDateProps,
+    startDateProps2,
+    startDateProps3,
     endDateProps,
+    endDateProps2,
+    endDateProps3,
     recruitmentTypeProps,
+    recruitmentTypeProps2,
+    recruitmentTypeProps3,
     getIsFollowedUpQuestionSelected,
   }
 }

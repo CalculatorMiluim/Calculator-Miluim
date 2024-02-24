@@ -24,8 +24,14 @@ const Home = () => {
     studentStatusProps,
     academicInstitutionProps,
     startDateProps,
+    startDateProps2,
+    startDateProps3,
     endDateProps,
+    endDateProps2,
+    endDateProps3,
     recruitmentTypeProps,
+    recruitmentTypeProps2,
+    recruitmentTypeProps3,
     getIsFollowedUpQuestionSelected,
   } = useHome()
   return (
@@ -34,8 +40,15 @@ const Home = () => {
         <ReservesRanges
           startDateProps={startDateProps}
           endDateProps={endDateProps}
+          startDateProps2={startDateProps2}
+          endDateProps2={endDateProps2}
+          startDateProps3={startDateProps3}
+          endDateProps3={endDateProps3}
           recruitmentTypeProps={recruitmentTypeProps}
+          recruitmentTypeProps2={recruitmentTypeProps2}
+          recruitmentTypeProps3={recruitmentTypeProps3}
         />
+        
         <HomeChoiceFormField {...isActiveReservistProps} />
         <HomeChoiceFormField {...isCommanderProps} />
         <HomeChoiceFormField {...serviceTypeProps} />

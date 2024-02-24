@@ -1,6 +1,6 @@
 import { IBenefitAgg } from '@/types/apiResponses.types.ts'
 
-interface IRecruitmentDate {
+export interface IRecruitmentDate {
   start_date: string
   end_date: string
   recruitment_type: string
