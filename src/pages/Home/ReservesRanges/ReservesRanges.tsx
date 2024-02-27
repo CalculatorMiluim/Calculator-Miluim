@@ -65,7 +65,7 @@ const ReservesRanges: React.FC<IReservesRanges> = ({ startDateProps, endDateProp
             setValue(newValue as DateRangePickerValueType);
           }}
           renderInput={(params: TextFieldProps) => {
-            let text = value?.start?.toLocaleDateString() + "-" + value?.end?.toLocaleDateString()
+            let text = value?.start?.toLocaleDateString('en-GB') + "-" + value?.end?.toLocaleDateString('en-GB')
             if (value === null || value === undefined || value?.start === null || value?.end === null) {
               text = 'עוד תאריכים'
             }

@@ -29,9 +29,12 @@ export const DateRangePicker = (props: DateRangePickerProps) => {
           if (startDate === null || (startDate !== null && endDate !== null)) {
             setStartDate(date);
             setEndDate(null);
-            return;
+          } else if (startDate > date) {
+            setEndDate(startDate);
+            setStartDate(date);
+          } else {
+            setEndDate(date) 
           }
-          setEndDate(date);
         }}
         onClose={() => {
           if (startDate === undefined || endDate === undefined || startDate === null || endDate === null) {
@@ -43,7 +46,8 @@ export const DateRangePicker = (props: DateRangePickerProps) => {
         closeOnSelect={false}
         renderDay={(day, _value, DayComponentProps) => {
           const dayDate = day as dayjs.Dayjs;
-          const isSelected =  startDate!=null && endDate!=null && dayDate.isAfter(startDate) && dayDate.isBefore(endDate?.add(1,'days'));
+          let isSelected =  startDate!=null && endDate!=null && dayDate.isAfter(startDate) && dayDate.isBefore(endDate?.add(1,'days'));
+          isSelected = isSelected || (startDate!=null && dayDate.isSame(startDate));
           if (isSelected) {
             return (<PickersDay {...DayComponentProps} sx={{ backgroundColor:'#4585FD', '&:focus': {
               backgroundColor:'#4585FD'
