@@ -20,28 +20,28 @@ export const DateRangePicker = (props: DateRangePickerProps) => {
     return (
   
       <MobileDatePicker
+        defaultCalendarMonth={dayjs('2023-10-01')}
         showToolbar={false}
         value={value}
         onChange={(date: any) => {
-          if (date === null) {
+          if (date === null && startDate != null && endDate != null) {
+            // when pressing ok button, the date is null, so we need to check if we have a valid range
+            onChange({ start: startDate.toDate(), end: endDate.toDate() });
+          } else if (date === null) {
+            // date is null, and there is no valid range
             return;
-          }
-          if (startDate === null || (startDate !== null && endDate !== null)) {
+          } else if (startDate === null || (startDate !== null && endDate !== null)) {
+            // setting start date
             setStartDate(date);
             setEndDate(null);
           } else if (startDate > date) {
+            // setting start date after end date was set
             setEndDate(startDate);
             setStartDate(date);
           } else {
+            // setting end date
             setEndDate(date) 
           }
-        }}
-        onClose={() => {
-          if (startDate === undefined || endDate === undefined || startDate === null || endDate === null) {
-            return;
-          }
-          // eslint-disable-next-line
-          onChange({ start: startDate.toDate(), end: endDate.toDate() });
         }}
         closeOnSelect={false}
         renderDay={(day, _value, DayComponentProps) => {
