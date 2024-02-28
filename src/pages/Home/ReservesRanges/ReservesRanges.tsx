@@ -58,6 +58,7 @@ const ReservesRanges: React.FC<IReservesRanges> = ({ startDateProps, endDateProp
   const [showMoreDates, setShowMoreDates] = React.useState(0);
 
   const drawDateRangePicker = (value:any, setValue:any) => {
+    const dateFormat = {day:'2-digit', month:'2-digit', year:'2-digit'}
     return (
       <DateRangePicker
           value={value}
@@ -65,7 +66,7 @@ const ReservesRanges: React.FC<IReservesRanges> = ({ startDateProps, endDateProp
             setValue(newValue as DateRangePickerValueType);
           }}
           renderInput={(params: TextFieldProps) => {
-            let text = value?.start?.toLocaleDateString('en-GB') + "-" + value?.end?.toLocaleDateString('en-GB')
+            let text = value?.start?.toLocaleDateString('en-GB',dateFormat) + "-" + value?.end?.toLocaleDateString('en-GB',dateFormat)
             if (value === null || value === undefined || value?.start === null || value?.end === null) {
               text = 'עוד תאריכים'
             }
