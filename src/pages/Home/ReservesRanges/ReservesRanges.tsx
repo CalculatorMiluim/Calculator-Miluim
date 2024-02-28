@@ -55,9 +55,10 @@ const ReservesRanges: React.FC<IReservesRanges> = ({ startDateProps, endDateProp
     endDatePropsController3.setSelectedValues(newValue?.end as Date)
   }
 
-  const [showMoreDates, setShowMoreDates] = React.useState(false);
+  const [showMoreDates, setShowMoreDates] = React.useState(0);
 
   const drawDateRangePicker = (value:any, setValue:any) => {
+    const dateFormat = {day:'2-digit', month:'2-digit', year:'2-digit'}
     return (
       <DateRangePicker
           value={value}
@@ -65,7 +66,7 @@ const ReservesRanges: React.FC<IReservesRanges> = ({ startDateProps, endDateProp
             setValue(newValue as DateRangePickerValueType);
           }}
           renderInput={(params: TextFieldProps) => {
-            let text = value?.start?.toLocaleDateString() + "-" + value?.end?.toLocaleDateString()
+            let text = value?.start?.toLocaleDateString('en-GB',dateFormat) + "-" + value?.end?.toLocaleDateString('en-GB',dateFormat)
             if (value === null || value === undefined || value?.start === null || value?.end === null) {
               text = 'עוד תאריכים'
             }
@@ -132,25 +133,26 @@ const ReservesRanges: React.FC<IReservesRanges> = ({ startDateProps, endDateProp
       <Grid xs={4}>
         {drawRecruitmentType(recruitmentTypePropsController)}
       </Grid>
-      <Grid xs={12} sx={{mt:2, display: showMoreDates == true ? 'none': ''}}>
-        <Button onClick={() => setShowMoreDates(true)}> עוד תאריכים <PlusIcon /></Button>
-        
-      </Grid>
+      
       {/* second */}
-      <Grid xs={7} sx={{mt:2, display: showMoreDates == true ? '': 'none'}}>
+      <Grid xs={7} sx={{mt:2, display: showMoreDates > 0 ? '': 'none'}}>
         {drawDateRangePicker(value2,setValue2)}
       </Grid>
-      <Grid xs={1} sx={{mt:2, display: showMoreDates == true ? '': 'none'}}></Grid>
-      <Grid xs={4} sx={{mt:2, display: showMoreDates == true ? '': 'none'}}>
+      <Grid xs={1} sx={{mt:2, display: showMoreDates > 0 ? '': 'none'}}></Grid>
+      <Grid xs={4} sx={{mt:2, display: showMoreDates > 0 ? '': 'none'}}>
         {drawRecruitmentType(recruitmentTypePropsController2)}
       </Grid>
       {/* third */}
-      <Grid xs={7} sx={{mt:2, display: showMoreDates == true ? '': 'none'}}>
+      <Grid xs={7} sx={{mt:2, display: showMoreDates > 1 ? '': 'none'}}>
         {drawDateRangePicker(value3,setValue3)}
       </Grid>
-      <Grid xs={1} sx={{mt:2, display: showMoreDates == true ? '': 'none'}}></Grid>
-      <Grid xs={4} sx={{mt:2, display: showMoreDates == true ? '': 'none'}}>
+      <Grid xs={1} sx={{mt:2, display: showMoreDates > 1 ? '': 'none'}}></Grid>
+      <Grid xs={4} sx={{mt:2, display: showMoreDates > 1 ? '': 'none'}}>
         {drawRecruitmentType(recruitmentTypePropsController3)}
+      </Grid>
+      <Grid xs={12} sx={{mt:2, display: (showMoreDates == 2) ? 'none': ''}}>
+        <Button onClick={() => setShowMoreDates(showMoreDates+1)}> עוד תאריכים <PlusIcon /></Button>
+        
       </Grid>
     </Grid>
   )
