@@ -159,7 +159,7 @@ export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
       { label: 'אונ’ בר אילן', value: ACADEMIC_INSTITUTION_VALUES.BIU },
       { label: 'האונ’ העברית בירושלים', value: ACADEMIC_INSTITUTION_VALUES.HUJI },
       { label: 'אונ’ חיפה', value: ACADEMIC_INSTITUTION_VALUES.HAIFA },
-      { label: 'אחר', value: null },
+      // { label: 'אחר', value: null },
     ],
   },
   recruitmentType: {
