@@ -10,6 +10,10 @@ def import_all_benefits():
     from app.benefits.grants.technion_grant import TechnionUniversityGrant
     from app.benefits.grants.tau_grant import TauGrant
     from app.benefits.grants.bgu_grant import BGUGrant
+    from app.benefits.grants.biu_grant import BIUGrant
+    from app.benefits.grants.haifa_grant import HaifaGrant
+    from app.benefits.grants.huji_grant import HujiGrant
+    from app.benefits.grants.unemployed_one_time_grant import UnEmployedOneTimeGrant
 
     from app.benefits.automatic_grants.increased_home_economics_grant import IncreasedHomeEconomicsGrant
     from app.benefits.automatic_grants.special_family_grant import SpecialFamilyGrant
