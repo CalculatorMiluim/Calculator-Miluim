@@ -15,7 +15,7 @@ export const useResults = () => {
           <Typography>{description}</Typography>
           <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
             <Typography>להגשת בקשה, יש להכנס לאתר</Typography>
-            <Link href={link_to_source}>link</Link>
+            <Link href={link_to_source} target="_blank" rel="noopener">link</Link>
           </Box>
         </Box>
       )
