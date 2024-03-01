@@ -7,16 +7,24 @@ from telebot import formatting
 from telebot.types import Message
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram_bot_calendar import LSTEP, DetailedTelegramCalendar
-
+import os
 from defs import Defs, Stage, StageGroup, StageType, Value
 
 # t.me/CalcMiluim_bot
 
-BOT_TOKEN = "6346223964:AAGoCkra0oNHXwWRphjqVvhsfEM6ickBtbY"  # Replace with your actual bot token
+# Get environment variable
+BOT_TOKEN = os.environ["BOT_TOKEN"]
+# if bot contains \: replace it with :
+BOT_TOKEN = BOT_TOKEN.replace("\\", "")
+
 API_ENDPOINT = "https://api.calculate-miluim.info/benefits/benefits"
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
+bot.set_my_commands([
+    telebot.types.BotCommand("/start", "התחל מחדש"),
+    telebot.types.BotCommand("/about", "מי אנחנו")
+])
 
 with open("defs.json", 'r') as f:
     defs_dict = json.load(f)
@@ -141,8 +149,10 @@ class Session:
             curr_dict = curr_dict[part]
         curr_dict[key_parts[-1]] = v
     
-    def present_question(self, prompt, reply_markup=None):
-        if not self.last_question_message:
+    def present_question(self, prompt, reply_markup=None, in_new_message=False):
+        if not self.last_question_message or in_new_message:
+            if self.last_question_message:
+                bot.delete_message(self._chat_id, self.last_question_message.id)
             message = bot.send_message(self._chat_id, prompt, reply_markup=reply_markup)
         else:
             message = bot.edit_message_text(chat_id=self._chat_id, message_id=self.last_question_message.id, text=prompt, reply_markup=reply_markup)
@@ -219,7 +229,7 @@ conversation_state: Dict[str, Session] = {}
 
 
 
-def present_choices(chat_id, choices: Value, prompt: str, callback_prefix: str = None):
+def present_choices(chat_id, choices: Value, prompt: str, callback_prefix: str = None, in_new_message=False):
     MAX_CHARS_PER_LINE = 25
     MAX_BUTTONS_PER_LINE = 2
     
@@ -247,13 +257,13 @@ def present_choices(chat_id, choices: Value, prompt: str, callback_prefix: str =
     keyboard = InlineKeyboardMarkup(buttons)
     
     session = conversation_state[chat_id]
-    session.present_question(prompt, reply_markup=keyboard)
+    session.present_question(prompt, reply_markup=keyboard, in_new_message=in_new_message)
     # bot.send_message(chat_id, prompt, reply_markup=keyboard)
     
 
 
-def choice_handler(chat_id, stage: Stage):
-    present_choices(chat_id=chat_id, choices=definitions.value_from_name(stage.choices), prompt=stage.prompt)
+def choice_handler(chat_id, stage: Stage, in_new_message=False):
+    present_choices(chat_id=chat_id, choices=definitions.value_from_name(stage.choices), prompt=stage.prompt, in_new_message=in_new_message)
 
 
 @bot.callback_query_handler(func=lambda callback: callback.data.startswith('choice_'))
@@ -292,16 +302,16 @@ def repeat_cb(callback):
     ask_question(callback.message.chat.id)
 
 
-def yesno_handler(chat_id, stage: Stage):
-    present_choices(chat_id=chat_id, choices=definitions.value_from_name("YesNo"), prompt=stage.prompt)
+def yesno_handler(chat_id, stage: Stage, in_new_message=False):
+    present_choices(chat_id=chat_id, choices=definitions.value_from_name("YesNo"), prompt=stage.prompt, in_new_message=in_new_message)
 
 
 
-def date_handler(chat_id, stage: Stage):
+def date_handler(chat_id, stage: Stage, in_new_message=False):
     calendar, step = DetailedTelegramCalendar(min_date=stage.min_date, max_date=stage.max_date).build()
     # bot.send_message(chat_id, stage.prompt, reply_markup=calendar)
     session = conversation_state[chat_id]
-    session.present_question(stage.prompt, reply_markup=calendar)
+    session.present_question(stage.prompt, reply_markup=calendar, in_new_message=in_new_message)
 
 
 @bot.callback_query_handler(func=DetailedTelegramCalendar.func())
@@ -335,6 +345,15 @@ def handle_conversation_start(message):
     conversation_state[chat_id] = Session(chat_id)
     ask_question(chat_id)
 
+@bot.message_handler(commands=["about"])
+def handle_about(message):
+    chat_id = message.chat.id
+    bot.send_message(chat_id,
+                     "\nבואו לראות את רשימת הזכויות וההטבות שמגיעות לכם מהמילואים!\n"\
+                      "\n\n💝 פותח באהבה"\
+                    "\nעל ידי NetApp TLV\n"\
+                    "המידע המוצג אינו מהווה אחריות לתשלום סכומים אלו. נמליץ להשתמש במחשבון זה כדי לקבל תמונה כללית ולא מחייבת של התמורות הצפויות. הנתונים שהוזנו במחשבון אינם נשמרים במסדי הנתונים. המידע מונגש כשירות לציבור. האחריות בידי המשתמש בלבד. 😊")
+
 
 @bot.message_handler(func=lambda message: True)
 def handle_user_message(message):
@@ -348,10 +367,43 @@ def prompt_to_repeat_group(chat_id):
     present_choices(chat_id=chat_id, choices=definitions.value_from_name("YesNo"), prompt=prompt, callback_prefix="repeat_")
 
 
+def is_valid_response(chat_id, response):
+    session = conversation_state[chat_id]
+    stage = session.stage
+    if stage.answer_type == StageType.CHOICE:
+        # lamba to get the options from the enum
+        option = list(filter(lambda x: x.val == response, definitions.value_from_name(stage.choices).options))
+        return (True if option else False)
+        
+    elif stage.answer_type == StageType.DATE:
+        # check if response is a valid date
+        from datetime import datetime
+        try:
+            datetime.strptime(response, '%Y-%m-%d')
+            return True
+        except ValueError:
+            return False
+    elif stage.answer_type == StageType.YESNO:
+        return response in [True, False]
+    else:
+        raise ValueError(f"Unknown stage type: {stage.answer_type}")
+
 def handle_user_response(chat_id, response):
     session = conversation_state[chat_id]
-    session.set_response(val=response)
+
+    # validate here the response
+    is_valid = is_valid_response(chat_id, response)
     
+    if not is_valid:
+        # print error
+        # bot.send_message(chat_id, "invalid answer, please try again")
+        # ask question again
+        ask_question(chat_id, in_new_message=True)
+        # prompt_to_repeat_group(chat_id=chat_id)
+        return
+    
+    session.set_response(val=response)
+
     try:
         session.next_stage()
     except PromptToRepeat:
@@ -365,7 +417,7 @@ def handle_user_response(chat_id, response):
     ask_question(chat_id)
 
 
-def ask_question(chat_id):
+def ask_question(chat_id, in_new_message=False):
     session: Session = conversation_state[chat_id]
     stage: Stage = session.stage
     
@@ -379,7 +431,7 @@ def ask_question(chat_id):
         StageType.YESNO: yesno_handler,
     }[stage.answer_type]
     
-    question_handler(chat_id, stage)
+    question_handler(chat_id, stage, in_new_message)
 
 
 def send_results_section(chat_id, title: str, results: dict):
