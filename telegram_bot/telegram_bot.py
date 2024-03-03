@@ -12,7 +12,10 @@ from defs import Defs, Stage, StageGroup, StageType, Value
 
 # t.me/CalcMiluim_bot
 
-BOT_TOKEN = "6346223964:AAGoCkra0oNHXwWRphjqVvhsfEM6ickBtbY"  # Replace with your actual bot token
+# Get environment variable
+BOT_TOKEN = os.environ["BOT_TOKEN"]
+# if bot contains \: replace it with :
+BOT_TOKEN = BOT_TOKEN.replace("\\", "")
 API_ENDPOINT = "https://api.calculate-miluim.info/benefits/benefits"
 
 bot = telebot.TeleBot(BOT_TOKEN)
