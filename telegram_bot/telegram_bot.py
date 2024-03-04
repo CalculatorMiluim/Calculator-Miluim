@@ -149,12 +149,9 @@ class Session:
             curr_dict = curr_dict[part]
         curr_dict[key_parts[-1]] = v
     
-    def present_question(self, prompt, reply_markup=None, in_new_message=False):
-        if not self.last_question_message or in_new_message:
-            # Either there was not a previous question or we are being asked to send a new message (i.e. not replace previous one)
-            # most likely is because the answer was invalid, so we delete the old question and send the same one again to be at the bottom
-            if self.last_question_message:
-                bot.delete_message(self._chat_id, self.last_question_message.id)
+    def present_question(self, prompt, reply_markup=None):
+        
+        if not self.last_question_message:
             # sends new message
             message = bot.send_message(self._chat_id, prompt, reply_markup=reply_markup)
         else:
@@ -233,7 +230,7 @@ conversation_state: Dict[str, Session] = {}
 
 
 
-def present_choices(chat_id, choices: Value, prompt: str, callback_prefix: str = None, in_new_message=False):
+def present_choices(chat_id, choices: Value, prompt: str, callback_prefix: str = None):
     MAX_CHARS_PER_LINE = 25
     MAX_BUTTONS_PER_LINE = 2
     
@@ -261,13 +258,13 @@ def present_choices(chat_id, choices: Value, prompt: str, callback_prefix: str =
     keyboard = InlineKeyboardMarkup(buttons)
     
     session = conversation_state[chat_id]
-    session.present_question(prompt, reply_markup=keyboard, in_new_message=in_new_message)
+    session.present_question(prompt, reply_markup=keyboard)
     # bot.send_message(chat_id, prompt, reply_markup=keyboard)
     
 
 
-def choice_handler(chat_id, stage: Stage, in_new_message=False):
-    present_choices(chat_id=chat_id, choices=definitions.value_from_name(stage.choices), prompt=stage.prompt, in_new_message=in_new_message)
+def choice_handler(chat_id, stage: Stage):
+    present_choices(chat_id=chat_id, choices=definitions.value_from_name(stage.choices), prompt=stage.prompt)
 
 
 @bot.callback_query_handler(func=lambda callback: callback.data.startswith('choice_'))
@@ -306,16 +303,16 @@ def repeat_cb(callback):
     ask_question(callback.message.chat.id)
 
 
-def yesno_handler(chat_id, stage: Stage, in_new_message=False):
-    present_choices(chat_id=chat_id, choices=definitions.value_from_name("YesNo"), prompt=stage.prompt, in_new_message=in_new_message)
+def yesno_handler(chat_id, stage: Stage):
+    present_choices(chat_id=chat_id, choices=definitions.value_from_name("YesNo"), prompt=stage.prompt)
 
 
 
-def date_handler(chat_id, stage: Stage, in_new_message=False):
+def date_handler(chat_id, stage: Stage):
     calendar, step = DetailedTelegramCalendar(min_date=stage.min_date, max_date=stage.max_date).build()
     # bot.send_message(chat_id, stage.prompt, reply_markup=calendar)
     session = conversation_state[chat_id]
-    session.present_question(stage.prompt, reply_markup=calendar, in_new_message=in_new_message)
+    session.present_question(stage.prompt, reply_markup=calendar)
 
 
 @bot.callback_query_handler(func=DetailedTelegramCalendar.func())
@@ -372,6 +369,12 @@ def prompt_to_repeat_group(chat_id):
 
 
 def is_valid_response(chat_id, response):
+
+    # if the message is empty, means it could be skiped and it's valid
+    # user cant enter an emtpy message
+    if response is None or response == '':
+        return True
+
     session = conversation_state[chat_id]
     stage = session.stage
     if stage.answer_type == StageType.CHOICE:
@@ -399,10 +402,11 @@ def handle_user_response(chat_id, response):
     is_valid = is_valid_response(chat_id, response)
     
     if not is_valid:
-        # print error
-        # bot.send_message(chat_id, "invalid answer, please try again")
-        # ask question again
-        ask_question(chat_id, in_new_message=True)
+        # delete last message
+        bot.delete_message(chat_id, session.last_question_message.id)
+        session.last_question_message = None
+
+        ask_question(chat_id)
         # prompt_to_repeat_group(chat_id=chat_id)
         return
     
@@ -421,7 +425,7 @@ def handle_user_response(chat_id, response):
     ask_question(chat_id)
 
 
-def ask_question(chat_id, in_new_message=False):
+def ask_question(chat_id):
     session: Session = conversation_state[chat_id]
     stage: Stage = session.stage
     
@@ -435,7 +439,7 @@ def ask_question(chat_id, in_new_message=False):
         StageType.YESNO: yesno_handler,
     }[stage.answer_type]
     
-    question_handler(chat_id, stage, in_new_message)
+    question_handler(chat_id, stage)
 
 
 def send_results_section(chat_id, title: str, results: dict):
