@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Button, Grid, MenuItem, Stack, TextField, Typography } from '@mui/material'
 import ReservesRanges from '@/pages/Home/ReservesRanges/ReservesRanges.tsx'
 import HomeChoiceFormField from '@/pages/Home/HomeChoiceFormField/HomeChoiceFormField.tsx'
@@ -34,6 +34,14 @@ const Home = () => {
     recruitmentTypeProps3,
     getIsFollowedUpQuestionSelected,
   } = useHome()
+
+  useEffect(() => {
+    const el = document.querySelector('.Mui-error, [data-error]');
+    (el?.parentElement ?? el)?.scrollIntoView();
+    // scroll 90px up
+    window.scrollBy(0, -90);
+  }, [formik.isSubmitting])
+
   return (
     <form onSubmit={formik.handleSubmit} style={{ display: 'flex', width: '100%' }}>
       <Stack spacing={4} sx={{ display: 'flex', alignItems: 'flex-start', textAlign: 'start', width: '100%' }}>
