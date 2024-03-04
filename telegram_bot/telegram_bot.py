@@ -151,10 +151,14 @@ class Session:
     
     def present_question(self, prompt, reply_markup=None, in_new_message=False):
         if not self.last_question_message or in_new_message:
+            # Either there was not a previous question or we are being asked to send a new message (i.e. not replace previous one)
+            # most likely is because the answer was invalid, so we delete the old question and send the same one again to be at the bottom
             if self.last_question_message:
                 bot.delete_message(self._chat_id, self.last_question_message.id)
+            # sends new message
             message = bot.send_message(self._chat_id, prompt, reply_markup=reply_markup)
         else:
+            # edit the old message as designed when moving forward with correct answers
             message = bot.edit_message_text(chat_id=self._chat_id, message_id=self.last_question_message.id, text=prompt, reply_markup=reply_markup)
         self.last_question_message = message
 
