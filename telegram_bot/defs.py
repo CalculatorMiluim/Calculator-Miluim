@@ -26,6 +26,12 @@ class Value(BaseModel):
             if option.name == name:
                 return option
         raise Exception(f"Unknown option name {name} for type {self.type}")
+    
+    def is_valid_value(self, val):
+        for option in self.options:
+            if option.val == val:
+                return True
+        return False
 
 
 class Condition(BaseModel):

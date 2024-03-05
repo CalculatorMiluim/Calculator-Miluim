@@ -12,6 +12,8 @@ from defs import Defs, Stage, StageGroup, StageType, Value
 
 # t.me/CalcMiluim_bot
 
+DATE_FORMAT = r"%Y-%m-%d"
+
 # Get environment variable
 BOT_TOKEN = os.environ["BOT_TOKEN"]
 # if bot contains \: replace it with :
@@ -332,7 +334,7 @@ def date_cb(callback):
                               callback.message.chat.id,
                               callback.message.message_id)
         
-        handle_user_response(callback.message.chat.id, result.strftime(r"%Y-%m-%d"))
+        handle_user_response(callback.message.chat.id, result.strftime(DATE_FORMAT))
 
 
 @bot.message_handler(commands=["start"])
@@ -371,29 +373,28 @@ def prompt_to_repeat_group(chat_id):
 def is_valid_response(chat_id, response):
 
     # if the message is empty, means it could be skiped and it's valid
-    # user cant enter an emtpy message
-    if response is None or response == '':
+    # user can't enter an emtpy message
+    if not response:
         return True
 
     session = conversation_state[chat_id]
     stage = session.stage
     if stage.answer_type == StageType.CHOICE:
-        # lamba to get the options from the enum
-        option = list(filter(lambda x: x.val == response, definitions.value_from_name(stage.choices).options))
-        return (True if option else False)
+        return definitions.value_from_name(stage.choices).is_valid_value(response)
         
     elif stage.answer_type == StageType.DATE:
         # check if response is a valid date
         from datetime import datetime
         try:
-            datetime.strptime(response, '%Y-%m-%d')
+            datetime.strptime(response, DATE_FORMAT)
             return True
         except ValueError:
             return False
     elif stage.answer_type == StageType.YESNO:
-        return response in [True, False]
+        return isinstance(response, bool)
     else:
         raise ValueError(f"Unknown stage type: {stage.answer_type}")
+
 
 def handle_user_response(chat_id, response):
     session = conversation_state[chat_id]
