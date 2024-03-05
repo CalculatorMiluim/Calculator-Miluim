@@ -1,6 +1,6 @@
 from datetime import date
 from enum import Enum
-from typing import Any, List, Optional
+from typing import Any, List, Optional, Union
 
 from pydantic import BaseModel, validator
 
@@ -44,16 +44,18 @@ class Stage(BaseModel):
     prompt: str
     answer_type: StageType
     default: Optional[Any] = None
-    min_date: Optional[date] = None
-    max_date: Optional[date] = None
+    min_date: Optional[Union[date, str]] = None
+    max_date: Optional[Union[date, str]] = None
     choices: Optional[str] = None
     exclude_from_api: Optional[bool] = False
     condition: Optional[Condition] = None
     
     @validator('min_date', 'max_date', pre=True)
-    def parse_date_or_today(cls, v):
+    def parse_date_value(cls, v):
         if v == "today":
             return date.today()
+        if v == "last_selected":
+            return v
         elif isinstance(v, str):
             try:
                 return date.fromisoformat(v)

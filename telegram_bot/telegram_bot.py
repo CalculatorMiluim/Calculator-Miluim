@@ -1,13 +1,14 @@
 import json
+import os
+from datetime import datetime
 from typing import Any, Dict
 
 import requests
 import telebot
 from telebot import formatting
-from telebot.types import Message
-from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
+from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from telegram_bot_calendar import LSTEP, DetailedTelegramCalendar
-import os
+
 from defs import Defs, Stage, StageGroup, StageType, Value
 
 # t.me/CalcMiluim_bot
@@ -51,6 +52,7 @@ class Session:
         self._stage_group_index: int = 0
         self._group_loop_index: int = 0
         self._stage_index: int = 0
+        self._last_date_selected = None
         self._update_stage()
         
     def _update_stage(self):
@@ -125,6 +127,9 @@ class Session:
         else:
             self.responses[stage_key] = val
         
+        if self._stage.answer_type == StageType.DATE:
+            self._last_date_selected = val
+
     def should_show_stage(self):
         if self.stage.condition is None:
             return True
@@ -224,6 +229,21 @@ class Session:
 
         return responses_dict
 
+    def min_and_max_dates_for_stage(self):
+        if self._stage.answer_type != StageType.DATE:
+            raise Exception("Only date stage has min and max date")
+
+        if self.stage.min_date == "last_selected" and self._last_date_selected:
+            min = datetime.strptime(self._last_date_selected, DATE_FORMAT).date()
+        else:
+            min = self.stage.min_date
+
+        if self.stage.max_date == "last_selected" and self._last_date_selected:
+            max = datetime.strptime(self._last_date_selected, DATE_FORMAT).date()
+        else:
+            max = self.stage.max_date
+
+        return min, max
 
 
 conversation_state: Dict[str, Session] = {}
@@ -311,9 +331,9 @@ def yesno_handler(chat_id, stage: Stage):
 
 
 def date_handler(chat_id, stage: Stage):
-    calendar, step = DetailedTelegramCalendar(min_date=stage.min_date, max_date=stage.max_date).build()
-    # bot.send_message(chat_id, stage.prompt, reply_markup=calendar)
     session = conversation_state[chat_id]
+    min_date, max_date = session.min_and_max_dates_for_stage()
+    calendar, step = DetailedTelegramCalendar(min_date=min_date, max_date=max_date).build()
     session.present_question(stage.prompt, reply_markup=calendar)
 
 
@@ -323,7 +343,8 @@ def date_cb(callback):
     session = conversation_state[callback.message.chat.id]
     stage = session.stage
     
-    result, key, step = DetailedTelegramCalendar(min_date=stage.min_date, max_date=stage.max_date).process(callback.data)
+    min_date, max_date = session.min_and_max_dates_for_stage()
+    result, key, step = DetailedTelegramCalendar(min_date=min_date, max_date=max_date).process(callback.data)
     if not result and key:
         bot.edit_message_text(stage.prompt,
                               callback.message.chat.id,
@@ -384,7 +405,6 @@ def is_valid_response(chat_id, response):
         
     elif stage.answer_type == StageType.DATE:
         # check if response is a valid date
-        from datetime import datetime
         try:
             datetime.strptime(response, DATE_FORMAT)
             return True

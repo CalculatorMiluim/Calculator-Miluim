@@ -157,7 +157,7 @@
                     "api_key": "end_date",
                     "prompt": "סיום מילואים",
                     "answer_type": "date",
-                    "min_date": "2023-10-07",
+                    "min_date": "last_selected",
                     "max_date": "today"
                 },
                 {
