@@ -9,7 +9,8 @@ export const useResults = () => {
   const results = useAppSelector(selectResults)
 
   const getSectionPanels = (agg: IBenefitAgg): PanelData[] => {
-    return agg.benefits.map(({ financial_reward, description, link_to_source, title }, key) => {
+    return agg.benefits.map(({ financial_reward, other_reward, description, link_to_source, title }, key) => {
+      const header = financial_reward > 0 ? ` ${title} -  ₪${financial_reward.toLocaleString()}` : ` ${title} -  ₪${other_reward} `
       const Content: ReactNode = (
         <Box sx={{ textAlign: 'start' }}>
           <Typography>{description}</Typography>
@@ -21,7 +22,7 @@ export const useResults = () => {
       )
       return {
         id: key.toString(),
-        header: ` ${title} -  ₪${financial_reward.toLocaleString()}`,
+        header: header,
         Content,
       }
     })
