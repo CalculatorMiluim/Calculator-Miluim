@@ -1,25 +1,33 @@
 import json
+import os
+from datetime import datetime
 from typing import Any, Dict
 
 import requests
 import telebot
 from telebot import formatting
-from telebot.types import Message
-from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
+from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from telegram_bot_calendar import LSTEP, DetailedTelegramCalendar
 
 from defs import Defs, Stage, StageGroup, StageType, Value
 
 # t.me/CalcMiluim_bot
 
+DATE_FORMAT = r"%Y-%m-%d"
+
 # Get environment variable
 BOT_TOKEN = os.environ["BOT_TOKEN"]
 # if bot contains \: replace it with :
 BOT_TOKEN = BOT_TOKEN.replace("\\", "")
+
 API_ENDPOINT = "https://api.calculate-miluim.info/benefits/benefits"
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
+bot.set_my_commands([
+    telebot.types.BotCommand("/start", "התחל מחדש"),
+    telebot.types.BotCommand("/about", "מי אנחנו")
+])
 
 with open("defs.json", 'r') as f:
     defs_dict = json.load(f)
@@ -44,6 +52,7 @@ class Session:
         self._stage_group_index: int = 0
         self._group_loop_index: int = 0
         self._stage_index: int = 0
+        self._last_date_selected = None
         self._update_stage()
         
     def _update_stage(self):
@@ -118,6 +127,9 @@ class Session:
         else:
             self.responses[stage_key] = val
         
+        if self._stage.answer_type == StageType.DATE:
+            self._last_date_selected = val
+
     def should_show_stage(self):
         if self.stage.condition is None:
             return True
@@ -145,9 +157,12 @@ class Session:
         curr_dict[key_parts[-1]] = v
     
     def present_question(self, prompt, reply_markup=None):
+        
         if not self.last_question_message:
+            # sends new message
             message = bot.send_message(self._chat_id, prompt, reply_markup=reply_markup)
         else:
+            # edit the old message as designed when moving forward with correct answers
             message = bot.edit_message_text(chat_id=self._chat_id, message_id=self.last_question_message.id, text=prompt, reply_markup=reply_markup)
         self.last_question_message = message
 
@@ -214,6 +229,21 @@ class Session:
 
         return responses_dict
 
+    def min_and_max_dates_for_stage(self):
+        if self._stage.answer_type != StageType.DATE:
+            raise Exception("Only date stage has min and max date")
+
+        if self.stage.min_date == "last_selected" and self._last_date_selected:
+            min = datetime.strptime(self._last_date_selected, DATE_FORMAT).date()
+        else:
+            min = self.stage.min_date
+
+        if self.stage.max_date == "last_selected" and self._last_date_selected:
+            max = datetime.strptime(self._last_date_selected, DATE_FORMAT).date()
+        else:
+            max = self.stage.max_date
+
+        return min, max
 
 
 conversation_state: Dict[str, Session] = {}
@@ -301,9 +331,9 @@ def yesno_handler(chat_id, stage: Stage):
 
 
 def date_handler(chat_id, stage: Stage):
-    calendar, step = DetailedTelegramCalendar(min_date=stage.min_date, max_date=stage.max_date).build()
-    # bot.send_message(chat_id, stage.prompt, reply_markup=calendar)
     session = conversation_state[chat_id]
+    min_date, max_date = session.min_and_max_dates_for_stage()
+    calendar, step = DetailedTelegramCalendar(min_date=min_date, max_date=max_date).build()
     session.present_question(stage.prompt, reply_markup=calendar)
 
 
@@ -313,7 +343,8 @@ def date_cb(callback):
     session = conversation_state[callback.message.chat.id]
     stage = session.stage
     
-    result, key, step = DetailedTelegramCalendar(min_date=stage.min_date, max_date=stage.max_date).process(callback.data)
+    min_date, max_date = session.min_and_max_dates_for_stage()
+    result, key, step = DetailedTelegramCalendar(min_date=min_date, max_date=max_date).process(callback.data)
     if not result and key:
         bot.edit_message_text(stage.prompt,
                               callback.message.chat.id,
@@ -324,7 +355,7 @@ def date_cb(callback):
                               callback.message.chat.id,
                               callback.message.message_id)
         
-        handle_user_response(callback.message.chat.id, result.strftime(r"%Y-%m-%d"))
+        handle_user_response(callback.message.chat.id, result.strftime(DATE_FORMAT))
 
 
 @bot.message_handler(commands=["start"])
@@ -337,6 +368,15 @@ def handle_conversation_start(message):
 
     conversation_state[chat_id] = Session(chat_id)
     ask_question(chat_id)
+
+@bot.message_handler(commands=["about"])
+def handle_about(message):
+    chat_id = message.chat.id
+    bot.send_message(chat_id,
+                     "\nבואו לראות את רשימת הזכויות וההטבות שמגיעות לכם מהמילואים!\n"\
+                      "\n\n💝 פותח באהבה"\
+                    "\nעל ידי NetApp TLV\n"\
+                    "המידע המוצג אינו מהווה אחריות לתשלום סכומים אלו. נמליץ להשתמש במחשבון זה כדי לקבל תמונה כללית ולא מחייבת של התמורות הצפויות. הנתונים שהוזנו במחשבון אינם נשמרים במסדי הנתונים. המידע מונגש כשירות לציבור. האחריות בידי המשתמש בלבד. 😊")
 
 
 @bot.message_handler(func=lambda message: True)
@@ -351,10 +391,48 @@ def prompt_to_repeat_group(chat_id):
     present_choices(chat_id=chat_id, choices=definitions.value_from_name("YesNo"), prompt=prompt, callback_prefix="repeat_")
 
 
+def is_valid_response(chat_id, response):
+
+    # if the message is empty, means it could be skiped and it's valid
+    # user can't enter an emtpy message
+    if not response:
+        return True
+
+    session = conversation_state[chat_id]
+    stage = session.stage
+    if stage.answer_type == StageType.CHOICE:
+        return definitions.value_from_name(stage.choices).is_valid_value(response)
+        
+    elif stage.answer_type == StageType.DATE:
+        # check if response is a valid date
+        try:
+            datetime.strptime(response, DATE_FORMAT)
+            return True
+        except ValueError:
+            return False
+    elif stage.answer_type == StageType.YESNO:
+        return isinstance(response, bool)
+    else:
+        raise ValueError(f"Unknown stage type: {stage.answer_type}")
+
+
 def handle_user_response(chat_id, response):
     session = conversation_state[chat_id]
-    session.set_response(val=response)
+
+    # validate here the response
+    is_valid = is_valid_response(chat_id, response)
     
+    if not is_valid:
+        # delete last message
+        bot.delete_message(chat_id, session.last_question_message.id)
+        session.last_question_message = None
+
+        ask_question(chat_id)
+        # prompt_to_repeat_group(chat_id=chat_id)
+        return
+    
+    session.set_response(val=response)
+
     try:
         session.next_stage()
     except PromptToRepeat:
