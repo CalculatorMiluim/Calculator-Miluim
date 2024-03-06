@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
@@ -9,10 +9,12 @@ import { PanelData } from '@/pages/Results/ToggledListItems/ToggledListItems.mod
 import { Box } from '@mui/material'
 
 interface ICustomAccordion {
-  panels: PanelData[]
+  panels: PanelData[],
+  allExpanded: boolean
 }
 
-const ToggledListItems: React.FC<ICustomAccordion> = ({ panels }) => {
+const ToggledListItems: React.FC<ICustomAccordion> = ({ panels, allExpanded }) => {
+
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded({
@@ -28,9 +30,9 @@ const ToggledListItems: React.FC<ICustomAccordion> = ({ panels }) => {
   return (
     <Box sx={{ alignSelf: 'stretch' }}>
       {panels.map(({ Content, header, id }) => (
-        <Accordion key={id} expanded={expanded[id]} onChange={handleChange(id)} sx={{ width: '100%' }}>
+        <Accordion key={id} expanded={expanded[id] || allExpanded} onChange={handleChange(id)} sx={{ width: '100%' }}>
           <AccordionSummary
-            expandIcon={expanded[id] ? <RemoveIcon color="primary" /> : <AddCircleIcon color="primary" />}
+            expandIcon={expanded[id] || allExpanded ? <RemoveIcon color="primary" /> : <AddCircleIcon color="primary" />}
             id={`${id}bh-header`}
             sx={{ '& .MuiAccordionSummary-expandIconWrapper': { order: -1 } }}
           >

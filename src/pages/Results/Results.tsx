@@ -7,6 +7,7 @@ import PrintIcon from '@mui/icons-material/Print';
 
 const Results = () => {
   const { panelsMap, totalAmount } = useResults()
+  const [allExpanded, setAllExpanded] = React.useState(false)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -25,7 +26,15 @@ const Results = () => {
                 }}
                 type="button"
                 variant="outlined"
-                onClick={() => window.print()}
+                onClick={() => 
+                  {
+                    setAllExpanded(true);
+                    setTimeout(function(){
+                      window.print();
+                      setAllExpanded(false);
+                  }, 1000);
+                    
+                  }}
               >
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around', width: '100%' }}>
                   <Typography sx={{ pb: 0.4, fontFamily: 'PolinBoldFont' }} variant="h5">
@@ -51,13 +60,13 @@ const Results = () => {
       <Typography>רשימת הזכויות שמגיעות לך בתור משרת מילואים בתקופת מלחמת חרבות ברזל</Typography>
 
       <Typography variant="h5">מענק שנכנס לך באופן אוטומטי לחשבון בנק, כמו התגמול הנוסף</Typography>
-      <ToggledListItems panels={panelsMap.automaticGrant} />
+      <ToggledListItems panels={panelsMap.automaticGrant} allExpanded={allExpanded}/>
 
       <Typography variant="h5">מענק שאתה צריך לבקש, לדוגמא מענק מהאוניברסיטה</Typography>
-      <ToggledListItems panels={panelsMap.grant} />
+      <ToggledListItems panels={panelsMap.grant} allExpanded={allExpanded}/>
 
       <Typography variant="h5">שובר למימוש, כמו לדוגמא שובר בשווי 3500 ש״ח לחופשה </Typography>
-      <ToggledListItems panels={panelsMap.voucher} />
+      <ToggledListItems panels={panelsMap.voucher} allExpanded={allExpanded}/>
     </Stack>
   )
 }
