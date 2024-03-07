@@ -58,6 +58,9 @@ const Results = () => {
 
       <Typography variant="h5">שובר למימוש, כמו לדוגמא שובר בשווי 3500 ש״ח לחופשה </Typography>
       <ToggledListItems panels={panelsMap.voucher} />
+
+      <Typography variant="h5">הטבות לא כספיות</Typography>
+      <ToggledListItems panels={panelsMap.noMoneyBenefits} />
     </Stack>
   )
 }

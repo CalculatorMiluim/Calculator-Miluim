@@ -18,5 +18,6 @@ export interface IGetResultResponse {
   [BENEFITS_TYPES_MAP.AUTOMATIC_GRANT]: IBenefitAgg
   [BENEFITS_TYPES_MAP.GRANT]: IBenefitAgg
   [BENEFITS_TYPES_MAP.VOUCHER]: IBenefitAgg
+  [BENEFITS_TYPES_MAP.NO_MONEY_BENEFIT]: IBenefitAgg
   total_amount: number
 }

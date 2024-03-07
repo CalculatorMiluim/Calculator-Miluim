@@ -512,6 +512,7 @@ def get_results(chat_id):
         send_results_section(chat_id, 'מענק שנכנס לך באופן אוטומטי לחשבון בנק, כמו התגמול הנוסף', data['Automatic_Grant'])
         send_results_section(chat_id, 'מענק שאתה צריך לבקש, לדוגמא מענק מהאוניברסיטה', data['Grant'])
         send_results_section(chat_id, 'שובר למימוש, כמו לדוגמא שובר בשווי 3500 ש״ח לחופשה', data['Voucher'])
+        send_results_section(chat_id, 'הטבות לא כספיות', data['No_Money_Benefit'])
 
     del conversation_state[chat_id]
 
