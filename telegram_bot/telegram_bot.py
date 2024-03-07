@@ -305,7 +305,7 @@ def choice_cb(callback):
 
     val = option.val
 
-    handle_user_response(callback.message.chat.id, val)
+    handle_user_response(callback.message.chat.id, val, True)
 
 
 @bot.callback_query_handler(func=lambda callback: callback.data.startswith('repeat_'))
@@ -361,7 +361,7 @@ def date_cb(callback):
                               callback.message.chat.id,
                               callback.message.message_id)
         
-        handle_user_response(callback.message.chat.id, result.strftime(DATE_FORMAT))
+        handle_user_response(callback.message.chat.id, result.strftime(DATE_FORMAT), True)
 
 
 @bot.message_handler(commands=["start"])
@@ -388,7 +388,7 @@ def handle_about(message):
 @bot.message_handler(func=lambda message: True)
 def handle_user_message(message):
     chat_id = message.chat.id
-    handle_user_response(chat_id, message.text)
+    handle_user_response(chat_id, message.text, True)
 
 
 def prompt_to_repeat_group(chat_id):
@@ -422,7 +422,7 @@ def is_valid_response(chat_id, response):
         raise ValueError(f"Unknown stage type: {stage.answer_type}")
 
 
-def handle_user_response(chat_id, response):
+def handle_user_response(chat_id, response, answer_from_user: bool):
     session = conversation_state[chat_id]
 
     # validate here the response
@@ -437,7 +437,7 @@ def handle_user_response(chat_id, response):
         # prompt_to_repeat_group(chat_id=chat_id)
         return
     
-    if response is not None:
+    if answer_from_user and response is not None:
         q = session.stage.prompt
         show_answer = f'{q}: {session.humanize_answer(response)}'
         bot.edit_message_text(chat_id=chat_id, message_id=session.last_question_message.id, text=show_answer, reply_markup=None)
@@ -463,7 +463,7 @@ def ask_question(chat_id):
     stage: Stage = session.stage
     
     if not session.should_show_stage():
-        handle_user_response(chat_id=chat_id, response=stage.default)
+        handle_user_response(chat_id=chat_id, response=stage.default, answer_from_user=False)
         return
 
     question_handler = {
