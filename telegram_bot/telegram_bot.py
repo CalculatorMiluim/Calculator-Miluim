@@ -158,13 +158,15 @@ class Session:
     
     def present_question(self, prompt, reply_markup=None):
         
-        if not self.last_question_message:
-            # sends new message
-            message = bot.send_message(self._chat_id, prompt, reply_markup=reply_markup)
-        else:
-            # edit the old message as designed when moving forward with correct answers
-            message = bot.edit_message_text(chat_id=self._chat_id, message_id=self.last_question_message.id, text=prompt, reply_markup=reply_markup)
+        message = bot.send_message(self._chat_id, prompt, reply_markup=reply_markup)
         self.last_question_message = message
+        # if not self.last_question_message:
+        #     # sends new message
+        #     message = bot.send_message(self._chat_id, prompt, reply_markup=reply_markup)
+        # else:
+        #     # edit the old message as designed when moving forward with correct answers
+        #     message = bot.edit_message_text(chat_id=self._chat_id, message_id=self.last_question_message.id, text=prompt, reply_markup=reply_markup)
+        # self.last_question_message = message
 
     def send_responses_summary(self):
         q_and_a_pairs = []
@@ -186,10 +188,10 @@ class Session:
                         q_and_a_pairs.append((prompt, answer))
 
         msg = "סיכום התשובות:\n\n"
-        msg += '\n'.join([f'{q}: {self._humanize_answer(a)}' for q, a in q_and_a_pairs])
+        msg += '\n'.join([f'{q}: {self.humanize_answer(a)}' for q, a in q_and_a_pairs])
         bot.send_message(self._chat_id, msg)
     
-    def _humanize_answer(self, answer):
+    def humanize_answer(self, answer):
         if isinstance(answer, bool):
             return "כן" if answer else "לא"
         return answer
@@ -308,6 +310,10 @@ def choice_cb(callback):
 
 @bot.callback_query_handler(func=lambda callback: callback.data.startswith('repeat_'))
 def repeat_cb(callback):
+
+    # delete last message because we dont care, its just about repeat
+    bot.delete_message(callback.message.chat.id, callback.message.message_id)
+
     params = callback.data.split("_")
     assert len(params) == 2
     assert params[0] == "repeat"
@@ -431,6 +437,12 @@ def handle_user_response(chat_id, response):
         # prompt_to_repeat_group(chat_id=chat_id)
         return
     
+    if response is not None:
+        q = session.stage.prompt
+        show_answer = f'{q}: {session.humanize_answer(response)}'
+        bot.edit_message_text(chat_id=chat_id, message_id=session.last_question_message.id, text=show_answer, reply_markup=None)
+        
+
     session.set_response(val=response)
 
     try:
@@ -488,7 +500,8 @@ def send_results_section(chat_id, title: str, results: dict):
 def get_results(chat_id):
 
     session: Session = conversation_state[chat_id]
-    session.send_responses_summary()
+    # dont send the summary since we are writing each answer one by one
+    # session.send_responses_summary()
     
     responses_dict = session.responses_dict
     
