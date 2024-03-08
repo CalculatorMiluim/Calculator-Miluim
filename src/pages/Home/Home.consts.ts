@@ -40,6 +40,16 @@ export const RECRUITMENT_TYPE_VALUES = {
   OTHER: 'אחר',
 }
 
+export const LOCATION_VALUES = {
+  CENTER: "מרכז",
+  NORTH: "צפון",
+  SOUTH: "דרום",
+  JERUSALEM: "ירושלים",
+  TEL_AVIV: "תל אביב",
+  HAIFA: "חיפה",
+  BEER_SHEVA: "באר שבע",
+}
+
 export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
   isActiveReservist: {
     label: 'האם בשירות מילואים פעיל?',
@@ -168,6 +178,18 @@ export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
       { label: 'צו 8', value: RECRUITMENT_TYPE_VALUES.TZAV_8 },
       { label: 'תעסוקה מבצעית', value: RECRUITMENT_TYPE_VALUES.TAASUKA_MIVTZAIT },
       { label: 'אחר', value: RECRUITMENT_TYPE_VALUES.OTHER },
+    ],
+  },
+  location: {
+    label: 'title location',
+    options: [
+      { label: 'מרכז', value: LOCATION_VALUES.CENTER },
+      { label: 'צפון', value: LOCATION_VALUES.NORTH },
+      { label: 'דרום', value: LOCATION_VALUES.SOUTH },
+      { label: 'ירושלים', value: LOCATION_VALUES.JERUSALEM },
+      { label: 'תל אביב', value: LOCATION_VALUES.TEL_AVIV },
+      { label: 'חיפה', value: LOCATION_VALUES.HAIFA },
+      { label: 'באר שבע', value: LOCATION_VALUES.BEER_SHEVA },
     ],
   },
 } as const

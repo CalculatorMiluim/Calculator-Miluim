@@ -47,6 +47,7 @@ export const useHome = () => {
       academicInstitution: ACADEMIC_INSTITUTION_VALUES.TECHNION as string,
       businessStatus: [] as string[],
       propertyOwnershipStatus: [] as boolean[],
+      location: [] as string[],
     },
     onSubmit: async (
       {
@@ -70,7 +71,8 @@ export const useHome = () => {
         isParent,
         recruitmentType,
         recruitmentType2,
-        recruitmentType3
+        recruitmentType3,
+        location
       },
       { setSubmitting },
     ) => {
@@ -113,6 +115,7 @@ export const useHome = () => {
         business_size: businessStatus[0] || null,
         property_owner: propertyOwnershipStatus[0],
         active_reservist: isActiveReservist[0],
+        location: location[0]
       })
       setSubmitting(false)
       if ('data' in results) {
@@ -157,6 +160,7 @@ export const useHome = () => {
   const recruitmentTypeProps = getPropsForHomeField('recruitmentType')
   const recruitmentTypeProps2 = getPropsForHomeField('recruitmentType2')
   const recruitmentTypeProps3 = getPropsForHomeField('recruitmentType3')
+  const locationProps = getPropsForHomeField('location')
 
   const getIsFollowedUpQuestionSelected = (
     fieldName: string | undefined,
@@ -197,6 +201,7 @@ export const useHome = () => {
     recruitmentTypeProps,
     recruitmentTypeProps2,
     recruitmentTypeProps3,
+    locationProps,
     getIsFollowedUpQuestionSelected,
   }
 }

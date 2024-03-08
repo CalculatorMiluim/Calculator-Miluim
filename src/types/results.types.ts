@@ -25,6 +25,7 @@ export interface IReservistProfile {
   active_reservist: boolean
   employment_status: string
   is_commander: boolean
+  location: string
 }
 
 export const BENEFITS_TYPES_MAP = {

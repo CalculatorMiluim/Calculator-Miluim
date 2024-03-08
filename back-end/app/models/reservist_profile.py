@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Optional, List
 
-from app.models.consts import RecruitmentDate, CombatLevel, FamilyStatus, EmploymentStatus, BusinessSize, Academy, RecruitmentType
+from app.models.consts import Location, RecruitmentDate, CombatLevel, FamilyStatus, EmploymentStatus, BusinessSize, Academy, RecruitmentType
 
 
 @dataclass
@@ -15,6 +15,7 @@ class ReservistProfile:
     is_commander: bool
     property_owner: bool
     active_reservist: bool
+    location: Location
 
     def calculate_total_days(self) -> int:
         total_days = 0

@@ -32,6 +32,7 @@ const Home = () => {
     recruitmentTypeProps,
     recruitmentTypeProps2,
     recruitmentTypeProps3,
+    locationProps,
     getIsFollowedUpQuestionSelected,
   } = useHome()
 
@@ -119,6 +120,30 @@ const Home = () => {
           )}
         />
         <HomeChoiceFormField {...propertyOwnershipStatusProps} />
+        
+
+        <Grid item xs={8}>
+            <Typography variant="h6" sx={{ fontFamily: 'PolinBoldFont', marginBottom: 0 }}>
+              location title
+            </Typography>
+          </Grid>
+        <TextField
+              sx={{
+                width:'300px'
+              }}
+              value={formik.values.location}
+              name="location"
+              onChange={formik.handleChange}
+              select
+            >
+              {HOME_OPTIONS_MAP.location.options?.map(({ value, label }) => (
+                <MenuItem key={`${label}-${value}`} value={value as string}>
+                  {label}
+                </MenuItem>
+              ))}
+            </TextField>
+
+
         <Button
           sx={{
             minWidth: {

@@ -43,6 +43,15 @@ class Academy(Enum):
     BIU = "אוניברסיטת בר אילן"
 
 
+class Location(Enum):
+    CENTER = "מרכז"
+    NORTH = "צפון"
+    SOUTH = "דרום"
+    JERUSALEM = "ירושלים"
+    TEL_AVIV = "תל אביב"
+    HAIFA = "חיפה"
+    BEER_SHEVA = "באר שבע"
+
 @dataclass
 class RecruitmentDate:
     start_date: date
