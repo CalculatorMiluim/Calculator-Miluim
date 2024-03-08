@@ -160,13 +160,6 @@ class Session:
         
         message = bot.send_message(self._chat_id, prompt, reply_markup=reply_markup)
         self.last_question_message = message
-        # if not self.last_question_message:
-        #     # sends new message
-        #     message = bot.send_message(self._chat_id, prompt, reply_markup=reply_markup)
-        # else:
-        #     # edit the old message as designed when moving forward with correct answers
-        #     message = bot.edit_message_text(chat_id=self._chat_id, message_id=self.last_question_message.id, text=prompt, reply_markup=reply_markup)
-        # self.last_question_message = message
 
     def send_responses_summary(self):
         q_and_a_pairs = []
@@ -500,8 +493,6 @@ def send_results_section(chat_id, title: str, results: dict):
 def get_results(chat_id):
 
     session: Session = conversation_state[chat_id]
-    # dont send the summary since we are writing each answer one by one
-    # session.send_responses_summary()
     
     responses_dict = session.responses_dict
     
