@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Box, Button, Grid, MenuItem, Stack, TextField, Typography } from '@mui/material'
+import { Autocomplete, Box, Button, Grid, MenuItem, Stack, TextField, Typography } from '@mui/material'
 import ReservesRanges from '@/pages/Home/ReservesRanges/ReservesRanges.tsx'
 import HomeChoiceFormField from '@/pages/Home/HomeChoiceFormField/HomeChoiceFormField.tsx'
 import { COLORS } from '@/consts/colors.ts'
@@ -36,12 +36,26 @@ const Home = () => {
     getIsFollowedUpQuestionSelected,
   } = useHome()
 
+  const [locationOptions, setLocationOptions] = React.useState<String[]>([]);
+
   useEffect(() => {
     const el = document.querySelector('.Mui-error, [data-error]');
     (el?.parentElement ?? el)?.scrollIntoView();
     // scroll 90px up
     window.scrollBy(0, -90);
   }, [formik.isSubmitting])
+
+  const searchLocation = (value:string) => {
+    console.log(value)
+    if (value.length > 2) {
+      // search
+      if (value.startsWith('dan')) {
+        setLocationOptions(['dan1', 'dan2', 'dan3'])
+      } else {
+        setLocationOptions([])
+      }
+    }
+  }
 
   return (
     <form onSubmit={formik.handleSubmit} style={{ display: 'flex', width: '100%' }}>
@@ -143,6 +157,24 @@ const Home = () => {
               ))}
             </TextField>
 
+          <Autocomplete
+          sx={{
+            width:'300px'
+          }}
+            options={locationOptions}
+            autoComplete
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Autocomplete Field"
+                value={formik.values.location}
+                onChange={formik.handleChange}
+              />
+            )}
+            onInputChange={(event, value) => {
+              searchLocation(value)
+            }}
+          />
 
         <Button
           sx={{
