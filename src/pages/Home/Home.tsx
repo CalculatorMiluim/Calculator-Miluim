@@ -7,6 +7,8 @@ import ChoiceGroup from '@/components/ChoiceGroup/ChoiceGroup.tsx'
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft'
 import { useHome } from '@/pages/Home/Home.module.ts'
 import { HOME_OPTIONS_MAP } from '@/pages/Home/Home.consts.ts'
+import { useGetLocationResultsMutation } from '@/features/location/locationApiSlice'
+import { ICity, ILocationResponse } from '@/types/location.types'
 
 const Home = () => {
   const {
@@ -36,8 +38,9 @@ const Home = () => {
     getIsFollowedUpQuestionSelected,
   } = useHome()
 
-  const [locationOptions, setLocationOptions] = React.useState<String[]>([]);
-
+  const [locationOptions, setLocationOptions] = React.useState<ICity[]>([]);
+  const [getLocationResults, { isLoading, isError, data }] = useGetLocationResultsMutation()
+  
   useEffect(() => {
     const el = document.querySelector('.Mui-error, [data-error]');
     (el?.parentElement ?? el)?.scrollIntoView();
@@ -45,15 +48,19 @@ const Home = () => {
     window.scrollBy(0, -90);
   }, [formik.isSubmitting])
 
-  const searchLocation = (value:string) => {
+  const searchLocation = async (value:string) => {
     console.log(value)
     if (value.length > 2) {
       // search
-      if (value.startsWith('dan')) {
-        setLocationOptions(['dan1', 'dan2', 'dan3'])
-      } else {
-        setLocationOptions([])
-      }
+      // if (value.startsWith('dan')) {
+      //   setLocationOptions(['dan1', 'dan2', 'dan3'])
+      // } else {
+      //   setLocationOptions([])
+      // }
+      const results = await getLocationResults({text: value})
+      setLocationOptions(results.data?.locations ?? []);
+    } else {
+      setLocationOptions([]);
     }
   }
 
@@ -141,7 +148,7 @@ const Home = () => {
               location title
             </Typography>
           </Grid>
-        <TextField
+        {/* <TextField
               sx={{
                 width:'300px'
               }}
@@ -155,7 +162,7 @@ const Home = () => {
                   {label}
                 </MenuItem>
               ))}
-            </TextField>
+            </TextField> */}
 
           <Autocomplete
           sx={{
@@ -163,6 +170,7 @@ const Home = () => {
           }}
             options={locationOptions}
             autoComplete
+            getOptionLabel={(option) => option.name}
             renderInput={(params) => (
               <TextField
                 {...params}
@@ -174,6 +182,12 @@ const Home = () => {
             onInputChange={(event, value) => {
               searchLocation(value)
             }}
+            renderOption={(props, option) => (
+              <Box component="li" {...props}>
+                {option.name}
+              </Box>
+            )}
+
           />
 
         <Button

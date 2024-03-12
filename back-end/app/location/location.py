@@ -30,11 +30,11 @@ class LocationHelper(object):
                 self.cities[row['שם_ישוב']] = {
                         'id': row['סמל_ישוב'],
                         'name': row['שם_ישוב'],
-                        'sub_district_id': row['סמל_נפה'],
-                        'sub_district_name': row['שם_נפה'],
-                        'district_id': row['סמל_לשכת_מנא'],
-                        'district_name': row['לשכה'],
-                        'council_id': row['סמל_מועצה_איזורית'],
-                        'council_name': row['שם_מועצה'],
+                        #'sub_district_id': row['סמל_נפה'],
+                        #'sub_district_name': row['שם_נפה'],
+                        #'district_id': row['סמל_לשכת_מנא'],
+                        #'district_name': row['לשכה'],
+                        #'council_id': row['סמל_מועצה_איזורית'],
+                        #'council_name': row['שם_מועצה'],
                     }
                 

@@ -4,6 +4,7 @@ import authSlice from '@/features/auth/authSlice.ts'
 import appSlice from '@/features/app/appSlice.ts'
 import modalSlice from '@/features/modal/modalSlice.ts'
 import resultsSlice from '@/features/results/resultsSlice.ts'
+import locationSlice from './features/location/locationSlice'
 
 export const rootReducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,
@@ -11,6 +12,7 @@ export const rootReducer = combineReducers({
   app: appSlice,
   modal: modalSlice,
   results: resultsSlice,
+  locations: locationSlice,
 })
 
 export const store = configureStore({
