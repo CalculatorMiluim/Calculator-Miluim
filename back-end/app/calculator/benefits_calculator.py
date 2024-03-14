@@ -1,4 +1,4 @@
-from app.models.benefits_details import Voucher, Grant, AutomaticGrant
+from app.models.benefits_details import NoMoneyBenefit, Voucher, Grant, AutomaticGrant
 from app.models.consts import BenefitType, AMOUNT, BENEFITS, FINANCIAL_REWARD, TOTAL_AMOUNT
 from app.models.reservist_profile import ReservistProfile
 
@@ -33,6 +33,7 @@ def calculate_benefits_for_reservist(reservist: ReservistProfile):
     benefits_owned[BenefitType.VOUCHER] = calculate_vouchers(reservist)
     benefits_owned[BenefitType.GRANT] = calculate_grants(reservist)
     benefits_owned[BenefitType.AUTOMATIC_GRANT] = calculate_automatic_grants(reservist)
+    benefits_owned[BenefitType.NO_MONEY_BENEFIT] = calculate_no_money_benefits(reservist)
 
     benefits_owned[TOTAL_AMOUNT] = (benefits_owned[BenefitType.VOUCHER][AMOUNT] +
                                     benefits_owned[BenefitType.GRANT][AMOUNT] +
@@ -78,4 +79,15 @@ def calculate_automatic_grants(reservist: ReservistProfile):
 
     automatic_grants_sum = sum(automatic_grant[FINANCIAL_REWARD] for automatic_grant in automatic_grants_owned)
     return {AMOUNT: automatic_grants_sum, BENEFITS: automatic_grants_owned}
+
+def calculate_no_money_benefits(reservist: ReservistProfile):
+    no_money_benefits_owned = list()
+
+    for no_money_benefit_object in NoMoneyBenefit.__subclasses__():
+        no_money_benefit = no_money_benefit_object()
+        if no_money_benefit.is_eligible(reservist):
+            no_money_benefit.calculate(reservist)
+            no_money_benefits_owned.append(no_money_benefit.__dict__)
+
+    return {AMOUNT: 0, BENEFITS: no_money_benefits_owned}
 

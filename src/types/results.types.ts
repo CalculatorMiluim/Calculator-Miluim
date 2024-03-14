@@ -31,4 +31,5 @@ export const BENEFITS_TYPES_MAP = {
   VOUCHER: 'Voucher',
   GRANT: 'Grant',
   AUTOMATIC_GRANT: 'Automatic_Grant',
+  NO_MONEY_BENEFIT: 'No_Money_Benefit',
 } as const

@@ -7,6 +7,7 @@ const initialState: IGetResultResponse = {
   Grant: defaultResultAggValue,
   Voucher: defaultResultAggValue,
   Automatic_Grant: defaultResultAggValue,
+  No_Money_Benefit: defaultResultAggValue,
   total_amount: 0,
 }
 

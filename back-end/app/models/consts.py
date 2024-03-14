@@ -32,6 +32,7 @@ class BenefitType(Enum):
     VOUCHER = "Voucher"
     GRANT = "Grant"
     AUTOMATIC_GRANT = "Automatic_Grant"
+    NO_MONEY_BENEFIT = "No_Money_Benefit"
 
 
 class Academy(Enum):
