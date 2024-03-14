@@ -240,6 +240,11 @@ class Session:
 
         return min, max
 
+    def show_answer(self, response):
+        q = self.stage.prompt
+        show_answer = f'{q}: {self.humanize_answer(response)}'
+        bot.edit_message_text(chat_id=self._chat_id, message_id=self.last_question_message.id, text=show_answer, reply_markup=None)
+
 
 conversation_state: Dict[str, Session] = {}
 
@@ -431,9 +436,8 @@ def handle_user_response(chat_id, response, answer_from_user: bool):
         return
     
     if answer_from_user and response is not None:
-        q = session.stage.prompt
-        show_answer = f'{q}: {session.humanize_answer(response)}'
-        bot.edit_message_text(chat_id=chat_id, message_id=session.last_question_message.id, text=show_answer, reply_markup=None)
+        session.show_answer(response)
+        
         
 
     session.set_response(val=response)
