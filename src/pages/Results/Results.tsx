@@ -51,7 +51,7 @@ const Results = () => {
       <Typography>סכום הכסף שאתה זכאי לו -</Typography>
 
       <Box sx={{ display: 'flex' , width: '100%'}}>
-        <Stack direction={"row"} justifyItems={'center'} alignItems={'center'} >
+        <Stack direction={"row"} useFlexGap flexWrap="wrap" justifyItems={'center'} alignItems={'center'} spacing={{ xs: 2, sm: 2 }}>
         <BigNumber amount={totalAmount} />
         {printButton()}
         </Stack>
