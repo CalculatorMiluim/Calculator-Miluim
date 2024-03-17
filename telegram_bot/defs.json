@@ -142,7 +142,7 @@
         {
             "repeats": true,
             "min_repeats": 1,
-            "max_repeats": 1,
+            "max_repeats": 3,
             "repeat_prompt": "האם להזין תקופת מילואים נוספת?",
             "api_key": "recruitment_dates",
             "stages": [

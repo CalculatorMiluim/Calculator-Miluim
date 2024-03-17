@@ -51,3 +51,12 @@ class AutomaticGrant(BenefitDetails, ABC):
     benefit_type: BenefitType = BenefitType.AUTOMATIC_GRANT
     financial_reward: int = 0
     other_reward: Optional[str] = None
+
+@dataclass
+class NoMoneyBenefit(BenefitDetails, ABC):
+    title: str
+    description: str
+    link_to_source: str
+    benefit_type: BenefitType = BenefitType.NO_MONEY_BENEFIT
+    financial_reward: int = 0
+    other_reward: Optional[str] = None

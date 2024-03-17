@@ -1,11 +1,11 @@
-from app.models.benefits_details import AutomaticGrant
+from app.models.benefits_details import NoMoneyBenefit
 from app.models.reservist_profile import ReservistProfile
 
 
 MINIMUM_AMOUNT_OF_DAYS = 14
 
 
-class ArrangementDaysGrant(AutomaticGrant):
+class ArrangementDaysGrant(NoMoneyBenefit):
 
     def __init__(self):
         super().__init__(

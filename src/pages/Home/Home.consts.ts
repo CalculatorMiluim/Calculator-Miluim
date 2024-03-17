@@ -56,6 +56,7 @@ export const HOME_OPTIONS_MAP: Record<string, Partial<IHomeChoiceFormField>> = {
       { label: 'כן', value: true, endIcon: '✅️' },
       { label: 'לא', value: false, endIcon: '❌' },
     ],
+    subDescription: 'למפקדים מדרג המ״פ ומעלה המוכרים על ידי המדרג הפיקודי במדרגה א׳+, צוות אוויר, צוות ים ומפקדים אשר חלה עליהם מדיניות קיבוע זכויות מג״ד והינם משרתי מילואים פעילים ונמצאים על מינוי מזכה לפחות 90 ימים בשנה הקודמת'
   },
   serviceType: {
     label: 'סוג שירות צבאי?',
